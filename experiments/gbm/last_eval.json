@@ -1,18 +1,18 @@
 {
-  "nCubes": 48,
+  "nCubes": 100,
   "byFamily": {
-    "GRB": 12,
-    "SGR": 12,
-    "SFLARE": 12,
-    "TGF": 12
+    "GRB": 25,
+    "SGR": 25,
+    "SFLARE": 25,
+    "TGF": 25
   },
-  "nTrials": 120,
-  "ariaAcc": 0.7583333333333333,
-  "rangeAcc": 0.4,
+  "nTrials": 180,
+  "ariaAcc": 0.7277777777777777,
+  "rangeAcc": 0.43333333333333335,
   "novelIso": 0,
   "novelAsCompute": 0,
-  "computeIso": 1,
-  "sensorIso": 0.5833333333333334,
-  "energyNovel": 0.16666666666666666,
-  "energyCompute": 0.3888888888888889
+  "computeIso": 0.925,
+  "sensorIso": 0.6,
+  "energyNovel": 0,
+  "energyCompute": 0.275
 }
