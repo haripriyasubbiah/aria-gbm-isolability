@@ -1,0 +1,252 @@
+{
+  "catalog": {
+    "GRB": 4375,
+    "SFLARE": 2800,
+    "TGF": 1658,
+    "SGR": 684,
+    "LOCLPAR": 2019,
+    "DISTPAR": 148,
+    "TRANSNT": 448,
+    "UNCERT": 844,
+    "other": 5,
+    "total": 12981
+  },
+  "protocol": {
+    "trainSeeds": [
+      7,
+      19,
+      31,
+      43,
+      61
+    ],
+    "evalSeed": 123,
+    "perCell": 36,
+    "note": "Lightcubes are physics-faithful simulations of 8 NaI-like detectors. Catalog counts are live HEASARC fermigtrig totals."
+  },
+  "fourWay": {
+    "aria": {
+      "mean": 0.8930555555555555,
+      "std": 0.002598373185259708
+    },
+    "range": {
+      "mean": 0.4305555555555555,
+      "std": 0.06002025121203305
+    }
+  },
+  "isolation": {
+    "novel": {
+      "mean": 1,
+      "std": 0
+    },
+    "compute": {
+      "mean": 0.9388888888888889,
+      "std": 0.01111111111111111
+    },
+    "sensor": {
+      "mean": 0.7777777777777778,
+      "std": 0
+    }
+  },
+  "energyConfound": {
+    "novelFlagged": {
+      "mean": 1,
+      "std": 0
+    },
+    "computeFlagged": {
+      "mean": 0.16944444444444445,
+      "std": 0.0565194165260439
+    },
+    "last": {
+      "novelFlagged": 1,
+      "computeFlagged": 0.08333333333333333,
+      "knownFlagged": 0.05555555555555555
+    }
+  },
+  "ablations": {
+    "full": {
+      "mean": 0.8930555555555555,
+      "std": 0.002598373185259708
+    },
+    "checksum": {
+      "mean": 0.6097222222222223,
+      "std": 0.002777777777777818
+    },
+    "physics": {
+      "mean": 0.5347222222222222,
+      "std": 0
+    },
+    "morph": {
+      "mean": 0.49513888888888885,
+      "std": 0.0047099513771703344
+    },
+    "no-checksum": {
+      "mean": 0.6583333333333334,
+      "std": 0.001701034543599423
+    }
+  },
+  "compound": {
+    "n": 80,
+    "known-clean": 0,
+    "novel-clean": 0,
+    "sensor": 1,
+    "compute": 79,
+    "namedCompute": 0.9875
+  },
+  "lastConfusionAria": {
+    "known-clean": {
+      "known-clean": 98,
+      "novel-clean": 0,
+      "sensor": 10,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "novel-clean": {
+      "known-clean": 0,
+      "novel-clean": 36,
+      "sensor": 0,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "sensor": {
+      "known-clean": 15,
+      "novel-clean": 1,
+      "sensor": 56,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "compute": {
+      "known-clean": 4,
+      "novel-clean": 0,
+      "sensor": 0,
+      "compute": 68,
+      "anomaly": 0
+    }
+  },
+  "lastConfusionRange": {
+    "known-clean": {
+      "known-clean": 102,
+      "novel-clean": 6,
+      "sensor": 0,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "novel-clean": {
+      "known-clean": 0,
+      "novel-clean": 36,
+      "sensor": 0,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "sensor": {
+      "known-clean": 69,
+      "novel-clean": 3,
+      "sensor": 0,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "compute": {
+      "known-clean": 63,
+      "novel-clean": 1,
+      "sensor": 0,
+      "compute": 8,
+      "anomaly": 0
+    }
+  },
+  "lastThresholds": {
+    "physics": 0.62,
+    "morph": 3.4464635885328825,
+    "exec": 0.0008647828041620211,
+    "dropGain": 0.28,
+    "energyHigh": 5.677805391211819,
+    "energyLow": 1.638359136713421,
+    "mspLow": 0.55,
+    "logitRange": 10.326863228965152
+  },
+  "perSeed": [
+    {
+      "seed": 7,
+      "aria": 0.8923611111111112,
+      "range": 0.4965277777777778,
+      "novelAsAria": 1,
+      "computeAsAria": 0.9305555555555556,
+      "sensorAsAria": 0.7777777777777778,
+      "novelFlaggedEnergy": 1,
+      "computeFlaggedEnergy": 0.1527777777777778,
+      "ablations": {
+        "full": 0.8923611111111112,
+        "checksum": 0.6076388888888888,
+        "physics": 0.5347222222222222,
+        "morph": 0.5,
+        "no-checksum": 0.6597222222222222
+      }
+    },
+    {
+      "seed": 19,
+      "aria": 0.8958333333333334,
+      "range": 0.3576388888888889,
+      "novelAsAria": 1,
+      "computeAsAria": 0.9583333333333334,
+      "sensorAsAria": 0.7777777777777778,
+      "novelFlaggedEnergy": 1,
+      "computeFlaggedEnergy": 0.20833333333333334,
+      "ablations": {
+        "full": 0.8958333333333334,
+        "checksum": 0.6145833333333334,
+        "physics": 0.5347222222222222,
+        "morph": 0.4895833333333333,
+        "no-checksum": 0.65625
+      }
+    },
+    {
+      "seed": 31,
+      "aria": 0.8923611111111112,
+      "range": 0.4027777777777778,
+      "novelAsAria": 1,
+      "computeAsAria": 0.9305555555555556,
+      "sensorAsAria": 0.7777777777777778,
+      "novelFlaggedEnergy": 1,
+      "computeFlaggedEnergy": 0.25,
+      "ablations": {
+        "full": 0.8923611111111112,
+        "checksum": 0.6076388888888888,
+        "physics": 0.5347222222222222,
+        "morph": 0.5,
+        "no-checksum": 0.6597222222222222
+      }
+    },
+    {
+      "seed": 43,
+      "aria": 0.8888888888888888,
+      "range": 0.3888888888888889,
+      "novelAsAria": 1,
+      "computeAsAria": 0.9305555555555556,
+      "sensorAsAria": 0.7777777777777778,
+      "novelFlaggedEnergy": 1,
+      "computeFlaggedEnergy": 0.1527777777777778,
+      "ablations": {
+        "full": 0.8888888888888888,
+        "checksum": 0.6076388888888888,
+        "physics": 0.5347222222222222,
+        "morph": 0.4895833333333333,
+        "no-checksum": 0.65625
+      }
+    },
+    {
+      "seed": 61,
+      "aria": 0.8958333333333334,
+      "range": 0.5069444444444444,
+      "novelAsAria": 1,
+      "computeAsAria": 0.9444444444444444,
+      "sensorAsAria": 0.7777777777777778,
+      "novelFlaggedEnergy": 1,
+      "computeFlaggedEnergy": 0.08333333333333333,
+      "ablations": {
+        "full": 0.8958333333333334,
+        "checksum": 0.6111111111111112,
+        "physics": 0.5347222222222222,
+        "morph": 0.4965277777777778,
+        "no-checksum": 0.6597222222222222
+      }
+    }
+  ]
+}

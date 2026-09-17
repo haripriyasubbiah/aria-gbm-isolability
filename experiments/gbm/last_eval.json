@@ -1,0 +1,18 @@
+{
+  "nCubes": 32,
+  "byFamily": {
+    "GRB": 8,
+    "SGR": 8,
+    "SFLARE": 8,
+    "TGF": 8
+  },
+  "nTrials": 80,
+  "ariaAcc": 0.7875,
+  "rangeAcc": 0.4,
+  "novelIso": 0,
+  "novelAsCompute": 0,
+  "computeIso": 0.9166666666666666,
+  "sensorIso": 0.75,
+  "energyNovel": 0.25,
+  "energyCompute": 0.4166666666666667
+}
