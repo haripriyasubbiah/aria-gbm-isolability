@@ -1,0 +1,280 @@
+{
+  "note": "Four filters, kernel width 5, eight detector inputs, linear readout to GRB/SGR/solar flare. Not the John et al. conv-recurrent network. Conv checksum: sum of filter outputs versus convolution with the stored summed filter, fp32. Readout checksum: row-sum of the linear layer. Thresholds are the 99.5th percentile of clean known residuals, times 1.25, floored at binary32 unit roundoff. Simulator: 80 training events per known class, 36 eval trials per cell, seeds 7, 19, 31, 43, 61, eval seed 123. Real CTIME: the 100-cube slice, faults on the first 40 known cubes.",
+  "identity": {
+    "fp64": 1.5303406147324586e-16,
+    "flipped": 1
+  },
+  "architecture": {
+    "inDetectors": 8,
+    "time": 64,
+    "filters": 4,
+    "kernel": 5,
+    "classes": 3
+  },
+  "simulator": {
+    "perSeed": [
+      {
+        "knownAcc": 0.5925925925925926,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0.009259259259259259,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.25,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.25,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.5648148148148148,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.16666666666666666,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.16666666666666666,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.5740740740740741,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.16666666666666666,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.16666666666666666,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.5555555555555556,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.2777777777777778,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.2777777777777778,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.5740740740740741,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.2222222222222222,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.2222222222222222,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      }
+    ],
+    "summary": {
+      "knownAcc": {
+        "mean": 0.5722222222222222,
+        "std": 0.012283795519834802
+      },
+      "convOnCrit": {
+        "mean": 1,
+        "std": 0
+      },
+      "convOnMild": {
+        "mean": 1,
+        "std": 0
+      },
+      "convOnNovel": {
+        "mean": 0,
+        "std": 0
+      },
+      "convOnKnown": {
+        "mean": 0.0018518518518518517,
+        "std": 0.0037037037037037034
+      },
+      "convOnSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "convOnReadoutFlip": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnConvCrit": {
+        "mean": 0.21666666666666665,
+        "std": 0.04444444444444445
+      },
+      "readoutOnConvCritNonfinite": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnConvCritFinite": {
+        "mean": 0.21666666666666665,
+        "std": 0.04444444444444445
+      },
+      "readoutIdentityBreak": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnReadoutCrit": {
+        "mean": 1,
+        "std": 0
+      },
+      "readoutOnNovel": {
+        "mean": 0,
+        "std": 0
+      }
+    }
+  },
+  "ctime": {
+    "perSeed": [
+      {
+        "knownAcc": 0.44,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.2,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.2,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.4266666666666667,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0.013333333333333334,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.2,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.2,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.4266666666666667,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.125,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.125,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.4266666666666667,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.2,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.2,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      },
+      {
+        "knownAcc": 0.4266666666666667,
+        "convOnCrit": 1,
+        "convOnMild": 1,
+        "convOnNovel": 0,
+        "convOnKnown": 0,
+        "convOnSensor": 0,
+        "convOnReadoutFlip": 0,
+        "readoutOnConvCrit": 0.075,
+        "readoutOnConvCritNonfinite": 0,
+        "readoutOnConvCritFinite": 0.075,
+        "readoutIdentityBreak": 0,
+        "readoutOnReadoutCrit": 1,
+        "readoutOnNovel": 0
+      }
+    ],
+    "summary": {
+      "knownAcc": {
+        "mean": 0.4293333333333334,
+        "std": 0.005333333333333324
+      },
+      "convOnCrit": {
+        "mean": 1,
+        "std": 0
+      },
+      "convOnMild": {
+        "mean": 1,
+        "std": 0
+      },
+      "convOnNovel": {
+        "mean": 0,
+        "std": 0
+      },
+      "convOnKnown": {
+        "mean": 0.002666666666666667,
+        "std": 0.005333333333333334
+      },
+      "convOnSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "convOnReadoutFlip": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnConvCrit": {
+        "mean": 0.16,
+        "std": 0.05147815070493501
+      },
+      "readoutOnConvCritNonfinite": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnConvCritFinite": {
+        "mean": 0.16,
+        "std": 0.05147815070493501
+      },
+      "readoutIdentityBreak": {
+        "mean": 0,
+        "std": 0
+      },
+      "readoutOnReadoutCrit": {
+        "mean": 1,
+        "std": 0
+      },
+      "readoutOnNovel": {
+        "mean": 0,
+        "std": 0
+      }
+    }
+  }
+}

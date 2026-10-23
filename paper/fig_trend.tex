@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{times}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=8.4cm,
+  height=5.4cm,
+  xlabel={triggers per class},
+  ylabel={percent},
+  xmin=6, xmax=27,
+  ymin=-5, ymax=105,
+  xtick={8,12,25},
+  legend style={at={(0.5,-0.28)}, anchor=north, legend columns=2, font=\scriptsize, draw=none},
+  grid=major,
+  major grid style={dotted, gray!50},
+  tick label style={font=\small},
+  label style={font=\small},
+]
+\addplot[mark=square*, thick] coordinates {(8,78.8) (12,75.8) (25,72.8)};
+\addlegendentry{four-way acc.}
+\addplot[mark=triangle*, thick, dashed] coordinates {(8,91.7) (12,100.0) (25,92.5)};
+\addlegendentry{compute iso.}
+\addplot[mark=diamond*, thick, dashdotted] coordinates {(8,75.0) (12,58.3) (25,60.0)};
+\addlegendentry{sensor iso.}
+\addplot[mark=o, thick, dotted] coordinates {(8,0) (12,0) (25,0)};
+\addlegendentry{novel iso.}
+\end{axis}
+\end{tikzpicture}
+\end{document}

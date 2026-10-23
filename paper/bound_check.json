@@ -1,0 +1,9 @@
+{
+  "inputsPerPrecision": 40000,
+  "maxScaleSigma": 1000,
+  "worstCleanRatio": {
+    "fp64": 0.14664913983598427,
+    "fp32": 0.15429676852400792,
+    "fp16": 0.13214211776958093
+  }
+}

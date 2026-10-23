@@ -15,6 +15,15 @@ export type GroundTruth =
 
 export type CauseLabel = Exclude<GroundTruth, "compound">;
 
+/** Output of the lookup. "multiple" = two independent fault signatures at once (unisolable). */
+export type DecisionLabel = CauseLabel | "multiple";
+
+/** Arithmetic precision used by the checksum path (emulated; see classifier.ts). */
+export type Precision = "fp64" | "fp32" | "fp16";
+
+/** How the checksum residual is turned into U_arith. "calibrated": raw normalised residual vs a clean-percentile threshold. "bounded": residual / a-priori rounding-error bound vs 1 (no calibration). */
+export type CheckMode = "calibrated" | "bounded";
+
 export type FaultKind = "none" | "sensor-spike" | "shared-bitflip" | "sensor-and-compute";
 
 export type BitSeverity = "mild" | "critical";
@@ -72,6 +81,9 @@ export interface LinearHead {
   bias: number[];
   /** Row-sum checksum of the clean weights, stored at "compile" time. */
   checksum: number[];
+  /** Column sums of |W| and sum of |b|, stored at "compile" time. They scale the rounding-error bound and are never read from the live (possibly corrupted) weights. */
+  absChecksum: number[];
+  absBias: number;
   featureMean: number[];
   featureStd: number[];
   centroids: Record<KnownClass, number[]>;

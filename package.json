@@ -9,7 +9,18 @@
     "lint": "eslint",
     "test:aria": "npx tsx src/lib/aria/verify.ts",
     "test:paper": "npx tsx src/lib/aria/paper_eval.ts",
-    "test:gbm": "npx tsx src/lib/aria/real_eval.ts"
+    "test:gbm": "npx tsx src/lib/aria/real_eval.ts",
+    "test:gbm:heldout": "npx tsx src/lib/aria/real_eval_heldout.ts",
+    "test:gbm:cv": "npx tsx src/lib/aria/real_eval_cv.ts",
+    "test:bound": "npx tsx src/lib/aria/verify_bound.ts",
+    "test:extra": "npx tsx src/lib/aria/extra_eval.ts",
+    "test:fusion": "npx tsx src/lib/aria/fusion_eval.ts",
+    "test:channel": "npx tsx src/lib/aria/channel_id.ts",
+    "test:conv": "npx tsx src/lib/aria/conv_checksum.ts",
+    "test:poisson": "npx tsx src/lib/aria/poisson_filter.ts",
+    "test:figures": "npx tsx src/lib/aria/dump_figures.ts",
+    "figures:check": "npx tsx src/lib/aria/check_figures.ts && python3 paper/make_check_figures.py paper",
+    "test:checkmodes": "ARIA_CHECK=bounded npx tsx src/lib/aria/paper_eval.ts && npx tsx src/lib/aria/real_compare.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

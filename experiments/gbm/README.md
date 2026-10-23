@@ -19,24 +19,33 @@ from
 
 Do not download TTE for this first kill test. CTIME is enough to see whether a real multi-detector TGF is still rank-1 (not a checksum failure).
 
-## What to install (once)
+## You can skip Python for the first kill test
+
+`experiments/gbm/cubes.jsonl` after `prepare.py --per-class 12` is 48 cubes (12 GRB / 12 SGR / 12 SFLARE / 12 TGF). From the repo root:
+
+```bash
+npm run test:gbm
+```
+
+That is the command that printed `novelAsCompute 0` on the laptop. Ignore `npm audit` noise.
+
+Python is only needed to **re-download** or enlarge the slice (`--per-class 12` or `25`).
+
+On Windows, do **not** use `python3`. That name is often a Microsoft Store alias and prints `Python was not found`. Use:
+
+```powershell
+py -3 --version
+py -3 -m pip install --user astropy numpy
+py -3 experiments/gbm/prepare.py --per-class 12
+```
+
+If `py -3 --version` also fails, install Python from https://www.python.org/downloads/windows/, tick **Add python.exe to PATH**, then disable the `python.exe` / `python3.exe` App execution aliases (Settings → Apps → Advanced app settings).
+
+On macOS/Linux:
 
 ```bash
 python3 -m pip install --user astropy numpy
-```
-
-Node deps are already in the repo (`npm install` if needed).
-
-## What to run
-
-From the repo root:
-
-```bash
-# 1. Catalog + download + bin 8×64 cubes  (10–30 min depending on HEASARC)
 python3 experiments/gbm/prepare.py --per-class 12
-
-# 2. Train linear head on real GRB/SGR/SFLARE, hold out TGF, inject sensor/compute
-npm run test:gbm
 ```
 
 Resume-safe: already-downloaded `.pha` files in `experiments/gbm/raw/` are skipped.
@@ -49,16 +58,16 @@ Resume-safe: already-downloaded `.pha` files in `experiments/gbm/raw/` are skipp
 - `novelIso` high → morphology still sees TGF as new.
 - `sensorIso` / `computeIso` → injected faults on real arrays, not on the simulator.
 
-## First run (8 triggers × 4 classes, this environment)
+## Laptop run (`--per-class 12`, 12 triggers × 4 classes)
 
 ```
-ariaAcc 0.788   rangeAcc 0.40
+ariaAcc 0.758   rangeAcc 0.40
 novelAsCompute 0     ← kill test passed (TGF ≠ bit-flip)
 novelIso 0           ← CTIME is too coarse to name TGF as novel
-computeIso 0.92      sensorIso 0.75
+computeIso 1.00      sensorIso 0.583
 ```
 
-Morphology needs millisecond TTE for the discovery box. Checksum vs sky already holds on public CTIME.
+Morphology needs millisecond TTE for the discovery box. Checksum vs sky already holds on public CTIME. Sensor isolation is weaker than on the 32-cube starter slice; report 58.3%, do not round it up.
 
 ## Files written
 
@@ -67,3 +76,5 @@ Morphology needs millisecond TTE for the discovery box. Checksum vs sky already 
 | `experiments/gbm/triggers.csv` | HEASARC names + types |
 | `experiments/gbm/raw/` | FITS (gitignored, large) |
 | `experiments/gbm/cubes.jsonl` | 8-detector × 64-bin cubes |
+| `experiments/gbm/last_eval.json` | `npm run test:gbm` numbers |
+| `paper/gbm_real.tex` | LaTeX macros from that eval |

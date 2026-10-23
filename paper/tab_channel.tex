@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\caption{Whether the worst detector is the injected detector (percent). A uniform guess over eight detectors is $12.5\%$. The clean baseline uses the same index with no spike.}
+\label{tab:channel}
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Setting & $N$ & Called sensor & Names channel & Right $|$ sensor & Clean baseline \\
+\midrule
+Simulator, published injector & 72 & $77.5 \pm 0.6$ & 100 & 100 & 5.6 \\
+Simulator, uniform detector & 72 & 63.9 & 97.2 & 100 & -- \\
+CTIME draw 1, first 40 known & 40 & 60.0 & 100 & 100 & 15.0 \\
+CTIME draw 1, all known & 75 & 69.3 & 88.0 & 92.3 & 14.7 \\
+CTIME draw 2, first 40 known & 40 & 25.0 & 92.5 & 80.0 & 0 \\
+CTIME draw 2, all known & 75 & 41.3 & 88.0 & 83.9 & -- \\
+\bottomrule
+\end{tabular}
+\end{table*}

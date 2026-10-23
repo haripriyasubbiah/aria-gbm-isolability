@@ -1,0 +1,684 @@
+{
+  "statistic": "Maximized-amplitude Poisson LLR on two adjacent bins of soft and of hard, per detector. Background is the upper median of the first and last eight bins, floored at 0.5. No detector response and no spectral template.",
+  "cite": "Perera, Zackay, Venumadhav, ApJS 281 (2025) 4, for the Poisson matched-filter idea. Amplitude is maximized because a glitch amplitude is not a GRB detection limit.",
+  "dropGain": 0.28,
+  "margin": 1.25,
+  "percentile": 0.96,
+  "evalSeed": 123,
+  "seeds": [
+    7,
+    19,
+    31,
+    43,
+    61
+  ],
+  "identity": {
+    "llr": 3.862943611198906,
+    "det": 3,
+    "dropGain": 0.9999999999964352
+  },
+  "sanity": {
+    "simulatorSensor": 0.775,
+    "draw1Sensor": 0.6,
+    "draw2Sensor": 0.25,
+    "oneToTwoSensor": 0.65,
+    "twoToOneSensor": 0.075,
+    "expected": {
+      "simulator": 0.775,
+      "draw1": 0.6,
+      "draw2": 0.25,
+      "oneToTwo": 0.65,
+      "twoToOne": 0.075
+    }
+  },
+  "simulator": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.9,
+        "std": 0.005555555555555536
+      },
+      "novelIso": {
+        "mean": 0.95,
+        "std": 0.03239417719358502
+      },
+      "novelAsCompute": {
+        "mean": 0.05,
+        "std": 0.032394177193585005
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.775,
+        "std": 0.005555555555555581
+      },
+      "knownAsSensor": {
+        "mean": 0.09259259259259259,
+        "std": 0
+      }
+    },
+    "orPoisson": {
+      "ariaAcc": {
+        "mean": 0.925,
+        "std": 0.007149743153463221
+      },
+      "novelIso": {
+        "mean": 0.7444444444444445,
+        "std": 0.020786985482077462
+      },
+      "novelAsCompute": {
+        "mean": 0.05,
+        "std": 0.032394177193585005
+      },
+      "novelAsSensor": {
+        "mean": 0.20555555555555555,
+        "std": 0.02222222222222222
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.9944444444444445,
+        "std": 0.011111111111111117
+      },
+      "knownAsSensor": {
+        "mean": 0.1037037037037037,
+        "std": 0.009072184232530289
+      }
+    },
+    "threshold": {
+      "mean": 1569.8991093134675,
+      "std": 185.08918896392836
+    },
+    "bit": {
+      "sensor": {
+        "mean": 0.9361111111111111,
+        "std": 0.029917582261858377
+      },
+      "known": {
+        "mean": 0.01111111111111111,
+        "std": 0.009072184232530289
+      },
+      "novel": {
+        "mean": 0.22222222222222224,
+        "std": 2.7755575615628914e-17
+      },
+      "compute": {
+        "mean": 0.01111111111111111,
+        "std": 0.005555555555555555
+      },
+      "sensorScoreOnly": {
+        "mean": 0.9361111111111111,
+        "std": 0.029917582261858377
+      },
+      "sensorDropOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownScoreOnly": {
+        "mean": 0.02222222222222222,
+        "std": 0.01906598174256852
+      },
+      "knownDropOnly": {
+        "mean": 0.26851851851851855,
+        "std": 0
+      }
+    },
+    "detMatch": {
+      "mean": 1,
+      "std": 0
+    },
+    "detMatchWhenFires": {
+      "mean": 1,
+      "std": 0
+    },
+    "medianScore": {
+      "known": {
+        "mean": 371.4419254807883,
+        "std": 0
+      },
+      "sensor": {
+        "mean": 3557.7596057875826,
+        "std": 0
+      },
+      "novel": {
+        "mean": 3249.9051477058465,
+        "std": 0
+      }
+    }
+  },
+  "draw1": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.7444444444444445,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      }
+    },
+    "orPoisson": {
+      "ariaAcc": {
+        "mean": 0.8277777777777777,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.04,
+        "std": 0
+      }
+    },
+    "threshold": {
+      "mean": 743.900782374137,
+      "std": 0
+    },
+    "bit": {
+      "sensor": {
+        "mean": 1,
+        "std": 0
+      },
+      "known": {
+        "mean": 0.013333333333333332,
+        "std": 1.734723475976807e-18
+      },
+      "novel": {
+        "mean": 0,
+        "std": 0
+      },
+      "compute": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorScoreOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorDropOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownScoreOnly": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      },
+      "knownDropOnly": {
+        "mean": 0.3466666666666667,
+        "std": 0
+      }
+    },
+    "detMatch": {
+      "mean": 1,
+      "std": 0
+    },
+    "detMatchWhenFires": {
+      "mean": 1,
+      "std": 0
+    },
+    "medianScore": {
+      "known": {
+        "mean": 39.432543658969735,
+        "std": 0
+      },
+      "sensor": {
+        "mean": 3278.5546882769495,
+        "std": 4.547473508864641e-13
+      },
+      "novel": {
+        "mean": 23.09803433220258,
+        "std": 0
+      }
+    }
+  },
+  "draw2": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.6777777777777778,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.25,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      }
+    },
+    "orPoisson": {
+      "ariaAcc": {
+        "mean": 0.7388888888888889,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.55,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.04,
+        "std": 0
+      }
+    },
+    "threshold": {
+      "mean": 3190.3411756528344,
+      "std": 0
+    },
+    "bit": {
+      "sensor": {
+        "mean": 0.525,
+        "std": 0
+      },
+      "known": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      },
+      "novel": {
+        "mean": 0,
+        "std": 0
+      },
+      "compute": {
+        "mean": 0.05,
+        "std": 0
+      },
+      "sensorScoreOnly": {
+        "mean": 0.525,
+        "std": 0
+      },
+      "sensorDropOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownScoreOnly": {
+        "mean": 0.04,
+        "std": 0
+      },
+      "knownDropOnly": {
+        "mean": 0.38666666666666666,
+        "std": 0
+      }
+    },
+    "detMatch": {
+      "mean": 1,
+      "std": 0
+    },
+    "detMatchWhenFires": {
+      "mean": 1,
+      "std": 0
+    },
+    "medianScore": {
+      "known": {
+        "mean": 57.43910484536711,
+        "std": 0
+      },
+      "sensor": {
+        "mean": 3297.4809639180203,
+        "std": 0
+      },
+      "novel": {
+        "mean": 21.310347184124048,
+        "std": 0
+      }
+    }
+  },
+  "oneToTwo": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.7055555555555556,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.65,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.08,
+        "std": 0
+      }
+    },
+    "orPoisson": {
+      "ariaAcc": {
+        "mean": 0.7777777777777778,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.09333333333333334,
+        "std": 0
+      }
+    },
+    "threshold": {
+      "mean": 743.900782374137,
+      "std": 0
+    },
+    "bit": {
+      "sensor": {
+        "mean": 1,
+        "std": 0
+      },
+      "known": {
+        "mean": 0.04,
+        "std": 0
+      },
+      "novel": {
+        "mean": 0,
+        "std": 0
+      },
+      "compute": {
+        "mean": 0.05,
+        "std": 0
+      },
+      "sensorScoreOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorDropOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownScoreOnly": {
+        "mean": 0.05333333333333333,
+        "std": 6.938893903907228e-18
+      },
+      "knownDropOnly": {
+        "mean": 0.38666666666666666,
+        "std": 0
+      }
+    },
+    "detMatch": {
+      "mean": 1,
+      "std": 0
+    },
+    "detMatchWhenFires": {
+      "mean": 1,
+      "std": 0
+    },
+    "medianScore": {
+      "known": {
+        "mean": 57.43910484536711,
+        "std": 0
+      },
+      "sensor": {
+        "mean": 3297.4809639180203,
+        "std": 0
+      },
+      "novel": {
+        "mean": 21.310347184124048,
+        "std": 0
+      }
+    }
+  },
+  "twoToOne": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.6277777777777778,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.075,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      }
+    },
+    "orPoisson": {
+      "ariaAcc": {
+        "mean": 0.7333333333333333,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.55,
+        "std": 0
+      },
+      "knownAsSensor": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      }
+    },
+    "threshold": {
+      "mean": 3190.3411756528344,
+      "std": 0
+    },
+    "bit": {
+      "sensor": {
+        "mean": 0.55,
+        "std": 0
+      },
+      "known": {
+        "mean": 0,
+        "std": 0
+      },
+      "novel": {
+        "mean": 0,
+        "std": 0
+      },
+      "compute": {
+        "mean": 0,
+        "std": 0
+      },
+      "sensorScoreOnly": {
+        "mean": 0.55,
+        "std": 0
+      },
+      "sensorDropOnly": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownScoreOnly": {
+        "mean": 0,
+        "std": 0
+      },
+      "knownDropOnly": {
+        "mean": 0.3466666666666667,
+        "std": 0
+      }
+    },
+    "detMatch": {
+      "mean": 1,
+      "std": 0
+    },
+    "detMatchWhenFires": {
+      "mean": 1,
+      "std": 0
+    },
+    "medianScore": {
+      "known": {
+        "mean": 39.432543658969735,
+        "std": 0
+      },
+      "sensor": {
+        "mean": 3278.5546882769495,
+        "std": 4.547473508864641e-13
+      },
+      "novel": {
+        "mean": 23.09803433220258,
+        "std": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\caption{Checksums on a four-filter convolutional head (percent, mean $\pm$ standard deviation over five training seeds). This head is not the network of John and colleagues.}
+\label{tab:conv}
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Metric & Simulator & Public CTIME \\
+\midrule
+Closed-set accuracy & $57.2 \pm 1.2$ & $42.9 \pm 0.5$ \\
+Critical kernel flip, conv checksum & 100 & 100 \\
+Mild kernel flip, conv checksum & 100 & 100 \\
+TGF above the conv checksum & 0 & 0 \\
+Clean known above the conv checksum & $0.2 \pm 0.4$ & $0.3 \pm 0.5$ \\
+Sensor spike above the conv checksum & 0 & 0 \\
+Readout flip, conv checksum & 0 & 0 \\
+Critical kernel flip, readout checksum & $21.7 \pm 4.4$ & $16.0 \pm 5.1$ \\
+Readout flip, readout checksum & 100 & 100 \\
+TGF above the readout checksum & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table*}

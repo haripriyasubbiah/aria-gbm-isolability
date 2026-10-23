@@ -1,0 +1,1749 @@
+{
+  "note": "namedRate is the fraction of spiked trials whose worst detector is the injected detector, whether or not the lookup says sensor. namedIfCalled is that fraction among trials the lookup calls sensor. The clean baseline is the same index with no spike. Random draws the detector uniformly from eight. Chance for a uniform guess is 1/8. Seeds 7, 19, 31, 43, 61. Evaluation seed 123. Simulator per-cell count 36, matching paper_eval.ts.",
+  "nDet": 8,
+  "seeds": [
+    7,
+    19,
+    31,
+    43,
+    61
+  ],
+  "summary": {
+    "simulatorPublished": {
+      "nPerSeed": 72,
+      "namedRate": {
+        "mean": 1,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 1,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.775,
+        "std": 0.005555555555555581
+      },
+      "perSeed": [
+        {
+          "n": 72,
+          "nCalled": 56,
+          "callRate": 0.7777777777777778,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 27,
+              "namedIfCalled": 27
+            },
+            "SGR": {
+              "n": 36,
+              "named": 36,
+              "called": 29,
+              "namedIfCalled": 29
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 56,
+          "callRate": 0.7777777777777778,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 27,
+              "namedIfCalled": 27
+            },
+            "SGR": {
+              "n": 36,
+              "named": 36,
+              "called": 29,
+              "namedIfCalled": 29
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 55,
+          "callRate": 0.7638888888888888,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 26,
+              "namedIfCalled": 26
+            },
+            "SGR": {
+              "n": 36,
+              "named": 36,
+              "called": 29,
+              "namedIfCalled": 29
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 56,
+          "callRate": 0.7777777777777778,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 27,
+              "namedIfCalled": 27
+            },
+            "SGR": {
+              "n": 36,
+              "named": 36,
+              "called": 29,
+              "namedIfCalled": 29
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 56,
+          "callRate": 0.7777777777777778,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 27,
+              "namedIfCalled": 27
+            },
+            "SGR": {
+              "n": 36,
+              "named": 36,
+              "called": 29,
+              "namedIfCalled": 29
+            }
+          }
+        }
+      ]
+    },
+    "simulatorCleanBaseline": {
+      "nPerSeed": 72,
+      "namedRate": {
+        "mean": 0.05555555555555556,
+        "std": 6.938893903907228e-18
+      },
+      "namedIfCalled": {
+        "mean": 0.3333333333333333,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.08333333333333333,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 72,
+          "nCalled": 6,
+          "callRate": 0.08333333333333333,
+          "namedRate": 0.05555555555555555,
+          "namedIfCalled": 0.3333333333333333,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 0,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 36,
+              "named": 4,
+              "called": 6,
+              "namedIfCalled": 2
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 6,
+          "callRate": 0.08333333333333333,
+          "namedRate": 0.05555555555555555,
+          "namedIfCalled": 0.3333333333333333,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 0,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 36,
+              "named": 4,
+              "called": 6,
+              "namedIfCalled": 2
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 6,
+          "callRate": 0.08333333333333333,
+          "namedRate": 0.05555555555555555,
+          "namedIfCalled": 0.3333333333333333,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 0,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 36,
+              "named": 4,
+              "called": 6,
+              "namedIfCalled": 2
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 6,
+          "callRate": 0.08333333333333333,
+          "namedRate": 0.05555555555555555,
+          "namedIfCalled": 0.3333333333333333,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 0,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 36,
+              "named": 4,
+              "called": 6,
+              "namedIfCalled": 2
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 6,
+          "callRate": 0.08333333333333333,
+          "namedRate": 0.05555555555555555,
+          "namedIfCalled": 0.3333333333333333,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 0,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 36,
+              "named": 4,
+              "called": 6,
+              "namedIfCalled": 2
+            }
+          }
+        }
+      ]
+    },
+    "simulatorRandomDetector": {
+      "nPerSeed": 72,
+      "namedRate": {
+        "mean": 0.9722222222222221,
+        "std": 1.1102230246251565e-16
+      },
+      "namedIfCalled": {
+        "mean": 1,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.6388888888888888,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 72,
+          "nCalled": 46,
+          "callRate": 0.6388888888888888,
+          "namedRate": 0.9722222222222222,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 19,
+              "namedIfCalled": 19
+            },
+            "SGR": {
+              "n": 36,
+              "named": 34,
+              "called": 27,
+              "namedIfCalled": 27
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 46,
+          "callRate": 0.6388888888888888,
+          "namedRate": 0.9722222222222222,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 19,
+              "namedIfCalled": 19
+            },
+            "SGR": {
+              "n": 36,
+              "named": 34,
+              "called": 27,
+              "namedIfCalled": 27
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 46,
+          "callRate": 0.6388888888888888,
+          "namedRate": 0.9722222222222222,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 19,
+              "namedIfCalled": 19
+            },
+            "SGR": {
+              "n": 36,
+              "named": 34,
+              "called": 27,
+              "namedIfCalled": 27
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 46,
+          "callRate": 0.6388888888888888,
+          "namedRate": 0.9722222222222222,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 19,
+              "namedIfCalled": 19
+            },
+            "SGR": {
+              "n": 36,
+              "named": 34,
+              "called": 27,
+              "namedIfCalled": 27
+            }
+          }
+        },
+        {
+          "n": 72,
+          "nCalled": 46,
+          "callRate": 0.6388888888888888,
+          "namedRate": 0.9722222222222222,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 36,
+              "named": 36,
+              "called": 19,
+              "namedIfCalled": 19
+            },
+            "SGR": {
+              "n": 36,
+              "named": 34,
+              "called": 27,
+              "namedIfCalled": 27
+            }
+          }
+        }
+      ]
+    },
+    "ctimeCap40": {
+      "nPerSeed": 40,
+      "namedRate": {
+        "mean": 1,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 1,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 40,
+          "nCalled": 24,
+          "callRate": 0.6,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 10,
+              "namedIfCalled": 10
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 24,
+          "callRate": 0.6,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 10,
+              "namedIfCalled": 10
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 24,
+          "callRate": 0.6,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 10,
+              "namedIfCalled": 10
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 24,
+          "callRate": 0.6,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 10,
+              "namedIfCalled": 10
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 24,
+          "callRate": 0.6,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 10,
+              "namedIfCalled": 10
+            }
+          }
+        }
+      ]
+    },
+    "ctimeCap40Baseline": {
+      "nPerSeed": 40,
+      "namedRate": {
+        "mean": 0.15,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 40,
+          "nCalled": 0,
+          "callRate": 0,
+          "namedRate": 0.15,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 4,
+              "called": 0,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 0,
+          "callRate": 0,
+          "namedRate": 0.15,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 4,
+              "called": 0,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 0,
+          "callRate": 0,
+          "namedRate": 0.15,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 4,
+              "called": 0,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 0,
+          "callRate": 0,
+          "namedRate": 0.15,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 4,
+              "called": 0,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 0,
+          "callRate": 0,
+          "namedRate": 0.15,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 4,
+              "called": 0,
+              "namedIfCalled": 0
+            }
+          }
+        }
+      ]
+    },
+    "ctimeCap40Random": {
+      "nPerSeed": 40,
+      "namedRate": {
+        "mean": 1,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 1,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.5,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 40,
+          "nCalled": 20,
+          "callRate": 0.5,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 7,
+              "namedIfCalled": 7
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 20,
+          "callRate": 0.5,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 7,
+              "namedIfCalled": 7
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 20,
+          "callRate": 0.5,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 7,
+              "namedIfCalled": 7
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 20,
+          "callRate": 0.5,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 7,
+              "namedIfCalled": 7
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 20,
+          "callRate": 0.5,
+          "namedRate": 1,
+          "namedIfCalled": 1,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 7,
+              "namedIfCalled": 7
+            }
+          }
+        }
+      ]
+    },
+    "ctimeAll": {
+      "nPerSeed": 75,
+      "namedRate": {
+        "mean": 0.8800000000000001,
+        "std": 1.1102230246251565e-16
+      },
+      "namedIfCalled": {
+        "mean": 0.9230769230769231,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.6933333333333334,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 75,
+          "nCalled": 52,
+          "callRate": 0.6933333333333334,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.9230769230769231,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 25,
+              "named": 24,
+              "called": 18,
+              "namedIfCalled": 17
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 17,
+              "called": 20,
+              "namedIfCalled": 17
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 52,
+          "callRate": 0.6933333333333334,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.9230769230769231,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 25,
+              "named": 24,
+              "called": 18,
+              "namedIfCalled": 17
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 17,
+              "called": 20,
+              "namedIfCalled": 17
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 52,
+          "callRate": 0.6933333333333334,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.9230769230769231,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 25,
+              "named": 24,
+              "called": 18,
+              "namedIfCalled": 17
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 17,
+              "called": 20,
+              "namedIfCalled": 17
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 52,
+          "callRate": 0.6933333333333334,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.9230769230769231,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 25,
+              "named": 24,
+              "called": 18,
+              "namedIfCalled": 17
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 17,
+              "called": 20,
+              "namedIfCalled": 17
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 52,
+          "callRate": 0.6933333333333334,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.9230769230769231,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 14,
+              "namedIfCalled": 14
+            },
+            "SGR": {
+              "n": 25,
+              "named": 24,
+              "called": 18,
+              "namedIfCalled": 17
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 17,
+              "called": 20,
+              "namedIfCalled": 17
+            }
+          }
+        }
+      ]
+    },
+    "ctimeAllBaseline": {
+      "nPerSeed": 75,
+      "namedRate": {
+        "mean": 0.14666666666666667,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.026666666666666665,
+        "std": 3.469446951953614e-18
+      },
+      "perSeed": [
+        {
+          "n": 75,
+          "nCalled": 2,
+          "callRate": 0.02666666666666667,
+          "namedRate": 0.14666666666666667,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 25,
+              "named": 6,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 3,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 2,
+          "callRate": 0.02666666666666667,
+          "namedRate": 0.14666666666666667,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 25,
+              "named": 6,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 3,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 2,
+          "callRate": 0.02666666666666667,
+          "namedRate": 0.14666666666666667,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 25,
+              "named": 6,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 3,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 2,
+          "callRate": 0.02666666666666667,
+          "namedRate": 0.14666666666666667,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 25,
+              "named": 6,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 3,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 2,
+          "callRate": 0.02666666666666667,
+          "namedRate": 0.14666666666666667,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 2,
+              "called": 0,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 25,
+              "named": 6,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 3,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        }
+      ]
+    },
+    "ctimeAllRandom": {
+      "nPerSeed": 75,
+      "namedRate": {
+        "mean": 0.9733333333333334,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0.9795918367346939,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.6533333333333333,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 75,
+          "nCalled": 49,
+          "callRate": 0.6533333333333333,
+          "namedRate": 0.9733333333333334,
+          "namedIfCalled": 0.9795918367346939,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 15,
+              "namedIfCalled": 15
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 23,
+              "called": 21,
+              "namedIfCalled": 20
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 49,
+          "callRate": 0.6533333333333333,
+          "namedRate": 0.9733333333333334,
+          "namedIfCalled": 0.9795918367346939,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 15,
+              "namedIfCalled": 15
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 23,
+              "called": 21,
+              "namedIfCalled": 20
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 49,
+          "callRate": 0.6533333333333333,
+          "namedRate": 0.9733333333333334,
+          "namedIfCalled": 0.9795918367346939,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 15,
+              "namedIfCalled": 15
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 23,
+              "called": 21,
+              "namedIfCalled": 20
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 49,
+          "callRate": 0.6533333333333333,
+          "namedRate": 0.9733333333333334,
+          "namedIfCalled": 0.9795918367346939,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 15,
+              "namedIfCalled": 15
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 23,
+              "called": 21,
+              "namedIfCalled": 20
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 49,
+          "callRate": 0.6533333333333333,
+          "namedRate": 0.9733333333333334,
+          "namedIfCalled": 0.9795918367346939,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 25,
+              "called": 13,
+              "namedIfCalled": 13
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 15,
+              "namedIfCalled": 15
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 23,
+              "called": 21,
+              "namedIfCalled": 20
+            }
+          }
+        }
+      ]
+    },
+    "draw2Cap40": {
+      "nPerSeed": 40,
+      "namedRate": {
+        "mean": 0.925,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0.8,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.25,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 40,
+          "nCalled": 10,
+          "callRate": 0.25,
+          "namedRate": 0.925,
+          "namedIfCalled": 0.8,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 5,
+              "namedIfCalled": 5
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 10,
+          "callRate": 0.25,
+          "namedRate": 0.925,
+          "namedIfCalled": 0.8,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 5,
+              "namedIfCalled": 5
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 10,
+          "callRate": 0.25,
+          "namedRate": 0.925,
+          "namedIfCalled": 0.8,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 5,
+              "namedIfCalled": 5
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 10,
+          "callRate": 0.25,
+          "namedRate": 0.925,
+          "namedIfCalled": 0.8,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 5,
+              "namedIfCalled": 5
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 10,
+          "callRate": 0.25,
+          "namedRate": 0.925,
+          "namedIfCalled": 0.8,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 15,
+              "named": 15,
+              "called": 5,
+              "namedIfCalled": 5
+            }
+          }
+        }
+      ]
+    },
+    "draw2Cap40Baseline": {
+      "nPerSeed": 40,
+      "namedRate": {
+        "mean": 0,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.05,
+        "std": 0
+      },
+      "perSeed": [
+        {
+          "n": 40,
+          "nCalled": 2,
+          "callRate": 0.05,
+          "namedRate": 0,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 2,
+          "callRate": 0.05,
+          "namedRate": 0,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 2,
+          "callRate": 0.05,
+          "namedRate": 0,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 2,
+          "callRate": 0.05,
+          "namedRate": 0,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        },
+        {
+          "n": 40,
+          "nCalled": 2,
+          "callRate": 0.05,
+          "namedRate": 0,
+          "namedIfCalled": 0,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            },
+            "SGR": {
+              "n": 15,
+              "named": 0,
+              "called": 1,
+              "namedIfCalled": 0
+            }
+          }
+        }
+      ]
+    },
+    "draw2All": {
+      "nPerSeed": 75,
+      "namedRate": {
+        "mean": 0.8800000000000001,
+        "std": 1.1102230246251565e-16
+      },
+      "namedIfCalled": {
+        "mean": 0.8387096774193548,
+        "std": 1.1102230246251565e-16
+      },
+      "callRate": {
+        "mean": 0.4133333333333333,
+        "std": 5.551115123125783e-17
+      },
+      "perSeed": [
+        {
+          "n": 75,
+          "nCalled": 31,
+          "callRate": 0.41333333333333333,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.8387096774193549,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 8,
+              "namedIfCalled": 8
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 19,
+              "called": 18,
+              "namedIfCalled": 15
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 31,
+          "callRate": 0.41333333333333333,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.8387096774193549,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 8,
+              "namedIfCalled": 8
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 19,
+              "called": 18,
+              "namedIfCalled": 15
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 31,
+          "callRate": 0.41333333333333333,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.8387096774193549,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 8,
+              "namedIfCalled": 8
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 19,
+              "called": 18,
+              "namedIfCalled": 15
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 31,
+          "callRate": 0.41333333333333333,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.8387096774193549,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 8,
+              "namedIfCalled": 8
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 19,
+              "called": 18,
+              "namedIfCalled": 15
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 31,
+          "callRate": 0.41333333333333333,
+          "namedRate": 0.88,
+          "namedIfCalled": 0.8387096774193549,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 22,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 8,
+              "namedIfCalled": 8
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 19,
+              "called": 18,
+              "namedIfCalled": 15
+            }
+          }
+        }
+      ]
+    },
+    "draw2AllRandom": {
+      "nPerSeed": 75,
+      "namedRate": {
+        "mean": 0.9066666666666666,
+        "std": 0
+      },
+      "namedIfCalled": {
+        "mean": 0.7878787878787878,
+        "std": 0
+      },
+      "callRate": {
+        "mean": 0.44000000000000006,
+        "std": 5.551115123125783e-17
+      },
+      "perSeed": [
+        {
+          "n": 75,
+          "nCalled": 33,
+          "callRate": 0.44,
+          "namedRate": 0.9066666666666666,
+          "namedIfCalled": 0.7878787878787878,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 23,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 10,
+              "namedIfCalled": 10
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 20,
+              "called": 18,
+              "namedIfCalled": 13
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 33,
+          "callRate": 0.44,
+          "namedRate": 0.9066666666666666,
+          "namedIfCalled": 0.7878787878787878,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 23,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 10,
+              "namedIfCalled": 10
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 20,
+              "called": 18,
+              "namedIfCalled": 13
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 33,
+          "callRate": 0.44,
+          "namedRate": 0.9066666666666666,
+          "namedIfCalled": 0.7878787878787878,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 23,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 10,
+              "namedIfCalled": 10
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 20,
+              "called": 18,
+              "namedIfCalled": 13
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 33,
+          "callRate": 0.44,
+          "namedRate": 0.9066666666666666,
+          "namedIfCalled": 0.7878787878787878,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 23,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 10,
+              "namedIfCalled": 10
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 20,
+              "called": 18,
+              "namedIfCalled": 13
+            }
+          }
+        },
+        {
+          "n": 75,
+          "nCalled": 33,
+          "callRate": 0.44,
+          "namedRate": 0.9066666666666666,
+          "namedIfCalled": 0.7878787878787878,
+          "byFamily": {
+            "GRB": {
+              "n": 25,
+              "named": 23,
+              "called": 5,
+              "namedIfCalled": 3
+            },
+            "SGR": {
+              "n": 25,
+              "named": 25,
+              "called": 10,
+              "namedIfCalled": 10
+            },
+            "SFLARE": {
+              "n": 25,
+              "named": 20,
+              "called": 18,
+              "namedIfCalled": 13
+            }
+          }
+        }
+      ]
+    }
+  }
+}

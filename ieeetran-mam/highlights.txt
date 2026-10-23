@@ -1,0 +1,7 @@
+Highlights (Elsevier; each line ≤85 characters)
+
+Four residuals, each blind to at least one of four operational causes.
+Decision is an isolability lookup, not a fused OOD–fault classifier.
+Held-out TGF is never named a compute fault on simulator or CTIME.
+ProGIP-style range checks reach 43% four-way; ARIA reaches 89% (sim).
+Compound sensor-plus-compute trials are declared unisolable, not forced.

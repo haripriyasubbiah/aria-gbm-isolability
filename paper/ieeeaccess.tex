@@ -1,106 +1,175 @@
-% IEEE Access research article (IEEEtran).
-% Compile on Overleaf with the official IEEE Access template if required:
-%   copy this body into ieeeaccess.tex from the IEEE Access LaTeX kit.
-\documentclass[journal]{IEEEtran}
-\usepackage{amsmath,amssymb,booktabs,graphicx,url,cite}
-\usepackage[caption=false,font=footnotesize]{subfig}
+% IEEE Access final draft. Compile from this directory:
+%   pdflatex ieeeaccess && pdflatex ieeeaccess
+\documentclass{ieeeaccess}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{url}
+% File paths break only at slashes, so a name stays intact and stays inside the column.
+\newcommand{\file}[1]{\begingroup\def\UrlBreaks{\do\/}\path{#1}\endgroup}
+\makeatletter
+\@ifundefined{c@biography}{\newcounter{biography}}{}
+\@ifundefined{if@biographyTOCentrynotmade}{\newif\if@biographyTOCentrynotmade\@biographyTOCentrynotmadetrue}{}
+% The class caption path reads \xfigwd, which is set only by \Figure.
+% Use a wrapping caption so ordinary figure environments still get the Access label.
+\long\def\@makecaption#1#2{%
+\ifx\@captype\@IEEEtablestring
+\begin{flushleft}
+\vspace*{5pt}
+{\color{accessblue}\tablecapheadfont #1. \ }{\raggedright\tablecapfont #2}%
+\end{flushleft}
+\@IEEEtablecaptionsepspace
+\else
+\@IEEEfigurecaptionsepspace
+\noindent\begin{minipage}{\linewidth}
+{\color{accessblue}\figcapheadfont #1. \ }{\raggedright\figcapfont #2\par}
+\end{minipage}
+\fi}
+\makeatother
 \hyphenation{Fermi-GBM Batch-Norm iso-la-bil-ity}
 \input{results.tex}
+\input{realdata.tex}
+\input{checkmodes_macros.tex}
+\input{extra_macros.tex}
 
 \begin{document}
-
+% IEEE fills these after acceptance. Leave the template blanks.
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
 \title{Which Cause Is It? Selectively Blind Residuals for Isolating Compute Faults, Sensor Glitches, and Novel Classes in Multi-Detector Neural Inference}
 
-\author{S.~Haripriya
-\thanks{S.~Haripriya (Reg.\ 24BCE5415) is with the School of Computer Science and Engineering, Vellore Institute of Technology, Chennai, India.}
-\thanks{Manuscript prepared as an IEEE Access research article. Catalog counts were queried from HEASARC \texttt{fermigtrig} on 17 September 2026. Lightcubes used for isolability trials are physics-faithful simulations, not downloaded TTE.}
-}
+\author{\uppercase{Haripriya S.}\authorrefmark{1}, \uppercase{Suhasini S.}\authorrefmark{2}}
+\address[1]{School of Computer Science and Engineering, Vellore Institute of Technology, Chennai 600127, India}
+\address[2]{School of Electronics Engineering, Vellore Institute of Technology, Chennai 600127, India}
+\tfootnote{Catalog counts are from the High Energy Astrophysics Science Archive Research Center (HEASARC) \texttt{fermigtrig} table on 17 September 2026. The five-seed tables use a simulator. Public continuous-time cubes and time-tagged event files are scored with the same lookup.}
 
-\markboth{IEEE Access}{S.~Haripriya: Selectively Blind Residuals for Cause Isolation}
+\headname{Haripriya and Suhasini: Which Cause Is It?}
+\markboth
+{Haripriya and Suhasini: Which Cause Is It?}
+{Haripriya and Suhasini: Which Cause Is It?}
 
-\maketitle
+\corresp{Corresponding author: Suhasini S. (e-mail: suhasini.s@vit.ac.in).}
 
 \begin{abstract}
-A neural network watching a redundant sensor array can look wrong for four mechanistically different reasons: the world produced a class the network already knows, the world produced a class it has never seen, one sensor glitched, or the classifier's arithmetic was silently corrupted. Existing monitors typically emit a single anomaly score. Out-of-distribution (OOD) detectors, silent-data-corruption signatures, and range checks live in overlapping activation-magnitude spaces, so a new class and a bit-flip can produce the same alarm. We do not propose a new sequential test. We specify a four-symbol isolability dictionary and four residuals that are each blind to at least one of those symbols. A physics residual compares detectors against a rank-1 point-source model and never inspects neural weights. An arithmetic checksum of the linear head never inspects the sky. A morphology residual is computed on the shared multi-detector profile, not on the live softmax, so a corrupt head cannot mint a false discovery. A leave-one-detector drop test localizes a channel spike. The decision is a lookup, not a fused classifier. On a reproducible 8-detector Fermi-GBM-like simulator with held-out terrestrial gamma-ray flashes, five training seeds yield $89.3\pm0.3\%$ four-way accuracy against $43.1\pm6.0\%$ for a ProGIP-style range check. Held-out novelty is never labeled compute ($100\%$ isolation). Energy/MSP rejection flags $100\%$ of novel events as ``anomaly'' and cannot name a cause. Compound sensor-plus-compute trials are unisolable: $98.8\%$ are named compute because the checksum fires first. Public HEASARC \texttt{fermigtrig} counts (\CatalogTotal{} triggers) supply class priors; code reproduces every table.
+A classifier on a redundant detector array can fail in four ways: a known source, an unseen class, a detector glitch, or silent corruption of its arithmetic. Open-set scores and range checks read activation magnitude, so a new physical class and a flipped weight can raise the same alarm. This paper specifies a four-symbol isolability dictionary, known, novel, sensor, and compute, and four residuals that are each blind to at least one symbol. A physics residual compares detectors and does not read the weights. A checksum of the linear head does not read the sky. Morphology on the shared profile cannot be invented by a corrupt head. The lookup reads the checksum first. Five Fermi Gamma-ray Burst Monitor simulator seeds give 90.0\% four-way accuracy against 43.1\% for a range check. Held-out flashes are novel in 95.0\% of trials and a compute fault in 5.0\%. A rounding bound removes that leak at 32-bit precision. A labeled fusion of the same residuals reaches 96.5\% and usually calls a spike plus a bit-flip a sensor fault, where the lookup calls it compute. On 100 public continuous-time triggers, bit-flips stay isolated and no flash is called novel. A second draw keeps both results. Sensor isolation moves from 65\% to 7.5\% with direction. A Poisson likelihood ratio on one detector, amplitude maximized and with no detector response, raises those two rates to 100\% and 55\%. The same bit calls 20.6\% of simulator flashes a sensor fault. At one millisecond, 23 of 24 flashes fall outside the burst morphology, and the lookup calls them sensor.
 \end{abstract}
 
-\begin{IEEEkeywords}
-Silent data corruption, open-set recognition, Fermi GBM, structured residuals, isolability, algorithm-based fault tolerance, embedded neural networks.
-\end{IEEEkeywords}
+\begin{keywords}
+Silent data corruption, open-set recognition, Fermi GBM, structured residuals, isolability, algorithm-based fault tolerance, embedded neural networks
+\end{keywords}
+
+\titlepgskip=-15pt
+\maketitle
+\setlength{\textfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\floatsep}{7pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{7pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{2pt}
+\setlength{\belowcaptionskip}{-2pt}
 
 \section{Introduction}
 
-Deployed neural networks fail for reasons that call for opposite responses. If a wearable, a rover, or an onboard gamma-ray monitor sees an unusual activation, the operator may need to accept a known event, preserve a possible discovery, isolate a bad sensor, or recompute a flipped weight. Treating those four outcomes as one ``anomaly'' is not a small labeling error. Adapting a model to a bit-flip poisons a good network. Discarding a new physical class as a glitch throws away the event the instrument was built to catch.
+A classifier on a detector array can need four different responses to one unusual activation: accept a known event, preserve a possible discovery, isolate a bad sensor, or recompute a flipped weight. Treating those outcomes as one anomaly is the error this paper is about. Adapting a model to a bit-flip poisons a good network. Discarding a new class as a glitch throws away the event.
 
-The Fermi Gamma-ray Burst Monitor (GBM) is a concrete instance of this problem. Twelve NaI and two BGO detectors observe the unocculted sky. Catalogued triggers include gamma-ray bursts (GRBs), solar flares, magnetar bursts (SGRs), terrestrial gamma-ray flashes (TGFs), and single-detector particle spikes~\cite{meegan2009,goldstein2019}. Public classifiers already sort known classes and flag outliers~\cite{john2025}. They do not treat a corrupted matrix multiply as a cause, and they do not have to: ground pipelines assume correct arithmetic. Onboard or edge inference cannot.
+The Fermi Gamma-ray Burst Monitor (GBM) makes the four causes concrete. Twelve sodium iodide (NaI) detectors and two bismuth germanate (BGO) detectors observe the unocculted sky. Catalogued triggers include gamma-ray bursts (GRBs), solar flares, magnetar bursts (SGRs), terrestrial gamma-ray flashes (TGFs), and local and distant particle events~\cite{meegan2009,vonkienlin2020,bhat2016,roberts2018,briggs2013}. Public classifiers sort known classes and flag outliers~\cite{john2025}. Ground pipelines assume correct arithmetic. Onboard inference cannot. Silent data corruption is documented in production fleets~\cite{dixit2021,hochschild2021,dixit2022}, and soft errors can reach neural-network outputs~\cite{li2017,reagen2018}.
 
-The closest reliability papers still collapse causes. Gavarini \textit{et al.} use open-set scores \emph{as} fault detectors~\cite{gavarini2022}. ProGIP distinguishes in-distribution, OOD, and high-order bit-flips with range checks on gradient-based OOD scores~\cite{progip2025}. Dr.~DNA and related activation monitors flag silent corruption from the shape of neuron histograms~\cite{drdna2024,geissler2023}. ReAct showed that OOD inputs already produce extreme activations~\cite{react2021}---the same symptom high-order bit-flips produce. Classical isolability~\cite{gertler1990} names sensor, process, and actuator faults; it has no symbol for ``new astrophysical class.'' Fermi pipelines already veto single-detector phosphorescent spikes~\cite{goldstein2019,veske2025}. They do not close that veto with an input-invariant execution checksum.
+Open-set scores and range checks still collapse a new class and a bit-flip into one alarm~\cite{gavarini2022,progip2025,drdna2024,geissler2023,react2021}. Classical isolability has no symbol for a new class~\cite{gertler1990,venkatasubramanian2003,isermann2005}. Fermi pipelines veto single-detector spikes without an execution checksum~\cite{paciesas2012,goldstein2019,perera2025}.
 
-This paper's contribution is therefore a \emph{dictionary}, not a new optimizer or sequential test:
-\begin{itemize}
-\item four causes $\{{\rm known},{\rm novel},{\rm sensor},{\rm compute}\}$ with mutually exclusive operational responses;
-\item four residuals that are selectively blind, so the $0/1$ pattern names the cause under a single-fault assumption;
-\item a public, GPU-free evaluation against OOD-as-fault and range-check baselines, with ablations and a compound-fault failure case.
-\end{itemize}
+Attribution by Residual-Invariance Analysis (ARIA) is a four-symbol dictionary, known, novel, sensor, and compute, read from residuals that are each blind to at least one symbol. The five-seed tables use a cosine-response simulator. Section~\ref{sec:real} repeats the lookup on \RealCubes{} public continuous-time (CTIME) cubes. Section~\ref{sec:tte} scores time-tagged event (TTE) light curves. Section~\ref{sec:extra} reports the splits, the empty novel symbol, the spike scores, and the compound faults. Software bit-flips are not a beam test.
 
-We state the limit up front. The isolability trials use a cosine-response, Poisson 8-detector simulator whose class morphologies follow GBM families. HEASARC catalog counts are real. Downloaded TTE lightcurves are not used. Software bit-flips are radiation-\emph{like}, not a beam test. Two simultaneous faults are structurally unisolable in this dictionary.
+\section{Related work}
+\label{sec:related}
 
-\section{Related Work}
+Table~\ref{tab:compare} places the closest methods against the four causes. A ``part'' entry means the method touches that column only inside an undifferentiated score. The isolability claim holds under the single-fault assumption only.
 
-\subsection{OOD scores used as fault detectors}
-Gavarini \textit{et al.}~\cite{gavarini2022} treat MLS, energy, and ODIN as inexpensive fault detectors. That is the failure mode this work exists to prevent: a held-out TGF is supposed to look unusual. An OOD alarm cannot say whether to preserve the event or recompute the matmul. Selective classification with OOD (SCOD) likewise accepts or rejects; it does not name compute faults~\cite{sirc2022,narasimhan2024}.
+\begin{table*}[t]
+\caption{Comparison of closely related methods. ``Part'' means the column is touched only inside one undifferentiated score.}
+\label{tab:compare}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+Method & OOD & Compute & Sensor & Novel kept & Physics & Isolability \\
+\midrule
+MSP, energy, ODIN~\cite{hendrycks2017,liu2020,liang2018} & Yes & No & No & No & No & No \\
+Mahalanobis, G-ODIN, ViM~\cite{lee2018,hsu2020,wang2022} & Yes & No & No & No & No & No \\
+OpenMax, Scheirer, Vaze~\cite{scheirer2013,bendale2016,vaze2022} & Yes & No & No & Part. & No & No \\
+Gavarini~\cite{gavarini2022} & Yes & Part. & No & No & No & No \\
+ProGIP~\cite{progip2025} & Yes & Yes & No & Part. & No & No \\
+Dr.\ DNA~\cite{drdna2024} & No & Yes & No & No & No & No \\
+Geissler, FACER~\cite{geissler2023,schorn2020} & No & Part. & No & No & No & No \\
+BLINK~\cite{blink2026} & No & Yes & No & No & No & No \\
+FT-CNN, Huang--Abraham~\cite{zhao2021,huang1984} & No & Yes & No & No & No & No \\
+Ares, Li and colleagues~\cite{reagen2018,li2017} & No & Yes & No & No & No & No \\
+Dixit and colleagues~\cite{dixit2021} & No & Yes & No & No & No & No \\
+Gertler--Singer, Isermann~\cite{gertler1990,isermann2005} & No & No & Yes & No & Yes & Yes \\
+John and colleagues~\cite{john2025} & Part. & No & No & Part. & No & No \\
+Perera and colleagues~\cite{perera2025} & No & No & Part. & No & Part. & No \\
+\midrule
+This work & Yes & Yes & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}}
+\end{table*}
 
-\subsection{ID / OOD / fault in magnitude space}
-ProGIP~\cite{progip2025} is the closest prior paper. It places two range checkers on GIP pipelines so that ID, OOD, and high-order bit-flips can be separated in software. The checkers still operate on gradients and confidence scores. ReAct~\cite{react2021} already showed that OOD inputs drive activations into the same extreme range that high-order flips occupy. Range is a useful heuristic. It is not an identifiability argument, and it does not use instrument physics or a separate sensor symbol.
+Open-set scores reduce a surprising input to a reject bit: maximum softmax probability~\cite{hendrycks2017}, the energy score~\cite{liu2020}, ODIN~\cite{liang2018}, the Mahalanobis score~\cite{lee2018}, generalized ODIN~\cite{hsu2020}, and virtual-logit matching~\cite{wang2022}. OpenMax~\cite{bendale2016}, the line that begins with Scheirer and colleagues~\cite{scheirer2013,geng2021}, and a strong closed-set classifier~\cite{vaze2022} add an unknown class. Gavarini and colleagues then treat those bits as fault detectors~\cite{gavarini2022}. Selective classification still accepts or rejects and does not name a compute fault~\cite{sirc2022,narasimhan2024}. Anomaly surveys and OpenOOD compare detectors inside that one class~\cite{ruff2021,yang2022}. ProGIP separates in-distribution inputs, out-of-distribution inputs, and high-order bit-flips with range checks on gradients~\cite{progip2025}. ReAct showed that out-of-distribution inputs already occupy that extreme range~\cite{react2021}.
 
-\subsection{Activation signatures for silent data corruption}
-Dr.~DNA extracts SDC signatures from neuron-activation histograms~\cite{drdna2024}. Quantile-marker and compressed-feature monitors flag corruption ``originating either from hardware memory faults or input corruptions'' as one class~\cite{geissler2023,schorn2020}. BLINK compares live BatchNorm statistics to frozen running statistics for weight integrity~\cite{blink2026}. None of these methods is built to return ``this is a new class'' as a non-fault outcome.
+Dr.~DNA, quantile monitors, FACER, and BLINK flag silent corruption from activations or batch-normalization statistics, without a new-class symbol~\cite{drdna2024,geissler2023,schorn2020,blink2026}. Fault injection measures how often a flip changes an output~\cite{li2017,reagen2018,pytorchfi2020}. Structured parity residuals are insensitive to one fault and sensitive to another~\cite{gertler1990,venkatasubramanian2003,isermann2005,chen1999}. Algorithm-based fault tolerance detects a matrix-multiply error independently of the input~\cite{huang1984,zhao2021}. Intensity-guided and approximate checksums decide where to check and do not name discovery~\cite{kosaian2021,approxabft2023}. The rounding bound below uses the standard model of floating-point error~\cite{higham2002,ieee754}. On GBM, flight software requires a rate increase in two or more NaI detectors~\cite{meegan2009,paciesas2012}, ground localization compares detector rates~\cite{goldstein2020,connaughton2015}, and a Poisson matched filter searches every detector~\cite{perera2025}. Convolutional-recurrent classifiers flag outliers outside the trained classes~\cite{john2025}. Onboard learning assumes correct execution~\cite{bulgarelli2025}. Duration and spectral catalogs supply the morphology the novel symbol is trying to see~\cite{kouveliotou1993,poolakkil2021,vonkienlin2020}. No row of Table~\ref{tab:compare} puts known, novel, sensor, and compute in one dictionary whose residuals cannot see the wrong cause.
 
-\subsection{Structured residuals and checksums}
-Gertler and Singer~\cite{gertler1990} isolate faults with structured parity equations. The dictionary is sensor / process / actuator. FT-CNN and related ABFT schemes detect matmul errors independently of the input~\cite{ftcnn2020}. We \emph{use} a row-sum checksum as one residual. That checksum is not the contribution. Intensity-guided and approximate ABFT decide where or how loosely to check~\cite{hastings2021,approxabft2023}; they do not name discovery.
+\section{Materials and methods}
 
-\subsection{Fermi-GBM classification and vetoes}
-John \textit{et al.}~\cite{john2025} train CNN-RNN classifiers on public GBM triggers with an outlier flag. Flight software already requires a two-detector coincidence to suppress phosphorescent spikes~\cite{meegan2009}. Veske \textit{et al.}~\cite{veske2025} add an explicit single-versus-multi-detector likelihood ratio. Those vetoes are the ancestor of our physics residual. They do not instrument the classifier for silent arithmetic faults. Onboard scientific ML for gamma-ray missions similarly assumes correct execution~\cite{bulgarelli2025}.
+\subsection{Problem}
 
-\subsection{Positioning}
-To the best of this literature search, no published method puts known class, new class, sensor glitch, and compute fault in one isolability table whose residuals cannot see the wrong cause. That is a narrower claim than ``nobody can tell which of four things happened.'' ProGIP already names three of the four in range space. GBM already names sensor versus sky. The missing object is the four-symbol dictionary with selective blindness.
+Let $X\in\mathbb{R}^{D\times T}$ be background-subtracted counts from $D=8$ detectors and $T=64$ time bins. A linear head $f_W$ maps a morphology feature vector $\phi(X)$ to three known classes, GRB, SGR, and solar flare. TGF is held out. A single cause $c$ is drawn from
+\begin{align*}
+\mathcal{C}=\{&\texttt{known-clean},\ \texttt{novel-clean},\\
+&\texttt{sensor},\ \texttt{compute}\}.
+\end{align*}
+The operational map is accept, preserve, isolate-channel, or recompute.
 
-\section{Problem}
+The required decision $\hat{c}(X,W)$ is uniquely determined, under a single-fault assumption, by a binary signature that does not use a learned fusion of OOD scores. Compound faults are not forced into $\mathcal{C}$.
 
-Let $X\in\mathbb{R}^{D\times T}$ be background-subtracted counts from $D=8$ detectors and $T=64$ time bins. A linear head $f_W$ maps a morphology feature vector $\phi(X)$ to three known classes $\{\mathrm{GRB},\mathrm{SGR},\mathrm{SFLARE}\}$. TGF is held out. A single cause $c$ is drawn from
-\[
-\mathcal{C}=\{\texttt{known-clean},\texttt{novel-clean},\texttt{sensor},\texttt{compute}\}.
-\]
-The operational map is accept / preserve / isolate-channel / recompute.
+\subsection{Physics residual, blind to the weights}
 
-We require a decision $\hat{c}(X,W)$ such that, under a single-fault assumption, $\hat{c}$ is uniquely determined by a binary signature that does not use a learned fusion of OOD scores. Compound faults $c\notin\mathcal{C}$ are declared unisolable rather than forced into $\mathcal{C}$.
+A genuine point source lights several NaI-like detectors with a shared time profile scaled by a cosine angular response~\cite{meegan2009}. Let $v$ be the median light curve of detectors whose total counts exceed a brightness gate, and let $r_{\mathrm{phys}}$ be one minus the leave-one-out cosine of the worst detector against $v$. Dropping that detector yields a gain $U_{\mathrm{det}}$. A localized spike raises $r_{\mathrm{phys}}$ and $U_{\mathrm{det}}$. A TGF that is still a point source does not. The median, rather than a principal component, is deliberate: a single loud spike must not become the template.
 
-\section{Method: ARIA}
+\subsection{Morphology residual, blind to a corrupt head}
 
-Attribution by Residual-Invariance Analysis (ARIA) computes four residuals, thresholds them on clean calibration, and looks up a cause.
+The vector $\phi(X)$ concatenates duration, peak time, full width at half maximum, variability, hardness, log counts, concentration, and smoothness of the shared profile, not of $f_W(X)$. Duration and width follow the long-standing split of bursts by their time profile~\cite{kouveliotou1993}. Hardness uses the soft and hard counts after the worst detector has been dropped when the physics residual is already large. The residual $r_{\mathrm{morph}}$ is Euclidean distance to the nearest known-class centroid in that feature space, using centroids of the clean head. A flipped live weight cannot move $r_{\mathrm{morph}}$ except through $\phi$, which does not read $W$.
 
-\subsection{Physics residual (blind to $W$)}
-A genuine point source lights several NaI-like detectors with a shared time profile scaled by a cosine angular response~\cite{meegan2009}. Let $v$ be the median lightcurve of detectors whose total counts exceed a brightness gate, and let $r_{\mathrm{phys}}$ be one minus the leave-one-out cosine of the worst detector against $v$. Dropping that detector yields a gain $U_{\mathrm{det}}$. A localized spike raises $r_{\mathrm{phys}}$ and $U_{\mathrm{det}}$. A TGF that is still a point source does not.
+\subsection{Arithmetic residual, blind to the sky}
 
-\subsection{Morphology residual (blind to a corrupt head)}
-$\phi(X)$ concatenates duration, hardness, variability, and smoothness of the \emph{shared} profile, not of $f_W(X)$. $r_{\mathrm{morph}}$ is Euclidean distance to the nearest known-class centroid in that feature space, using centroids of the \emph{clean} head. A flipped live weight cannot move $r_{\mathrm{morph}}$ except through $\phi$, which does not read $W$.
-
-\subsection{Arithmetic residual (blind to the sky)}
-Let $W$ be stored at compile time with row-sum checksum $s^\top=1^\top W$~\cite{ftcnn2020}. On a live inference,
-\[
+Let $W$ be stored at compile time with row-sum checksum $s^\top=1^\top W$~\cite{zhao2021,huang1984}. On a live inference the normalized residual is
+\begin{equation}
 r_{\mathrm{exec}}=\frac{\lvert 1^\top(Wx)-s^\top x\rvert}{\lvert 1^\top(Wx)\rvert+\lvert s^\top x\rvert+1}.
-\]
-A new class cannot fire $r_{\mathrm{exec}}$. A weight bit-flip can.
+\label{eq:exec}
+\end{equation}
+In exact arithmetic a new class cannot fire $r_{\mathrm{exec}}$, because $1^\top(Wx)=s^\top x$ for every input $x$. A weight bit-flip can. In finite precision both sums carry rounding noise that grows with the magnitude of $x$, so an input far from the calibration range can raise $r_{\mathrm{exec}}$ without any fault~\cite{higham2002}.
+
+Under the standard model $\mathrm{fl}(a\circ b)=(a\circ b)(1+\delta)$ with $\lvert\delta\rvert\le u$, the standardized input $x$ is shared by the live product and the stored-checksum product, so its own rounding cancels. The fault-free absolute discrepancy then satisfies
+\begin{equation}
+\begin{split}
+\lvert 1^\top(Wx)-s^\top x\rvert &\le B(x)=\gamma_N(u)\Big(\sum_j\big(a_j+\lvert s_j\rvert\big)\lvert x_j\rvert\\
+&\quad+\sum_i\lvert b_i\rvert+\Big\lvert\sum_i b_i\Big\rvert\Big)+\eta,
+\end{split}
+\label{eq:bound}
+\end{equation}
+where $a_j=\sum_i\lvert W_{ij}\rvert$, $\gamma_N=Nu/(1-Nu)$, $u$ is the unit roundoff, $N=20$ counts the longest chain of rounded operations plus a margin, and $\eta$ is an underflow term. The bounded rule fires when the absolute discrepancy exceeds $B(x)$. The vectors $a$, $s$, and $\sum_i\lvert b_i\rvert$ are stored with $s$ and are not recomputed from the live weights. $N=20$ was fixed before the bounded rule was evaluated.
 
 \subsection{Signature and lookup}
-Thresholds $(t_{\mathrm{phys}},t_{\mathrm{morph}},t_{\mathrm{exec}},t_{\mathrm{drop}})$ are percentiles on clean calibration plus a margin. The signature is
+
+Thresholds are set on clean calibration residuals only. No injected fault is used to set any threshold. The physics threshold is the 96th percentile of clean residuals, times $1.25$, and clipped to $[0.38,0.62]$. The morphology threshold is the 95th percentile times $1.25$. The calibrated checksum threshold is the 99.5th percentile of clean $r_{\mathrm{exec}}$, times $1.25$, and floored at the unit roundoff of the inference arithmetic. The drop threshold is the constant $0.28$. The signature is
 \begin{align*}
-S_{\mathrm{phys}} &= [r_{\mathrm{phys}}>t_{\mathrm{phys}}],&
+S_{\mathrm{phys}} &= [r_{\mathrm{phys}}>t_{\mathrm{phys}}],\\
 S_{\mathrm{morph}} &= [r_{\mathrm{morph}}>t_{\mathrm{morph}}],\\
-U_{\mathrm{det}} &= S_{\mathrm{phys}}\wedge(U_{\mathrm{det}}^{\mathrm{raw}}>t_{\mathrm{drop}}),&
+U_{\mathrm{det}} &= S_{\mathrm{phys}}\wedge(U_{\mathrm{det}}^{\mathrm{raw}}>t_{\mathrm{drop}}),\\
 U_{\mathrm{arith}} &= [r_{\mathrm{exec}}>t_{\mathrm{exec}}].
 \end{align*}
-Table~\ref{tab:dict} is the isolability dictionary. The live rule is
+Table~\ref{tab:dict} is the dictionary. Figure~\ref{fig:method} is the same lookup as a diagram. The live rule is
 \begin{equation}
 \hat{c}=\begin{cases}
 \texttt{compute} & \text{if }U_{\mathrm{arith}},\\
@@ -112,11 +181,11 @@ Table~\ref{tab:dict} is the isolability dictionary. The live rule is
 \end{equation}
 Checksum first is deliberate: a corrupt head must not be allowed to mint a discovery.
 
-\begin{table}[!t]
+\begin{table}[t]
 \caption{Single-fault isolability dictionary. A dot means the bit is not used for that row.}
 \label{tab:dict}
 \centering
-\begin{tabular}{lccccp{0.42\columnwidth}}
+\begin{tabular}{lccccl}
 \toprule
 Cause & $S_{\mathrm{phys}}$ & $S_{\mathrm{morph}}$ & $U_{\mathrm{det}}$ & $U_{\mathrm{arith}}$ & Response \\
 \midrule
@@ -128,13 +197,23 @@ compute & $\cdot$ & $\cdot$ & 0 & 1 & recompute \\
 \end{tabular}
 \end{table}
 
-\section{Experimental Setup}
+\begin{figure*}
+\centering
+\includegraphics[width=0.86\textwidth]{fig_method.pdf}
+\caption{ARIA residuals and lookup. Each residual is forbidden from seeing at least one cause. The decision is a table, not a fused classifier.}
+\label{fig:method}
+\end{figure*}
 
-\subsection{Public catalog}
-Class counts in Table~\ref{tab:cat} are from HEASARC \texttt{fermigtrig} (TAP query, 17 Sep.\ 2026). They justify holding TGF out as a frequent, morphologically distinct family and treating \texttt{LOCLPAR}/\texttt{DISTPAR} as the operational analog of a single-detector spike~\cite{goldstein2019}. They are not claimed as classified lightcurves in the Monte Carlo.
+Three optional bits are not part of~\eqref{eq:lookup}. A short-window spike score uses the worst detector's two-bin excess over the median of the others, scaled by the square root of that median, with the same 96th-percentile rule and drop fraction $0.28$. A Poisson likelihood ratio on one detector uses that same gate and is reported in Section~\ref{sec:poisson}. If the checksum and the sensor bit are both true, \eqref{eq:lookup} still says compute. An alternative label ``multiple'' does not change any single-fault row.
 
-\begin{table}[!t]
-\caption{Public Fermi-GBM trigger types used as class priors.}
+\subsection{Simulator}
+
+Each trial draws a sky position, a family template (fast-rise exponential-decay for GRB and SGR, a wide Gaussian for a solar flare, a millisecond TGF), Poisson NaI-like counts with a cosine response, and optional faults. Sensor faults add a soft spike on a dim detector. Compute faults flip one IEEE-754 bit of a linear-head weight, mild bits 18--23 or critical bits 28--30, and revert afterward~\cite{pytorchfi2020,li2017,ieee754}. The head is a standardized linear classifier on $\phi(X)$, not the convolutional-recurrent network of John and colleagues~\cite{john2025}. Inference is emulated in binary32. Binary64 and binary16 are sensitivity checks. The physics residual never needs the head.
+
+Class counts in Table~\ref{tab:cat} are from the HEASARC \texttt{fermigtrig} table on 17 September 2026. They justify holding TGF out as a frequent, morphologically distinct family~\cite{roberts2018,briggs2013}, and they record that the charged-particle triggers are not used as light curves. The simulator's single-detector spike only loosely mimics those particle events.
+
+\begin{table}[t]
+\caption{Public Fermi-GBM trigger types used as class priors (HEASARC \texttt{fermigtrig}, 17 September 2026).}
 \label{tab:cat}
 \centering
 \begin{tabular}{lrl}
@@ -145,160 +224,528 @@ GRB & \CatalogGRB{} & known class \\
 SFLARE & \CatalogSflare{} & known class \\
 SGR & \CatalogSGR{} & known class \\
 TGF & \CatalogTGF{} & held-out novel class \\
-LOCLPAR+DISTPAR & 2167 & sensor-fault analog (not simulated as catalog rows) \\
-All triggers & \CatalogTotal{} & -- \\
+LOCLPAR+DISTPAR & 2167 & particle events, not used as data \\
+All triggers & \CatalogTotal{} & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Simulator}
-Each trial draws a sky position, a family template (FRED GRB/SGR, wide solar Gaussian, millisecond TGF), Poisson NaI-like counts with a cosine response, and optional faults. Sensor faults add a soft spike to a dim detector. Compute faults flip one IEEE-754 bit of a linear-head weight (mild: bits 18--23; critical: bits 28--30) at inference and revert afterward, following standard injection practice~\cite{pytorchfi2020}. The head is a standardized linear classifier on $\phi(X)$, not the CNN-RNN of~\cite{john2025}. The checksum is therefore exact for this head. The physics residual never needs the head.
-
 \subsection{Baselines}
-Energy/MSP rejection follows Gavarini~\cite{gavarini2022}: unusual softmax energy or maximum softmax probability is an undifferentiated \texttt{anomaly}. Range-check follows ProGIP's magnitude idea~\cite{progip2025}: extreme $\lvert\mathrm{logit}\rvert$ is \texttt{compute}; leftover unusual scores are \texttt{novel-clean}; else \texttt{known-clean}. Range-check has no sensor symbol.
 
-\subsection{Protocol}
-Five training seeds $\{7,19,31,43,61\}$, evaluation seed $123$, $36$ trials per cell of $\{\mathrm{GRB},\mathrm{SGR},\mathrm{SFLARE}\}\times\mathrm{clean}$, TGF clean, sensor on GRB/SGR, and mild/critical compute on GRB ($288$ four-way trials per seed). Thresholds are fit on a disjoint clean calibration stream. Ablations reuse the same signatures with subsets of~\eqref{eq:lookup}. Compound trials inject sensor and compute together ($n=80$). The command \texttt{npm run test:paper} writes \texttt{paper/results.json}.
+Energy and maximum-softmax rejection follow the open-set-score-as-fault-detector idea~\cite{gavarini2022,hendrycks2017,liu2020}: an unusual score is an undifferentiated anomaly. The range check follows ProGIP's magnitude idea~\cite{progip2025}: an extreme logit magnitude is compute, a leftover unusual score is novel, and anything else is known. The range check has no sensor symbol.
+
+\subsection{Protocols}
+
+The headline simulator uses training seeds $\{7,19,31,43,61\}$, evaluation seed $123$, and $36$ trials in each cell of the three known classes clean, TGF clean, sensor on GRB and on SGR, and mild and critical compute on GRB. That is $288$ four-way trials per seed. Thresholds use a disjoint clean calibration stream. Ablations reuse the same signatures with subsets of~\eqref{eq:lookup}. Compound trials inject a spike and a bit-flip together ($n=80$ per training seed in the signature study; the headline count uses one trained head and $n=80$).
+
+The headline real-data protocol trains and scores known classes on the same cubes. TGF is never in training. Sensor spikes and critical bit-flips are injected on the first $40$ known cubes in file order (\RealTrials{} trials): every GRB in the slice, $15$ SGRs, and no solar flare. The same pipeline is also reported on every known cube. Mild flips, bits 18--23, use those $40$ cubes. Five-fold cross-validation, repeated five times, and a stratified half-split in both directions share no trigger name across a fold. They are still splits of one slice of \RealCubes{} triggers, not a second catalog draw.
 
 \section{Results}
+\label{sec:results}
 
 \subsection{Four-way attribution}
-Table~\ref{tab:main} reports mean$\pm$std over the five seeds. ARIA reaches $\AriaAcc\%$ four-way accuracy. The range-check baseline reaches $\RangeAcc\%$. Held-out TGF is isolated as novel in $\NovelIso\%$ of trials and is never labeled compute. Compute isolation is $\ComputeIso\%$. Sensor isolation is $\SensorIso\%$: the physics residual misses some dim-detector spikes, and those trials fall through to known-clean. We report that miss rate rather than retuning the spike until the number is round.
 
-\begin{table}[!t]
-\caption{Four-way accuracy and per-cause isolation (\%). Mean$\pm$std over five training seeds.}
+Table~\ref{tab:main} reports mean and standard deviation over the five seeds. ARIA reaches $\AriaAcc\%$ four-way accuracy. The range check reaches $\RangeAcc\%$. Held-out TGF is isolated as novel in $\NovelIso\%$ of trials and is named compute in $\NovelAsCompute\%$. Compute isolation is $\ComputeIso\%$. Sensor isolation is $\SensorIso\%$: the physics residual misses some dim-detector spikes, and those trials fall through to known. That miss rate is reported rather than retuned until the number is round.
+
+\begin{table}[t]
+\caption{Four-way accuracy and per-cause isolation in the simulator (percent). Mean $\pm$ standard deviation over five training seeds.}
 \label{tab:main}
 \centering
 \begin{tabular}{lcc}
 \toprule
-Metric & ARIA & Range-check \\
+Metric & ARIA & Range check \\
 \midrule
 Four-way accuracy & $\AriaAcc$ & $\RangeAcc$ \\
 Novel $\to$ novel & $\NovelIso$ & -- \\
+Novel $\to$ compute & $\NovelAsCompute$ & -- \\
 Compute $\to$ compute & $\ComputeIso$ & -- \\
-Sensor $\to$ sensor & $\SensorIso$ & $0$ (no sensor symbol) \\
+Sensor $\to$ sensor & $\SensorIso$ & 0 (no sensor symbol) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-A representative confusion matrix (train seed $7$) is given in Table~\ref{tab:conf}. Energy/MSP flags $100\%$ of novel trials as anomaly and $8$--$15\%$ of compute trials, which is the confound: the same rejector fires on discovery and on some bit-flips, and it cannot name either.
+Table~\ref{tab:seeds} and Fig.~\ref{fig:seeds} give the per-seed values. ARIA moves by at most $1.4$ points across seeds. The range check moves from $35.8\%$ to $50.7\%$.
 
-\begin{table}[!t]
-\caption{Confusion counts for one seed ($36$ trials per cell; ARIA).}
-\label{tab:conf}
+\input{tab_seeds.tex}
+
+\begin{figure}[t]
 \centering
-\begin{tabular}{lcccc}
-\toprule
-True $\backslash$ pred & known & novel & sensor & compute \\
-\midrule
-known-clean & 98 & 0 & 10 & 0 \\
-novel-clean & 0 & 36 & 0 & 0 \\
-sensor & 15 & 1 & 56 & 0 \\
-compute & 5 & 0 & 0 & 67 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_seeds.pdf}
+\caption{Four-way accuracy by training seed, from Table~\ref{tab:seeds}. ARIA stays near $90\%$ on every seed. The range check varies by about $15$ points.}
+\label{fig:seeds}
+\end{figure}
+
+A representative confusion matrix, training seed $7$, is Table~\ref{tab:conf} and Fig.~\ref{fig:conf}. Energy and maximum-softmax rejection flag $100\%$ of novel trials as an anomaly and between $8.3\%$ and $25.0\%$ of compute trials depending on the seed (mean $16.9\%$). The same rejector fires on discovery and on some bit-flips, and it cannot name either.
+
+\input{tab_conf.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_confusion.pdf}
+\caption{ARIA confusion counts for training seed $7$, the same counts as Table~\ref{tab:conf}. Shading is the row-normalized rate. The main errors are missed sensor spikes, clean events called sensor, and one held-out TGF called compute.}
+\label{fig:conf}
+\end{figure}
+
+\subsection{Checksum calibration, precision, and the rounding bound}
+\label{sec:bounded}
+
+The checksum threshold is set on clean residuals only. With that rule, compute isolation is $100\%$ in binary32 and binary64, but the held-out TGF is named compute in $\NovelAsCompute\%$ of binary32 trials. A TGF lies far from the calibration range, so its rounding noise can exceed a threshold calibrated on known classes. The checksum is blind to the sky in exact arithmetic, and not exactly so in finite precision.
+
+Table~\ref{tab:modes} compares the calibrated threshold with the bound~\eqref{eq:bound} on the same trials. At binary32 the bounded rule names no TGF a compute fault (\BndNovCompThirtyTwo\%), keeps compute isolation at \BndCompThirtyTwo\%, including mild flips, and reaches \BndAccThirtyTwo\% four-way accuracy against \CalAccThirtyTwo\% for the calibrated rule. Figure~\ref{fig:checkscatter} shows why. In the calibrated panel a share of the TGF trials sits above the dotted threshold. In the bounded panel every fault-free trial, TGF included, is below $1$, and every flip in the protocol is above it. Figure~\ref{fig:checkroc} shows that at binary32 both statistics rank every compute trial above every TGF trial, so the false-compute rate of the calibrated rule comes from where its threshold sits, not from the residual being unable to rank the two causes.
+
+The guarantee has a price at binary16. Compute isolation falls to \BndCompSixteen\% for the bound against \CalCompSixteen\% for the calibrated rule, and mild flips are caught in \BndMildSixteen\% of trials against \CalMildSixteen\% (Fig.~\ref{fig:checkprec}). Figure~\ref{fig:checkbits} breaks detection down by the flipped bit. The lowest mantissa bits are missed by every variant, because they move a weight by less than the arithmetic's own noise. At binary32 the calibrated rule reaches high detection from bit~8 and the bounded rule from bit~12. The bounded rule trades sensitivity for a guarantee of no false alarm on fault-free inputs.
+
+As a soundness check, $\BoundInputs$ fault-free random inputs per precision were drawn up to $\BoundMaxSigma$ standard deviations from the training mean. The largest ratio of residual to bound was $\BoundWorstRatio$, and none exceeded $1$. This checks the bound on this head. It is not a proof for other heads, and a fault in the stored vectors themselves is outside the model.
+
+\input{checkmodes_tables.tex}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{fig_check_scatter.pdf}
+\caption{Checksum statistic by true cause, five seeds pooled (counts in Table~\ref{tab:modes}). Panels (a) and (c) are the calibrated residual. Panels (b) and (d) divide it by the bound~\eqref{eq:bound}. (a) and (b) are binary32. (c) and (d) are binary16.}
+\label{fig:checkscatter}
+\end{figure*}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_check_bits.pdf}
+\caption{Share of single bit-flips detected as compute, against the flipped bit of the binary32 weight (200 flips per bit, five seeds, fault-free known-class events). Circles are the calibrated rule. Squares are the bounded rule. The shaded bands mark mantissa, exponent, and sign. The bars at the bottom mark the mild range (bits 18--23) and the critical range (bits 28--30) used in the main protocol.}
+\label{fig:checkbits}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_check_roc.pdf}
+\caption{Compute faults detected, against held-out TGFs named compute, as the checksum threshold is swept (five seeds pooled). The marker is the operating point actually used: the per-seed calibrated threshold, or the bound threshold $1$.}
+\label{fig:checkroc}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_check_prec.pdf}
+\caption{Calibrated and bounded checksums at three inference precisions (mean $\pm$ standard deviation over five seeds; values in Table~\ref{tab:modes}). The bounded rule never names a TGF compute in the simulator. It loses compute sensitivity at binary16.}
+\label{fig:checkprec}
+\end{figure}
+
+On real CTIME the same comparison is Table~\ref{tab:realmodes}. At binary32 the bounded rule keeps compute isolation at $100\%$ and names no TGF compute at any slice size, while the calibrated rule names $\RealCalNovCompTwelve\%$ of TGFs as compute at $12$ triggers per class. Sensor isolation at eight triggers per class is $\RealBndSensEight\%$ for the bound against $\RealCalSensEight\%$ for the calibrated rule, because some spiked cubes trip the calibrated checksum and are therefore labeled compute before the sensor bit is read. At the $25$-cube slice the two rules agree. Novel isolation stays at $0\%$ in every row. That limit comes from the CTIME bins, not from the checksum.
 
 \subsection{Ablations}
-Table~\ref{tab:abl} removes signature bits. A checksum alone cannot name novelty or sensors ($\AblChecksum\%$). Physics alone names some sensors and defaults everyone else to known ($\AblPhysics\%$). Morphology alone is an open-set detector ($\AblMorph\%$). Removing only the checksum drops accuracy to $\AblNoChecksum\%$ because compute trials fall into known or novel. Full ARIA is $\AblFull\%$. The table is the contribution: each residual covers a cause the others cannot see.
 
-\begin{table}[!t]
-\caption{Ablation of the lookup (four-way accuracy, \%).}
+Table~\ref{tab:abl} and Fig.~\ref{fig:abl} remove signature bits. A checksum alone cannot name novelty or sensors ($\AblChecksum\%$). Physics alone names some sensors and defaults everyone else to known ($\AblPhysics\%$). Morphology alone is an open-set detector ($\AblMorph\%$). Removing only the checksum drops accuracy to $\AblNoChecksum\%$, because compute trials fall into known or novel. Full ARIA is $\AblFull\%$. Each residual covers a cause the others cannot see.
+
+\begin{table}[t]
+\caption{Ablation of the lookup. Four-way accuracy, percent, mean $\pm$ standard deviation over five seeds.}
 \label{tab:abl}
 \centering
 \begin{tabular}{lc}
 \toprule
 Lookup & Accuracy \\
 \midrule
-Full ARIA~\eqref{eq:lookup} & $\AblFull$ \\
+Full ARIA, equation~\eqref{eq:lookup} & $\AblFull$ \\
 Checksum only & $\AblChecksum$ \\
 Physics only & $\AblPhysics$ \\
 Morphology only & $\AblMorph$ \\
-No checksum (physics then morph) & $\AblNoChecksum$ \\
+No checksum & $\AblNoChecksum$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_ablation.pdf}
+\caption{Ablation of the lookup. Values are in Table~\ref{tab:abl}. Every residual alone is far below the full dictionary.}
+\label{fig:abl}
+\end{figure}
+
+\subsection{Summary against the baselines}
+
+Table~\ref{tab:summary} puts ARIA next to the two baselines on the simulator and on real CTIME. Only ARIA names a cause for novelty, compute faults, and sensors. On novelty it pays a small false-compute rate in the simulator under the calibrated checksum. Energy and maximum-softmax rejection never name a cause.
+
+\begin{table*}[t]
+\caption{Headline results (percent, mean $\pm$ standard deviation over five training seeds). A dash means that output is not produced. Flag novel and flag compute are undifferentiated anomaly marks.}
+\label{tab:summary}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccc}
+\toprule
+Setting & Method & Four-way & Novel & Compute & Sensor & Nov.$\to$comp. & Flag novel & Flag compute \\
+\midrule
+\multirow{3}{*}{Simulator}
+& ARIA & $\AriaAcc$ & $\NovelIso$ & $\ComputeIso$ & $\SensorIso$ & $\NovelAsCompute$ & -- & -- \\
+& Range check & $\RangeAcc$ & -- & -- & 0 & -- & -- & -- \\
+& Energy / MSP & -- & -- & -- & -- & -- & $100.0\pm0.0$ & $16.9\pm5.7$ \\
+\midrule
+\multirow{3}{*}{Real CTIME}
+& ARIA & $\RealAriaAccPM$ & $\RealNovelIsoPM$ & $\RealComputeIsoPM$ & $\RealSensorIsoPM$ & $\RealNovelAsComputePM$ & -- & -- \\
+& Range check & $\RealRangeAccPM$ & -- & -- & 0 & -- & -- & -- \\
+& Energy / MSP & -- & -- & -- & -- & -- & $\RealEnergyNovelPM$ & $\RealEnergyComputePM$ \\
+\bottomrule
+\end{tabular}}
+\end{table*}
+
 \subsection{Compound faults}
-When a spike and a bit-flip occur together, $U_{\mathrm{arith}}$ still fires, so $\CompoundCompute\%$ of $80$ compound trials are named compute. One trial was named sensor. None were named novel. The dictionary is single-fault by construction. We treat this as a limitation, not a result to hide.
 
-\section{Limitations}
+When a spike and a bit-flip occur together, $U_{\mathrm{arith}}$ still fires, so the headline lookup names compute on $\CompoundCompute\%$ of $80$ compound trials (Table~\ref{tab:compound}). Across five training seeds, both the checksum bit and the sensor bit are true on $\BothSig\%$ of compound trials, and the checksum alone is true on $\ArithOnly\%$ (Fig.~\ref{fig:compound}). The physics bit never fires by itself. The optional two-fault rule therefore returns ``multiple'' on $\MultiRate\%$ of these trials and still returns compute on the rest, where the spike left no physics signature. The dictionary can refuse a single label when both residuals fire. It cannot recover a sensor fault that the physics residual missed. Two causes remain unisolable as a pair of named faults.
 
-The simulator is not a substitute for TTE. A journal extension should attach the same residuals to public CTIME/TTE of catalogued GRB/SGR/SFLARE/TGF triggers and inject faults on those real arrays. The linear head is a diagnostic probe, not a replacement for~\cite{john2025}. Mild mantissa flips that do not move the checksum or the logits remain invisible, as in every ABFT scheme that watches a linear form. Sensor isolation at $\SensorIso\%$ is the weakest cell; a matched-filter single-detector test~\cite{veske2025} would likely raise it. ARIA does not claim sequential error-rate guarantees. Wald SPRT and diagnostic martingales~\cite{hindy2025} already exist and are not used here.
+\begin{table}[t]
+\caption{Headline lookup on 80 compound sensor-plus-compute trials from one trained head. The five-seed signature split is in Fig.~\ref{fig:compound}.}
+\label{tab:compound}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+ & known & novel & sensor & compute \\
+\midrule
+Trials named & 0 & 0 & 0 & 80 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\section{Conclusion}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_compound.pdf}
+\caption{Which residual bits fire on compound trials (mean $\pm$ standard deviation over five training seeds, 80 trials each). ``Both signatures'' is the share the optional rule labels multiple. The headline lookup labels every one of these trials compute.}
+\label{fig:compound}
+\end{figure}
 
-OOD and SDC monitors can say that an inference looks wrong. They cannot, by construction, say which of four operationally opposite causes produced that look when those causes share an activation-magnitude symptom. ARIA is a four-symbol isolability lookup whose residuals are forbidden from seeing the wrong cause. On a public-catalog-prior, GPU-free GBM-like simulator it separates held-out TGF from compute faults, names many sensor spikes, and fails honestly when two faults arrive together. The primitives---rank-1 detector vetoes, ABFT checksums, centroid distance---are known. The dictionary that includes discovery as a non-fault symbol is the distinct object we offer for IEEE Access.
+\section{Public CTIME measurements}
+\label{sec:real}
 
-\section*{Data and code}
-HEASARC \texttt{fermigtrig} is public. Simulator, baselines, and table generator: \texttt{npm run test:paper} in the companion repository. Every macro in \texttt{paper/results.tex} is emitted by that command.
+\subsection{Headline slice}
 
-\begin{thebibliography}{00}
+The download keeps \RealPerClass{} triggers of each of GRB, SGR, solar flare, and TGF, binned to $8\times 64$ light cubes (\RealCubes{} cubes). CTIME bins are coarse, nominally $64$\,ms and $256$\,ms in the background regime. A TGF is sub-millisecond~\cite{briggs2013,roberts2018}. The linear head is trained on all known-class cubes in the slice. Known-clean evaluation reuses those cubes, so four-way accuracy is optimistic on the known-clean rows. TGF is held out entirely. Real-data compute trials use critical flips only in the headline row. The run uses the same five training seeds and evaluation seed $\RealEvalSeed$, with \RealTrials{} trials per seed.
 
-\bibitem{meegan2009}
-C.~Meegan \textit{et al.}, ``The Fermi Gamma-ray Burst Monitor,'' \textit{Astrophys.\ J.}, vol.~702, pp.~791--804, 2009.
+Table~\ref{tab:real} and Fig.~\ref{fig:simreal} compare that run with the simulator. Compute isolation on critical flips is $\RealComputeIso\%$. Held-out TGF is named compute in $\RealNovelAsCompute\%$ of trials at this slice size. Four-way accuracy is $\RealAriaAcc\%$ and sensor isolation is $\RealSensorIso\%$. Novel isolation is $\RealNovelIso\%$. On these bins a TGF is not separable from a short GRB, so held-out TGFs fall through to known. Table~\ref{tab:realconf} shows the calls at training seed $7$: all $25$ TGF cubes are called known, and $29$ of $40$ sensor injections are caught. This is a negative result about the discovery symbol, not a tuning failure. Section~\ref{sec:morph} shows that a lower morphology threshold does not fix it.
 
-\bibitem{goldstein2019}
-A.~Goldstein \textit{et al.}, ``Evaluation of automated Fermi GBM localizations of gamma-ray bursts,'' \textit{Astrophys.\ J.}, vol.~879, no.~2, 2019.
+\begin{table}[t]
+\caption{Public GBM CTIME, \RealPerClass{} triggers per class, software fault injection (percent). Mean $\pm$ standard deviation over \RealSeeds{} training seeds at evaluation seed $\RealEvalSeed$. The simulator column is Table~\ref{tab:main}.}
+\label{tab:real}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Metric & Real CTIME & Simulator \\
+\midrule
+Four-way accuracy & $\RealAriaAccPM$ & $\AriaAcc$ \\
+Range-check accuracy & $\RealRangeAccPM$ & $\RangeAcc$ \\
+Novel $\to$ novel & $\RealNovelIsoPM$ & $\NovelIso$ \\
+Novel $\to$ compute & $\RealNovelAsComputePM$ & $\NovelAsCompute$ \\
+Compute $\to$ compute & $\RealComputeIsoPM$ & $\ComputeIso$ \\
+Sensor $\to$ sensor & $\RealSensorIsoPM$ & $\SensorIso$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\bibitem{john2025}
-J.~John \textit{et al.}, ``Multivariate time series classification of Fermi-detected gamma-ray transients using convolutional-recurrent neural networks,'' \textit{Mach.\ Learn.: Sci.\ Technol.}, 2025, arXiv:2510.22412.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_sim_vs_real.pdf}
+\caption{ARIA on the simulator and on real CTIME, from Table~\ref{tab:real}. Compute isolation is high in both settings. The real compute trials are critical flips only. Sensor isolation and four-way accuracy drop. Novel isolation is zero on CTIME.}
+\label{fig:simreal}
+\end{figure}
 
-\bibitem{gavarini2022}
-L.~Gavarini, D.~Stucchi, A.~Ruospo, G.~Boracchi, and E.~S\'{a}nchez, ``Open-set recognition: An inexpensive strategy to increase DNN reliability,'' in \textit{IEEE IOLTS}, 2022.
+\input{tab_realconf.tex}
 
-\bibitem{progip2025}
-S.~Joshi \textit{et al.}, ``ProGIP: Protecting gradient-based input perturbation approaches for OOD detection from soft errors,'' \textit{ACM Trans.\ Embedded Comput.\ Syst.}, 2025.
+The across-seed spread on this slice is zero for every headline metric, because the same cubes train every seed. Slice size, cross-validation, and the half-split are the checks on that axis.
 
-\bibitem{drdna2024}
-D.~Ma \textit{et al.}, ``Dr.\ DNA: Combating silent data corruptions in deep learning using distribution of neuron activations,'' in \textit{Proc.\ ASPLOS}, 2024.
+\subsection{Slice size}
 
-\bibitem{geissler2023}
-F.~Geissler, S.~Qutub, M.~Paulitsch, and K.~Pattabiraman, ``A low-cost strategic monitoring approach for scalable and interpretable error detection in deep neural networks,'' in \textit{SAFECOMP}, 2023.
+Figure~\ref{fig:trend} and Table~\ref{tab:trend} repeat the calibrated binary32 pipeline at three slice sizes. The smaller slices are prefixes of the $25$-cube families. Four-way accuracy is $76.3\%$, $76.7\%$, and $74.4\%$. It is not monotone. Compute isolation is $100\%$ at every size. Novel isolation is $0\%$ at every size. The held-out TGF is named compute in $0\%$, $8.3\%$, and $0\%$ of trials, so the false-compute rate on novelty is small, not constant, and not a structural zero.
 
-\bibitem{schorn2020}
-C.~Schorn and L.~Gauerhof, ``FACER: A universal framework for detecting anomalous operation of deep neural networks,'' in \textit{IEEE ITSC}, 2020.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_trend.pdf}
+\caption{Real CTIME metrics against slice size, calibrated binary32, from Table~\ref{tab:trend}. Compute isolation stays at $100\%$. Novel isolation stays at $0\%$. The false-compute rate on TGF is not zero at every size.}
+\label{fig:trend}
+\end{figure}
 
-\bibitem{react2021}
-Y.~Sun, C.~Guo, and Y.~Li, ``ReAct: Out-of-distribution detection with rectified activations,'' in \textit{NeurIPS}, 2021.
+\input{tab_trend.tex}
 
-\bibitem{blink2026}
-M.~Khan, A.~Malhotra, and S.~K.\ Gupta, ``BLINK: Batch normalization-based integrity checkpoints,'' arXiv:2609.06781, 2026.
+\subsection{Why the novel symbol is empty}
+\label{sec:morph}
 
-\bibitem{gertler1990}
-J.~Gertler and D.~Singer, ``A new structural framework for parity equation-based failure detection and isolation,'' \textit{Automatica}, vol.~26, no.~2, pp.~381--388, 1990.
+Figure~\ref{fig:morph} and Table~\ref{tab:morph} plot the morphology residual on the clean cubes. The mean distance of TGF to the nearest known centroid is smaller than the mean distance of GRB. No TGF exceeds the shipped threshold. Four solar flares do, which is why a known class, not the held-out class, supplies the morphology false alarms. In the duration--width plane the four families overlap. TGF does not occupy a region the three trained classes leave empty, once the light curve has been averaged into CTIME bins.
 
-\bibitem{ftcnn2020}
-K.~Zhao \textit{et al.}, ``FT-CNN: Algorithm-based fault tolerance for convolutional neural networks,'' \textit{IEEE Trans.\ Parallel Distrib.\ Syst.}, vol.~31, no.~7, 2020.
+\input{tab_morph.tex}
 
-\bibitem{hastings2021}
-J.~E.~S.~Hastings \textit{et al.}, ``Arithmetic-intensity-guided fault tolerance for neural network inference on GPUs,'' 2021.
+\begin{figure*}
+\centering
+\includegraphics[width=0.78\textwidth]{fig_morph.pdf}
+\caption{Left: morphology distance of each clean CTIME cube to the nearest known-class centroid. The dashed line is the shipped threshold. Right: duration fraction against full width at half maximum for the same cubes. TGF sits inside the GRB cloud.}
+\label{fig:morph}
+\end{figure*}
 
-\bibitem{approxabft2023}
-X.~Xue \textit{et al.}, ``ApproxABFT: Approximate algorithm-based fault tolerance for neural network processing,'' 2023.
+Table~\ref{tab:sweep} and Fig.~\ref{fig:sweep} lower and raise that threshold. The shipped margin is $1.25$ on the clean 95th percentile. At margin $0.5$, novel isolation rises only to $12\%$, while $41.3\%$ of known triggers are called novel and four-way accuracy falls to $60\%$. There is no operating point on this slice at which TGF is recovered and known bursts are still accepted. The discovery symbol needs finer time bins. It does not need a lower threshold.
 
-\bibitem{veske2025}
-D.~Veske \textit{et al.}, ``A new search pipeline for short gamma-ray bursts in Fermi/GBM data,'' \textit{Astrophys.\ J.\ Suppl.}, 2025, arXiv:2507.05739.
+\input{tab_sweep.tex}
 
-\bibitem{bulgarelli2025}
-A.~Bulgarelli \textit{et al.}, ``Onboard machine learning for high-energy observatories,'' \textit{Galaxies}, vol.~13, no.~2, 2025.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_sweep.pdf}
+\caption{Threshold sweep from Table~\ref{tab:sweep}. The dotted line is the shipped margin. Novel isolation stays near zero until known triggers are being rejected in large numbers.}
+\label{fig:sweep}
+\end{figure}
 
-\bibitem{sirc2022}
-G.~Xia and C.-S.~Bouganis, ``Augmenting softmax information for selective classification with out-of-distribution data,'' in \textit{ACCV}, 2022.
+\section{Checks that were not in the headline table}
+\label{sec:extra}
 
-\bibitem{narasimhan2024}
-H.~Narasimhan \textit{et al.}, ``Plugin estimators for selective classification with out-of-distribution detection,'' in \textit{ICLR}, 2024.
+\subsection{Out-of-sample cubes, and the injection budget}
 
-\bibitem{pytorchfi2020}
-A.~Mahmoud \textit{et al.}, ``PyTorchFI: A runtime perturbation tool for DNNs,'' in \textit{IEEE DSN Workshops}, 2020.
+The headline real-data accuracy trains and scores known classes on the same cubes, and it injects faults only into the first $40$ known cubes. Table~\ref{tab:family} shows what that budget is. Every GRB is injected, $15$ of $25$ SGRs are injected, and no solar flare is injected. When every known cube is injected, sensor isolation rises from $\RealSensorIso\%$ to $\AllSens\%$ and four-way accuracy from $\RealAriaAcc\%$ to $\AllAcc\%$. GRB spikes are caught $56\%$ of the time. Solar-flare spikes are caught $80\%$ of the time, and the SGR rate moves from $66.7\%$ on the $15$ cubes inside the prefix to $72\%$ once all $25$ are included. The $60\%$ figure is the GRB-heavy budget, not a property of every family.
 
-\bibitem{hindy2025}
-A.~Hindy \textit{et al.}, ``Diagnostic runtime monitoring with martingales,'' in \textit{Robotics: Science and Systems}, 2025.
+\input{tab_family.tex}
+
+Table~\ref{tab:protocols} and Fig.~\ref{fig:protocols} score cubes the head was not trained on. Five-fold cross-validation, repeated five times, gives $\CvAcc\%$ accuracy, $\CvComp\%$ compute isolation, $\CvSens\%$ sensor isolation, and $\CvNovelComp\%$ of TGFs named compute. Novel isolation remains $\CvNovel\%$. The half-split agrees in both directions: accuracy $\SplitABAcc\%$ and $\SplitBAAcc\%$, sensor isolation $\SplitABSens\%$ and $\SplitBASens\%$, compute isolation $100\%$, and no TGF named compute. The in-sample headline is not an outlier relative to these splits of one slice. The seed-to-seed standard deviation of zero on the headline row was the wrong uncertainty. The fold-to-fold sensor spread, $\pm 7.5$ points, is the uncertainty this slice can support. A second catalog draw is reported below, and it moves sensor isolation by much more than the folds do. Mild bit-flips, bits 18--23, are isolated as compute on $\MildComp\%$ of the published injection budget, the same rate as critical flips, under the calibrated binary32 rule. The flips that stay invisible are the low mantissa bits in Fig.~\ref{fig:checkbits}, not this mild band.
+
+\input{tab_protocols.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_protocols.pdf}
+\caption{Public CTIME under the protocols of Table~\ref{tab:protocols}. Compute isolation stays at $100\%$. Accuracy stays in a band around the headline $74.4\%$. Sensor isolation is the quantity that moves.}
+\label{fig:protocols}
+\end{figure}
+
+\subsection{Short-window spike score}
+
+The physics residual is a full-curve cosine. A two-bin spike is a small fraction of a $64$-bin inner product, which is a plausible reason sensor isolation is the weak cell. The short-window score in Section~3 was built to test that reason. Its threshold uses clean cubes only.
+
+Table~\ref{tab:spike} and Fig.~\ref{fig:spike} are the result. On the simulator, adding the bit raises sensor isolation from $\SimHeadSens\%$ to $\SimSpikeSens\%$ and four-way accuracy from the headline to $\SimSpikeAcc\%$, while known events called sensor stay near $\SimHeadKnown\%$ and $\SimSpikeKnown\%$. On the published CTIME budget the same bit leaves sensor isolation at $\RealSpikeSens\%$ and accuracy at $\RealSpikeAcc\%$. Novel events called sensor stay at $\RealSpikeNovS\%$. The obvious short-window correction repairs the simulator and does not repair the public cubes. Section~\ref{sec:poisson} replaces that Gaussian excess with a Poisson likelihood ratio whose amplitude is maximized. The response-folded template bank of Perera and colleagues~\cite{perera2025} is a different measurement, and it is not the one in that section.
+
+\input{tab_spike.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_spike.pdf}
+\caption{Sensor isolation and four-way accuracy with and without the short-window spike bit, from Table~\ref{tab:spike}. The bit helps the simulator. It does not move the public CTIME result.}
+\label{fig:spike}
+\end{figure}
+
+\subsection{A second catalog draw}
+\label{sec:draw2}
+
+The half-split reshuffles one download. Table~\ref{tab:draw} is a second download: 25 triggers in each of the four families, no name in common with the published slice, binned by the same CTIME procedure. Training on draw~1 and scoring draw~2 gives 70.6\% four-way accuracy, 100\% compute isolation, 65\% sensor isolation, and no TGF called novel or compute. The other direction gives 62.8\% accuracy and 7.5\% sensor isolation, with compute isolation still 100\% and the novel symbol still empty. Draw~2 scored on itself is already at 25\% sensor isolation.
+
+The mechanism is the clip on the physics threshold. On draw~1 the clean residuals sit low, so the threshold takes its floor, $0.38$. On draw~2 they sit high, so the threshold takes its ceiling, $0.62$. Injected spikes on either draw have a median physics residual near $0.4$. They clear $0.38$ about as often as the headline $60\%$, and they mostly miss $0.62$. Compute isolation and the empty novel symbol are the results that survive a new draw. The sensor rate does not.
+
+Removing the clip, and refitting the same percentile, widens the disagreement. Training on draw~1 and scoring draw~2 then isolates $87.5\%$ of spikes and names $9.3\%$ of clean known cubes a sensor fault. The other direction isolates $5.0\%$. The floor and the ceiling were pulling the two thresholds toward each other. Table~\ref{tab:draw} keeps the clip.
+
+\input{tab_followup.tex}
+
+\subsection{Poisson likelihood ratio on one detector}
+\label{sec:poisson}
+
+The short-window score is a Gaussian excess against the other detectors. Perera and colleagues search the same instrument with a Poisson matched filter, folded through the detector response and a bank of spectral templates~\cite{perera2025}. For a flat template and similar backgrounds their fixed-amplitude statistic reduces to that Gaussian excess. These cubes do not contain a response matrix. A glitch amplitude is not a GRB detection limit, so the bit measured here maximizes the amplitude on the counts that are already stored.
+
+For each detector, and for the soft channel and the hard channel separately, the background is the upper median of the first eight bins and the last eight bins. That is the same edge used to subtract background elsewhere, and it is at least $0.5$ counts so the logarithm is defined. On a bin with value $d$ and background $b$, the likelihood ratio for a non-negative excess is $d\log(d/b)-(d-b)$ when $d>b$, and zero otherwise. The detector score is the maximum, over start time, of that ratio on two adjacent soft bins plus two adjacent hard bins. The event score is the largest detector. The bit fires when the score exceeds the 96th percentile of clean known cubes on the training draw, times $1.25$, and dropping the winning detector reduces the score by more than $0.28$. The threshold is fit on the training draw only. If the lookup already says compute, the call stays compute. Otherwise a firing bit is read as sensor. The injected spike is added only to the soft channel, which is the channel this ratio sees.
+
+Table~\ref{tab:poisson} and Fig.~\ref{fig:poisson} report every protocol. The lookup column matches the rate already given for that protocol. The split between $100\%$ and $55\%$ is the threshold. On draw~1 it is $743.9$. The median clean score is $39.4$ and the median spike score is $3278.6$, so every injected spike clears it. On draw~2 it is $3190.3$. The median clean score is $57.4$. The 96th percentile is set by a few clean magnetar bursts and flares that already have a large one-detector excess, and the median spike score on that draw is $3297.5$, so the threshold sits on the spikes. The bit fires on $52.5\%$ of them. The union with the lookup is the $55.0\%$ in the table. On every spiked trial in the table, the detector with the largest likelihood ratio is the injected detector.
+
+On the simulator the same bit raises sensor isolation from $77.5 \pm 0.6\%$ to $99.4 \pm 1.1\%$ and accuracy from $90.0 \pm 0.6\%$ to $92.5 \pm 0.7\%$. It also fires on flashes. Novel isolation falls from $95.0 \pm 3.2\%$ to $74.4 \pm 2.1\%$, and $20.6 \pm 2.2\%$ of flashes are called sensor. A point source near one detector is brighter there. This ratio does not divide by a detector response, so that brightness can clear the drop-gain gate. The median flash score is $3249.9$, above the simulator threshold of $1569.9 \pm 185.1$. On the public cubes the same flashes do not clear the gate: the bit fires on none of the TGFs in either draw. Critical bit-flips remain compute on every trial. The bit is true on $5.0\%$ of the draw-2 compute injections and on $1.1 \pm 0.6\%$ of the simulator compute injections, and the checksum-first rule leaves those trials as compute.
+
+\input{tab_poisson.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_poisson.pdf}
+\caption{Sensor isolation from Table~\ref{tab:poisson}. Orange is the lookup. Blue adds the Poisson likelihood-ratio bit. The bit reaches $100\%$ when the threshold is fit on draw~1. A threshold fit on draw~2 stops it at $55\%$. Error bars are the seed-to-seed standard deviation and are zero on the CTIME bars.}
+\label{fig:poisson}
+\end{figure}
+
+\subsection{Which detector the spike lands on}
+\label{sec:channel}
+
+The sensor symbol says isolate the channel. Table~\ref{tab:family} says how often that symbol fires. It does not say whether the worst detector is the detector that received the spike. Table~\ref{tab:channel} and Fig.~\ref{fig:channel} score that index on the same injections. The published injector puts the spike on the dimmest detector that is not the brightest. The clean baseline is that index on the same cube with no spike. A uniform guess over eight detectors would be right $12.5\%$ of the time.
+
+On the simulator the injected detector is the worst detector in all $72$ trials per seed, including every trial the lookup calls sensor. The clean baseline is $5.6\%$. Drawing the detector uniformly, which the other tables do not do, names it in $97.2\%$ of trials and in every trial called sensor. On the first $40$ known cubes of draw~1 the worst detector is the injected one in every trial, and every sensor call names it. The clean baseline is $15\%$. Across all $75$ known cubes the index matches in $88.0\%$ of trials and in $92.3\%$ of the trials called sensor. The misses are not spread evenly: all $25$ GRB spikes match, $24$ of $25$ SGR spikes match, and $17$ of $25$ solar-flare spikes match. Draw~2 keeps the index when it drops the sensor call. On its first $40$ known cubes the lookup says sensor on $25\%$ of trials, the worst detector is still the injected one on $92.5\%$, and the clean baseline is $0$. Of the trials called sensor, $80\%$ name the injected detector. Across all $75$ known cubes of draw~2 the match is $88.0\%$, and $83.9\%$ among sensor calls.
+
+The weak cell is the decision to say sensor. The channel named by the physics residual is usually the channel that was spiked.
+
+\input{tab_channel.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_channel.pdf}
+\caption{Channel naming from Table~\ref{tab:channel}. Blue: the worst detector is the injected detector. Orange: the lookup says sensor. Gray: the same index on the clean cube. The dotted line is a uniform guess over eight detectors, $12.5\%$. Draw~2, all known cubes, has no gray bar.}
+\label{fig:channel}
+\end{figure}
+
+\subsection{Millisecond light curves}
+\label{sec:tte}
+
+The CTIME novel symbol is empty because a sub-millisecond flash occupies one 64\,ms bin. The same names were rebinned from time-tagged files at 1\,ms, from $0.5$\,s before the trigger to $1.5$\,s after. \texttt{bn260414904} had no usable eight-detector file in that first download, leaving 25 bursts and 24 flashes. Background is the median of $[-0.5,-0.1)$\,s. Distance is Euclidean in the eight morphology features. Each burst is scored against the other bursts, and the threshold is their 95th percentile times $1.25$. Figure~\ref{fig:tte} shows the result. The threshold is $5.21$. One of 25 bursts lies above it, and 23 of 24 flashes do. The flash that does not, \texttt{bn120312139}, has a full width at half maximum of $1.2$\,s, against about $1$\,ms for the flashes that separate. This is a GRB-only distance, not a lookup label.
+
+The four-family lookup uses a later file from the same window, 25 triggers in each class, including \texttt{bn260414904}, with the same pre-trigger background and no injected fault. All five seeds agree. The physics threshold sits on its ceiling, $0.62$. Median physics residuals are $0.986$ (GRB), $0.974$ (SGR), $1$ (solar flare), and $0.954$ (TGF), so the bit is on for every burst, every magnetar burst, every flash, and 23 of 25 flares. The morphology threshold is $5.85$ and is true for 1 flash, 1 magnetar burst, 2 flares, and no burst. Those two flares are the only novel calls. The checksum threshold is $6.31\times 10^{-7}$ and the median checksum on flashes is $1.40\times 10^{-7}$, so the compute symbol stays off. Table~\ref{tab:ttelookup} names every flash a sensor fault. At 8, 16, and 50\,ms the same photons, with the ordinary eight-bin background, keep that call: median physics residuals are $1$ in every family at 8 and 16\,ms, and $1$ for bursts, magnetar bursts, and flashes at 50\,ms ($0.92$ for flares). At 8\,ms, 24 flashes are sensor and one is compute. At 16 and 50\,ms all 25 flashes are sensor. At 50\,ms, seven flares and two magnetar bursts fall through to known, and one flare is named compute.
+
+\input{tab_ttelookup.tex}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.78\textwidth]{fig_tte.pdf}
+\caption{Morphology on 1\,ms TTE for the published GRB and TGF names. Left: distance to the GRB centroid. Bursts are leave-one-out. Flashes use the centroid of all 25 bursts. The dashed line is the 95th percentile of the burst distances, times $1.25$. Right: full width at half maximum of the background-subtracted sum, on a logarithmic axis.}
+\label{fig:tte}
+\end{figure*}
+
+\subsection{Lookup against a labeled fusion}
+\label{sec:fusion}
+
+The lookup is a table. Table~\ref{tab:fusion} asks what a learned combiner does with the same four numbers. The combiner is a class-weighted softmax on the physics residual, the morphology residual, $\log_{10}$ of the checksum, and the drop gain. The logarithm is a monotone rescaling: the raw checksum spans about eight decades, and a linear model standardized on that raw value cannot see a separation that a threshold can see. Training uses a disjoint simulator stream and includes flashes labeled novel. The lookup's thresholds are still fit on clean known-class residuals only. Both are scored on the published evaluation stream.
+
+On single faults the fusion is the more accurate rule: $96.5 \pm 0.3\%$ four-way accuracy against $\AriaAcc\%$, sensor isolation $96.7 \pm 0.7\%$ against $\SensorIso\%$, and no held-out flash called compute. Compute isolation is $98.6\%$ on every seed, against $100\%$ for the lookup. The fusion does not turn a bit-flip into a discovery. On the 80 compound trials it does drop the checksum-first priority. It returns sensor on $72.5 \pm 7.5\%$ of them and compute on $27.5 \pm 7.5\%$, and novel on none. The lookup returns compute on all of them, including the trials whose sensor bit is also true. The accuracy belongs to the fusion, which was allowed to see the four labels. The refusal to preserve a corrupt product belongs to the lookup.
+
+\input{tab_fusion.tex}
+
+\subsection{A checksum on a small convolutional head}
+\label{sec:conv}
+
+The checksum in~\eqref{eq:exec} reads the linear head. It does not read a filter that sits in front of that head. Table~\ref{tab:conv} and Fig.~\ref{fig:conv} put the same identity on a smaller network trained here: four filters of width $5$ over the eight background-subtracted detector traces, then a linear readout to GRB, SGR, and solar flare. There is no recurrence. This is not the convolutional-recurrent classifier of John and colleagues~\cite{john2025}. The conv checksum compares the sum of the four filter outputs with a convolution by the stored sum of those filters. In exact arithmetic the two sides agree for every input, including a flash and a spiked detector. A flipped kernel weight breaks the agreement. The readout keeps its own row-sum checksum, which does not contain the kernels.
+
+Table~\ref{tab:conv} and Fig.~\ref{fig:conv} give the rates, including closed-set accuracy $57.2 \pm 1.2\%$ (simulator) and $42.9 \pm 0.5\%$ (CTIME). The readout checksum crosses its clean threshold on $21.7 \pm 4.4\%$ of simulator critical kernel flips and $16.0 \pm 5.1\%$ of CTIME ones. The exact-arithmetic form of that residual stays below $10^{-6}$, and no filter output is non-finite. Those trips are the binary32 leak in~\eqref{eq:exec}, not a checksum of the kernel.
+
+\input{tab_conv.tex}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth,height=1.65in,keepaspectratio]{fig_conv.pdf}
+\caption{Checksum calls from Table~\ref{tab:conv}. The conv checksum catches every critical kernel flip and calls no flash a compute fault. The readout checksum catches its own flips. Its rate on kernel flips is the binary32 leak, not a view of the kernel.}
+\label{fig:conv}
+\end{figure}
+
+\section{Discussion}
+
+The tables and figures above are the measurement. ProGIP is the nearest range-space neighbor and has no sensor symbol~\cite{progip2025}. Structured parity residuals have no symbol for a new class~\cite{gertler1990}. Checksum-first names a spike plus a bit-flip as compute; a labeled fusion of the same residuals usually names it sensor (Table~\ref{tab:fusion}). The four-filter checksum is not the convolutional-recurrent network of John and colleagues~\cite{john2025}. The paper does not report a beam test, a streaming monitor, a martingale test~\cite{hindy2025}, a detector-response template bank, or a classification of catalog particle rows.
+
+\section{Conclusions}
+
+ARIA is a four-symbol lookup whose residuals are forbidden from seeing the wrong cause. The contribution is the dictionary that keeps discovery as a non-fault symbol.
+
+\section*{Data Availability}
+{\raggedright
+Fermi-GBM files are public through HEASARC. Scored cubes are \file{cubes.jsonl}, \file{cubes_draw2.jsonl}, \file{tte_cubes_grb_tgf.jsonl}, and \file{tte_cubes.jsonl}, under \file{experiments/gbm/}. Channel, checksum, and Poisson counts are \file{channel_id.json}, \file{conv_checksum.json}, and \file{poisson_filter.json}, regenerated from the matching programs in \file{src/lib/aria/}. Raw FITS files are not included.\par}
+
+\section*{Author Contributions}
+Suhasini S.\ is the corresponding author. \textbf{Haripriya S.:} Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, Writing -- original draft, Writing -- review and editing, Visualization. \textbf{Suhasini S.:} Supervision, Writing -- review and editing.
+
+\section*{Acknowledgment}
+The authors thank the High Energy Astrophysics Science Archive Research Center for public access to the Fermi-GBM files used in this work. This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Interest}
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\begin{thebibliography}{48}
+
+\bibitem{meegan2009} C.~Meegan \textit{et al.}, The Fermi Gamma-ray Burst Monitor, Astrophys. J. 702 (2009) 791--804. \url{https://doi.org/10.1088/0004-637X/702/1/791}.
+
+\bibitem{vonkienlin2020} A.~von Kienlin \textit{et al.}, The fourth Fermi-GBM gamma-ray burst catalog: a decade of data, Astrophys. J. 893 (2020) 46. \url{https://doi.org/10.3847/1538-4357/ab7a18}.
+
+\bibitem{bhat2016} P.~N.~Bhat \textit{et al.}, The third Fermi GBM gamma-ray burst catalog: the first six years, Astrophys. J. Suppl. Ser. 223 (2016) 28. \url{https://doi.org/10.3847/0067-0049/223/2/28}.
+
+\bibitem{poolakkil2021} S.~Poolakkil \textit{et al.}, The Fermi-GBM gamma-ray burst spectral catalog: 10 yr of data, Astrophys. J. 913 (2021) 60. \url{https://doi.org/10.3847/1538-4357/abf24d}.
+
+\bibitem{roberts2018} O.~J.~Roberts \textit{et al.}, The first Fermi-GBM terrestrial gamma ray flash catalog, J. Geophys. Res. Space Phys. 123 (2018) 4381--4401. \url{https://doi.org/10.1029/2017JA024837}.
+
+\bibitem{briggs2013} M.~S.~Briggs \textit{et al.}, Terrestrial gamma-ray flashes in the Fermi era: improved observations and analysis methods, J. Geophys. Res. Space Phys. 118 (2013) 3805--3830. \url{https://doi.org/10.1002/jgra.50205}.
+
+\bibitem{paciesas2012} W.~S.~Paciesas \textit{et al.}, The Fermi GBM gamma-ray burst catalog: the first two years, Astrophys. J. Suppl. Ser. 199 (2012) 18. \url{https://doi.org/10.1088/0067-0049/199/1/18}.
+
+\bibitem{goldstein2020} A.~Goldstein \textit{et al.}, Evaluation of automated Fermi GBM localizations of gamma-ray bursts, Astrophys. J. 895 (2020) 40. \url{https://doi.org/10.3847/1538-4357/ab8bdb}.
+
+\bibitem{goldstein2019} A.~Goldstein \textit{et al.}, Updates to the Fermi-GBM targeted sub-threshold search in preparation for the third observing run of LIGO/Virgo, arXiv:1903.12597, 2019.
+
+\bibitem{connaughton2015} V.~Connaughton \textit{et al.}, Localization of gamma-ray bursts using the Fermi Gamma-Ray Burst Monitor, Astrophys. J. Suppl. Ser. 216 (2015) 32. \url{https://doi.org/10.1088/0067-0049/216/2/32}.
+
+\bibitem{kouveliotou1993} C.~Kouveliotou \textit{et al.}, Identification of two classes of gamma-ray bursts, Astrophys. J. 413 (1993) L101--L104. \url{https://doi.org/10.1086/186969}.
+
+\bibitem{perera2025} A.~Perera, B.~Zackay, T.~Venumadhav, A new search pipeline for short gamma-ray bursts in Fermi/GBM data --- a 50\% increase in the number of detections, Astrophys. J. Suppl. Ser. 281 (2025) 4. \url{https://doi.org/10.3847/1538-4365/ae0189}.
+
+\bibitem{john2025} A.~A.~John \textit{et al.}, Multivariate time series classification of Fermi-detected gamma-ray transients using convolutional-recurrent neural networks, Mach. Learn.: Sci. Technol. 7 (2026) 025046. \url{https://doi.org/10.1088/2632-2153/ae5501}.
+
+\bibitem{bulgarelli2025} A.~Bulgarelli \textit{et al.}, Onboard machine learning for high-energy observatories for spacecraft autonomy and ground segment operations, Particles 8 (2025) 102. \url{https://doi.org/10.3390/particles8040102}.
+
+\bibitem{hendrycks2017} D.~Hendrycks, K.~Gimpel, A baseline for detecting misclassified and out-of-distribution examples in neural networks, in: International Conference on Learning Representations, 2017.
+
+\bibitem{liu2020} W.~Liu, X.~Wang, J.~D.~Owens, Y.~Li, Energy-based out-of-distribution detection, in: Advances in Neural Information Processing Systems, 2020.
+
+\bibitem{liang2018} S.~Liang, Y.~Li, R.~Srikant, Enhancing the reliability of out-of-distribution image detection in neural networks, in: International Conference on Learning Representations, 2018.
+
+\bibitem{lee2018} K.~Lee, K.~Lee, H.~Lee, J.~Shin, A simple unified framework for detecting out-of-distribution samples and adversarial attacks, in: Advances in Neural Information Processing Systems, 2018.
+
+\bibitem{hsu2020} Y.-C.~Hsu, Y.~Shen, H.~Jin, Z.~Kira, Generalized ODIN: detecting out-of-distribution image without learning from out-of-distribution data, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2020, pp. 10951--10960.
+
+\bibitem{wang2022} H.~Wang, Z.~Li, L.~Feng, W.~Zhang, ViM: out-of-distribution with virtual-logit matching, in: IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2022, pp. 4921--4930.
+
+\bibitem{bendale2016} A.~Bendale, T.~E.~Boult, Towards open set deep networks, in: IEEE Conference on Computer Vision and Pattern Recognition, 2016, pp. 1563--1572.
+
+\bibitem{scheirer2013} W.~J.~Scheirer, A.~de Rezende Rocha, A.~Sapkota, T.~E.~Boult, Toward open set recognition, IEEE Trans. Pattern Anal. Mach. Intell. 35 (2013) 1757--1772. \url{https://doi.org/10.1109/TPAMI.2012.256}.
+
+\bibitem{geng2021} C.~Geng, S.-J.~Huang, S.~Chen, Recent advances in open set recognition: a survey, IEEE Trans. Pattern Anal. Mach. Intell. 43 (2021) 3614--3631.
+
+\bibitem{vaze2022} S.~Vaze, K.~Han, A.~Vedaldi, A.~Zisserman, Open-set recognition: a good closed-set classifier is all you need?, in: International Conference on Learning Representations, 2022.
+
+\bibitem{yang2022} J.~Yang \textit{et al.}, OpenOOD: benchmarking generalized out-of-distribution detection, in: Advances in Neural Information Processing Systems, Datasets and Benchmarks, 2022.
+
+\bibitem{ruff2021} L.~Ruff \textit{et al.}, A unifying review of deep and shallow anomaly detection, Proc. IEEE 109 (2021) 756--795. \url{https://doi.org/10.1109/JPROC.2021.3052449}.
+
+\bibitem{gavarini2022} G.~Gavarini, D.~Stucchi, A.~Ruospo, G.~Boracchi, E.~S\'{a}nchez, Open-set recognition: an inexpensive strategy to increase DNN reliability, in: IEEE International Symposium on On-Line Testing and Robust System Design, 2022, pp. 1--7. \url{https://doi.org/10.1109/IOLTS56730.2022.9897805}.
+
+\bibitem{sirc2022} G.~Xia, C.-S.~Bouganis, Augmenting softmax information for selective classification with out-of-distribution data, in: Asian Conference on Computer Vision, 2022, pp. 664--680.
+
+\bibitem{narasimhan2024} H.~Narasimhan \textit{et al.}, Plugin estimators for selective classification with out-of-distribution detection, in: International Conference on Learning Representations, 2024.
+
+\bibitem{progip2025} S.~Joshi \textit{et al.}, ProGIP: protecting gradient-based input perturbation approaches for OOD detection from soft errors, ACM Trans. Embed. Comput. Syst. 24 (2025) 118. \url{https://doi.org/10.1145/3761796}.
+
+\bibitem{react2021} Y.~Sun, C.~Guo, Y.~Li, ReAct: out-of-distribution detection with rectified activations, in: Advances in Neural Information Processing Systems, vol. 34, 2021.
+
+\bibitem{drdna2024} D.~Ma \textit{et al.}, Dr.\ DNA: combating silent data corruptions in deep learning using distribution of neuron activations, in: ACM International Conference on Architectural Support for Programming Languages and Operating Systems, vol. 3, 2024, pp. 239--252.
+
+\bibitem{geissler2023} F.~Geissler, S.~Qutub, M.~Paulitsch, K.~Pattabiraman, A low-cost strategic monitoring approach for scalable and interpretable error detection in deep neural networks, in: Computer Safety, Reliability, and Security (SAFECOMP), Lecture Notes in Computer Science, vol. 14181, Springer, 2023, pp. 75--88.
+
+\bibitem{schorn2020} C.~Schorn, L.~Gauerhof, FACER: a universal framework for detecting anomalous operation of deep neural networks, in: IEEE International Conference on Intelligent Transportation Systems, 2020, pp. 1--6.
+
+\bibitem{blink2026} M.~Khan, A.~Malhotra, S.~K.~Gupta, BLINK: batch normalization-based integrity checkpoints for in-situ detection and mitigation of diverse weight corruptions in DNN accelerators, arXiv:2609.06781, 2026.
+
+\bibitem{li2017} G.~Li \textit{et al.}, Understanding error propagation in deep learning neural network (DNN) accelerators and applications, in: International Conference for High Performance Computing, Networking, Storage and Analysis, 2017. \url{https://doi.org/10.1145/3126908.3126964}.
+
+\bibitem{reagen2018} B.~Reagen \textit{et al.}, Ares: a framework for quantifying the resilience of deep neural networks, in: Design Automation Conference, 2018.
+
+\bibitem{pytorchfi2020} A.~Mahmoud \textit{et al.}, PyTorchFI: a runtime perturbation tool for DNNs, in: IEEE/IFIP International Conference on Dependable Systems and Networks Workshops, 2020.
+
+\bibitem{dixit2021} H.~D.~Dixit \textit{et al.}, Silent data corruptions at scale, arXiv:2102.11245, 2021.
+
+\bibitem{hochschild2021} P.~H.~Hochschild \textit{et al.}, Cores that don't count, in: Workshop on Hot Topics in Operating Systems, 2021, pp. 9--16.
+
+\bibitem{dixit2022} H.~D.~Dixit \textit{et al.}, Detecting silent data corruptions in the wild, arXiv:2203.08989, 2022.
+
+\bibitem{gertler1990} J.~Gertler, D.~Singer, A new structural framework for parity equation-based failure detection and isolation, Automatica 26 (1990) 381--388.
+
+\bibitem{venkatasubramanian2003} V.~Venkatasubramanian, R.~Rengaswamy, K.~Yin, S.~N.~Kavuri, A review of process fault detection and diagnosis. Part I: quantitative model-based methods, Comput. Chem. Eng. 27 (2003) 293--311. \url{https://doi.org/10.1016/S0098-1354(02)00160-6}.
+
+\bibitem{isermann2005} R.~Isermann, Model-based fault-detection and diagnosis --- status and applications, Annu. Rev. Control 29 (2005) 71--85. \url{https://doi.org/10.1016/j.arcontrol.2004.12.002}.
+
+\bibitem{chen1999} J.~Chen, R.~J.~Patton, Robust Model-Based Fault Diagnosis for Dynamic Systems, Kluwer Academic Publishers, 1999.
+
+\bibitem{huang1984} K.-H.~Huang, J.~A.~Abraham, Algorithm-based fault tolerance for matrix operations, IEEE Trans. Comput. C-33 (1984) 518--528.
+
+\bibitem{zhao2021} K.~Zhao \textit{et al.}, FT-CNN: algorithm-based fault tolerance for convolutional neural networks, IEEE Trans. Parallel Distrib. Syst. 32 (2021) 1677--1689. \url{https://doi.org/10.1109/TPDS.2020.3043449}.
+
+\bibitem{kosaian2021} J.~Kosaian, K.~V.~Rashmi, Arithmetic-intensity-guided fault tolerance for neural network inference on GPUs, in: International Conference for High Performance Computing, Networking, Storage and Analysis, 2021.
+
+\bibitem{approxabft2023} X.~Xue \textit{et al.}, ApproxABFT: approximate algorithm-based fault tolerance for vision transformers, arXiv:2302.10469, 2023.
+
+\bibitem{higham2002} N.~J.~Higham, Accuracy and Stability of Numerical Algorithms, 2nd ed., SIAM, 2002.
+
+\bibitem{ieee754} IEEE, IEEE Standard for Floating-Point Arithmetic, IEEE Std 754-2019, 2019.
+
+\bibitem{hindy2025} A.~Hindy \textit{et al.}, Diagnostic runtime monitoring with martingales, in: Robotics: Science and Systems, 2025, arXiv:2407.21748.
 
 \end{thebibliography}
 
-\begin{IEEEbiographynophoto}{S.~Haripriya}
-is an undergraduate student (24BCE5415) in Computer Science and Engineering at Vellore Institute of Technology, Chennai. Her coursework includes embedded systems and reliable machine inference.
-\end{IEEEbiographynophoto}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{haripriya.jpg}}]{Haripriya S.}
+is pursuing the B.Tech.\ degree in Computer Science and Engineering with the School of Computer Science and Engineering, Vellore Institute of Technology, Chennai, India. She has completed the Foundation Level of the B.S.\ programme in Data Science and Applications at the Indian Institute of Technology Madras. Her interests include sensor-data diagnostics and machine learning for scientific measurements.
+\end{IEEEbiography}
 
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{suhasini.jpg}}]{Suhasini S.}
+received the B.E. degree in Electronics and Communication Engineering from Anna University, Chennai, India, the M.E. degree from Vel Tech Technical University, Chennai, India, and the Ph.D. degree from SRM Institute of Science and Technology, Chennai, India, in 2023. She is currently an Assistant Professor (Senior Grade-I) with the School of Electronics Engineering, Vellore Institute of Technology (VIT), Chennai, India. She is the corresponding author of this article. She is a Member of the IEEE. Her research interests include wearable thermoelectric devices, flexible thermoelectric materials, thermoelectric energy harvesting and cooling, embedded systems, and AI-assisted modeling and optimization. She has published research articles in international journals and conferences and holds a patent related to wearable thermoelectric cooling technology.
+\end{IEEEbiography}
+
+\EOD
 \end{document}

@@ -25,8 +25,8 @@
   },
   "fourWay": {
     "aria": {
-      "mean": 0.8930555555555555,
-      "std": 0.002598373185259708
+      "mean": 0.9,
+      "std": 0.005555555555555536
     },
     "range": {
       "mean": 0.4305555555555555,
@@ -35,18 +35,302 @@
   },
   "isolation": {
     "novel": {
+      "mean": 0.95,
+      "std": 0.03239417719358502
+    },
+    "compute": {
       "mean": 1,
       "std": 0
     },
-    "compute": {
-      "mean": 0.9388888888888889,
-      "std": 0.01111111111111111
-    },
     "sensor": {
-      "mean": 0.7777777777777778,
-      "std": 0
+      "mean": 0.775,
+      "std": 0.005555555555555581
+    },
+    "novelAsCompute": {
+      "mean": 0.05,
+      "std": 0.032394177193585005
     }
   },
+  "precision": {
+    "fp64": {
+      "aria": {
+        "mean": 0.9013888888888889,
+        "std": 0.005196746370519345
+      },
+      "novel": {
+        "mean": 0.961111111111111,
+        "std": 0.041573970964154924
+      },
+      "novelAsCompute": {
+        "mean": 0.03888888888888888,
+        "std": 0.0415739709641549
+      },
+      "compute": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeMild": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownAsCompute": {
+        "mean": 0.0037037037037037034,
+        "std": 0.0045360921162651445
+      },
+      "sensor": {
+        "mean": 0.7749999999999999,
+        "std": 0.005555555555555581
+      }
+    },
+    "fp32": {
+      "aria": {
+        "mean": 0.9,
+        "std": 0.005555555555555536
+      },
+      "novel": {
+        "mean": 0.95,
+        "std": 0.03239417719358502
+      },
+      "novelAsCompute": {
+        "mean": 0.05,
+        "std": 0.032394177193585005
+      },
+      "compute": {
+        "mean": 1,
+        "std": 0
+      },
+      "computeMild": {
+        "mean": 1,
+        "std": 0
+      },
+      "knownAsCompute": {
+        "mean": 0.0037037037037037034,
+        "std": 0.0045360921162651445
+      },
+      "sensor": {
+        "mean": 0.775,
+        "std": 0.005555555555555581
+      }
+    },
+    "fp16": {
+      "aria": {
+        "mean": 0.8625,
+        "std": 0.01194767398200365
+      },
+      "novel": {
+        "mean": 0.9555555555555555,
+        "std": 0.062360956446232345
+      },
+      "novelAsCompute": {
+        "mean": 0.04444444444444444,
+        "std": 0.06236095644623236
+      },
+      "compute": {
+        "mean": 0.8416666666666668,
+        "std": 0.05015408357018832
+      },
+      "computeMild": {
+        "mean": 0.7611111111111111,
+        "std": 0.05983516452371674
+      },
+      "knownAsCompute": {
+        "mean": 0.0018518518518518517,
+        "std": 0.0037037037037037034
+      },
+      "sensor": {
+        "mean": 0.7777777777777778,
+        "std": 0
+      }
+    }
+  },
+  "checkMode": "calibrated",
+  "modes": {
+    "calibrated": {
+      "fp64": {
+        "aria": {
+          "mean": 0.9013888888888889,
+          "std": 0.005196746370519345
+        },
+        "novel": {
+          "mean": 0.961111111111111,
+          "std": 0.041573970964154924
+        },
+        "novelAsCompute": {
+          "mean": 0.03888888888888888,
+          "std": 0.0415739709641549
+        },
+        "compute": {
+          "mean": 1,
+          "std": 0
+        },
+        "computeMild": {
+          "mean": 1,
+          "std": 0
+        },
+        "knownAsCompute": {
+          "mean": 0.0037037037037037034,
+          "std": 0.0045360921162651445
+        },
+        "sensor": {
+          "mean": 0.7749999999999999,
+          "std": 0.005555555555555581
+        }
+      },
+      "fp32": {
+        "aria": {
+          "mean": 0.9,
+          "std": 0.005555555555555536
+        },
+        "novel": {
+          "mean": 0.95,
+          "std": 0.03239417719358502
+        },
+        "novelAsCompute": {
+          "mean": 0.05,
+          "std": 0.032394177193585005
+        },
+        "compute": {
+          "mean": 1,
+          "std": 0
+        },
+        "computeMild": {
+          "mean": 1,
+          "std": 0
+        },
+        "knownAsCompute": {
+          "mean": 0.0037037037037037034,
+          "std": 0.0045360921162651445
+        },
+        "sensor": {
+          "mean": 0.775,
+          "std": 0.005555555555555581
+        }
+      },
+      "fp16": {
+        "aria": {
+          "mean": 0.8625,
+          "std": 0.01194767398200365
+        },
+        "novel": {
+          "mean": 0.9555555555555555,
+          "std": 0.062360956446232345
+        },
+        "novelAsCompute": {
+          "mean": 0.04444444444444444,
+          "std": 0.06236095644623236
+        },
+        "compute": {
+          "mean": 0.8416666666666668,
+          "std": 0.05015408357018832
+        },
+        "computeMild": {
+          "mean": 0.7611111111111111,
+          "std": 0.05983516452371674
+        },
+        "knownAsCompute": {
+          "mean": 0.0018518518518518517,
+          "std": 0.0037037037037037034
+        },
+        "sensor": {
+          "mean": 0.7777777777777778,
+          "std": 0
+        }
+      }
+    },
+    "bounded": {
+      "fp64": {
+        "aria": {
+          "mean": 0.9083333333333334,
+          "std": 0.001701034543599423
+        },
+        "novel": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "compute": {
+          "mean": 1,
+          "std": 0
+        },
+        "computeMild": {
+          "mean": 1,
+          "std": 0
+        },
+        "knownAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "sensor": {
+          "mean": 0.7777777777777778,
+          "std": 0
+        }
+      },
+      "fp32": {
+        "aria": {
+          "mean": 0.9083333333333334,
+          "std": 0.001701034543599423
+        },
+        "novel": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "compute": {
+          "mean": 1,
+          "std": 0
+        },
+        "computeMild": {
+          "mean": 1,
+          "std": 0
+        },
+        "knownAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "sensor": {
+          "mean": 0.7777777777777778,
+          "std": 0
+        }
+      },
+      "fp16": {
+        "aria": {
+          "mean": 0.773611111111111,
+          "std": 0.0034020690871988464
+        },
+        "novel": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "compute": {
+          "mean": 0.46111111111111114,
+          "std": 0.010393492741038731
+        },
+        "computeMild": {
+          "mean": 0.15555555555555553,
+          "std": 0.013608276348795427
+        },
+        "knownAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "sensor": {
+          "mean": 0.7777777777777778,
+          "std": 0
+        }
+      }
+    }
+  },
+  "execPrecision": "fp32",
   "energyConfound": {
     "novelFlagged": {
       "mean": 1,
@@ -64,12 +348,12 @@
   },
   "ablations": {
     "full": {
-      "mean": 0.8930555555555555,
-      "std": 0.002598373185259708
+      "mean": 0.9,
+      "std": 0.005555555555555536
     },
     "checksum": {
-      "mean": 0.6097222222222223,
-      "std": 0.002777777777777818
+      "mean": 0.6236111111111111,
+      "std": 0.0017010345435994234
     },
     "physics": {
       "mean": 0.5347222222222222,
@@ -88,9 +372,39 @@
     "n": 80,
     "known-clean": 0,
     "novel-clean": 0,
-    "sensor": 1,
-    "compute": 79,
-    "namedCompute": 0.9875
+    "sensor": 0,
+    "compute": 80,
+    "namedCompute": 1
+  },
+  "seed7ConfusionAria": {
+    "known-clean": {
+      "known-clean": 98,
+      "novel-clean": 0,
+      "sensor": 10,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "novel-clean": {
+      "known-clean": 0,
+      "novel-clean": 35,
+      "sensor": 0,
+      "compute": 1,
+      "anomaly": 0
+    },
+    "sensor": {
+      "known-clean": 15,
+      "novel-clean": 1,
+      "sensor": 56,
+      "compute": 0,
+      "anomaly": 0
+    },
+    "compute": {
+      "known-clean": 0,
+      "novel-clean": 0,
+      "sensor": 0,
+      "compute": 72,
+      "anomaly": 0
+    }
   },
   "lastConfusionAria": {
     "known-clean": {
@@ -102,9 +416,9 @@
     },
     "novel-clean": {
       "known-clean": 0,
-      "novel-clean": 36,
+      "novel-clean": 33,
       "sensor": 0,
-      "compute": 0,
+      "compute": 3,
       "anomaly": 0
     },
     "sensor": {
@@ -115,10 +429,10 @@
       "anomaly": 0
     },
     "compute": {
-      "known-clean": 4,
+      "known-clean": 0,
       "novel-clean": 0,
       "sensor": 0,
-      "compute": 68,
+      "compute": 72,
       "anomaly": 0
     }
   },
@@ -155,7 +469,7 @@
   "lastThresholds": {
     "physics": 0.62,
     "morph": 3.4464635885328825,
-    "exec": 0.0008647828041620211,
+    "exec": 7.360264399016093e-7,
     "dropGain": 0.28,
     "energyHigh": 5.677805391211819,
     "energyLow": 1.638359136713421,
@@ -165,16 +479,17 @@
   "perSeed": [
     {
       "seed": 7,
-      "aria": 0.8923611111111112,
+      "aria": 0.90625,
       "range": 0.4965277777777778,
-      "novelAsAria": 1,
-      "computeAsAria": 0.9305555555555556,
+      "novelAsAria": 0.9722222222222222,
+      "novelAsCompute": 0.027777777777777776,
+      "computeAsAria": 1,
       "sensorAsAria": 0.7777777777777778,
       "novelFlaggedEnergy": 1,
       "computeFlaggedEnergy": 0.1527777777777778,
       "ablations": {
-        "full": 0.8923611111111112,
-        "checksum": 0.6076388888888888,
+        "full": 0.90625,
+        "checksum": 0.625,
         "physics": 0.5347222222222222,
         "morph": 0.5,
         "no-checksum": 0.6597222222222222
@@ -182,16 +497,17 @@
     },
     {
       "seed": 19,
-      "aria": 0.8958333333333334,
+      "aria": 0.90625,
       "range": 0.3576388888888889,
       "novelAsAria": 1,
-      "computeAsAria": 0.9583333333333334,
+      "novelAsCompute": 0,
+      "computeAsAria": 1,
       "sensorAsAria": 0.7777777777777778,
       "novelFlaggedEnergy": 1,
       "computeFlaggedEnergy": 0.20833333333333334,
       "ablations": {
-        "full": 0.8958333333333334,
-        "checksum": 0.6145833333333334,
+        "full": 0.90625,
+        "checksum": 0.625,
         "physics": 0.5347222222222222,
         "morph": 0.4895833333333333,
         "no-checksum": 0.65625
@@ -201,14 +517,15 @@
       "seed": 31,
       "aria": 0.8923611111111112,
       "range": 0.4027777777777778,
-      "novelAsAria": 1,
-      "computeAsAria": 0.9305555555555556,
-      "sensorAsAria": 0.7777777777777778,
+      "novelAsAria": 0.9166666666666666,
+      "novelAsCompute": 0.08333333333333333,
+      "computeAsAria": 1,
+      "sensorAsAria": 0.7638888888888888,
       "novelFlaggedEnergy": 1,
       "computeFlaggedEnergy": 0.25,
       "ablations": {
         "full": 0.8923611111111112,
-        "checksum": 0.6076388888888888,
+        "checksum": 0.6215277777777778,
         "physics": 0.5347222222222222,
         "morph": 0.5,
         "no-checksum": 0.6597222222222222
@@ -216,16 +533,17 @@
     },
     {
       "seed": 43,
-      "aria": 0.8888888888888888,
+      "aria": 0.8958333333333334,
       "range": 0.3888888888888889,
-      "novelAsAria": 1,
-      "computeAsAria": 0.9305555555555556,
+      "novelAsAria": 0.9444444444444444,
+      "novelAsCompute": 0.05555555555555555,
+      "computeAsAria": 1,
       "sensorAsAria": 0.7777777777777778,
       "novelFlaggedEnergy": 1,
       "computeFlaggedEnergy": 0.1527777777777778,
       "ablations": {
-        "full": 0.8888888888888888,
-        "checksum": 0.6076388888888888,
+        "full": 0.8958333333333334,
+        "checksum": 0.6215277777777778,
         "physics": 0.5347222222222222,
         "morph": 0.4895833333333333,
         "no-checksum": 0.65625
@@ -233,16 +551,17 @@
     },
     {
       "seed": 61,
-      "aria": 0.8958333333333334,
+      "aria": 0.8993055555555556,
       "range": 0.5069444444444444,
-      "novelAsAria": 1,
-      "computeAsAria": 0.9444444444444444,
+      "novelAsAria": 0.9166666666666666,
+      "novelAsCompute": 0.08333333333333333,
+      "computeAsAria": 1,
       "sensorAsAria": 0.7777777777777778,
       "novelFlaggedEnergy": 1,
       "computeFlaggedEnergy": 0.08333333333333333,
       "ablations": {
-        "full": 0.8958333333333334,
-        "checksum": 0.6111111111111112,
+        "full": 0.8993055555555556,
+        "checksum": 0.625,
         "physics": 0.5347222222222222,
         "morph": 0.4965277777777778,
         "no-checksum": 0.6597222222222222

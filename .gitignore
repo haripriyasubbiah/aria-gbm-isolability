@@ -47,3 +47,12 @@ next-env.d.ts
 # Fermi GBM FITS (large). Cubes JSONL is committed.
 experiments/gbm/raw/
 *.pha.part
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.spl

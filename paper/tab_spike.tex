@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\caption{Short-window spike score, thresholded on clean cubes only and OR-ed into the sensor bit (percent). On the simulator the bit raises sensor isolation. On the published CTIME budget it does not.}
+\label{tab:spike}
+\centering
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Rule & Acc. & Sensor & Known$\to$sensor & Novel$\to$sensor \\
+\midrule
+Simulator, headline & 90.0 $\pm$ 0.6 & 77.5 $\pm$ 0.6 & 9.3 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+Simulator, spike bit added & 92.2 $\pm$ 0.6 & 86.7 $\pm$ 0.7 & 9.4 $\pm$ 0.4 & 0.0 $\pm$ 0.0 \\
+CTIME, headline & 74.4 $\pm$ 0.0 & 60.0 $\pm$ 0.0 & 2.7 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+CTIME, spike bit added & 74.4 $\pm$ 0.0 & 60.0 $\pm$ 0.0 & 2.7 $\pm$ 0.0 & 0.0 $\pm$ 0.0 \\
+\bottomrule
+\end{tabular}}
+\end{table*}

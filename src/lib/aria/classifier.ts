@@ -1,4 +1,4 @@
-import { KNOWN_CLASSES, type FeatureVector, type KnownClass, type LinearHead } from "./types";
+import { KNOWN_CLASSES, type CheckMode, type FeatureVector, type KnownClass, type LinearHead, type Precision } from "./types";
 import { bitFlipF32 } from "./rng";
 
 const N_CLASS = KNOWN_CLASSES.length;
@@ -48,14 +48,91 @@ export function predictProbs(head: LinearHead, xRaw: FeatureVector): {
   };
 }
 
-/** Algorithm-based checksum: 1ᵀ(Wx) vs (1ᵀW)x, using the stored clean checksum. */
-export function executionResidual(head: LinearHead, xRaw: FeatureVector): number {
+/** Unit roundoff of each emulated precision. */
+export const UNIT_ROUNDOFF: Record<Precision, number> = { fp64: 2 ** -53, fp32: 2 ** -24, fp16: 2 ** -11 };
+
+/** Round-to-nearest emulation of IEEE binary16 (normals, subnormals, overflow to +-Inf). */
+export function roundHalf(x: number): number {
+  if (!Number.isFinite(x) || x === 0) return x;
+  const ax = Math.abs(x);
+  if (ax >= 65520) return x > 0 ? Infinity : -Infinity;
+  if (ax < 2 ** -25) return 0;
+  const e = Math.max(Math.floor(Math.log2(ax)), -14);
+  const step = 2 ** (e - 10);
+  return Math.sign(x) * Math.round(ax / step) * step;
+}
+
+/** Checksum decision mode. Default "calibrated" (the shipped rule); "bounded" is the rounding-error-bounded residual. Env ARIA_CHECK or setCheckMode(). */
+export let CHECK_MODE: CheckMode = (process.env.ARIA_CHECK as CheckMode | undefined) ?? "calibrated";
+export function setCheckMode(m: CheckMode): void {
+  CHECK_MODE = m;
+}
+
+/** Largest absolute rounding error of one operation that lands in the subnormal range (half the smallest subnormal spacing). */
+const UNDERFLOW_ABS: Record<Precision, number> = { fp64: 0, fp32: 2 ** -150, fp16: 2 ** -25 };
+
+/** Longest chain of rounded operations any term of either dot product passes through (round W or c, multiply, <=9 adds in a row, <=3 adds across rows) with margin for the fp64 reference checksum. */
+const N_OPS = 20;
+/** Upper bound on the number of operations that can each lose an absolute UNDERFLOW_ABS. */
+const N_UNDERFLOW_OPS = 128;
+
+function gamma(n: number, u: number): number {
+  return (n * u) / (1 - n * u);
+}
+
+/**
+ * A-priori bound on |live - stored| when nothing is corrupted, from the standard
+ * model fl(a op b) = (a op b)(1 + d), |d| <= u (Higham, ch. 3). Because the
+ * standardised input x_r is shared by both evaluations, its rounding cancels.
+ *
+ *   B = gamma_N(u) * ( sum_j (a_j + |c_j|) |x_j| + sum|b| + |sum b| ) + eta
+ *
+ * where a_j = sum_i |W_ij|, c_j = sum_i W_ij and sum|b| are the *stored clean*
+ * quantities. Using the live weights here would let a flipped high-order bit
+ * inflate its own bound and hide itself.
+ */
+export function executionBound(head: LinearHead, xRaw: FeatureVector, prec: Precision): number {
   const x = standardize(xRaw, head.featureMean, head.featureStd);
-  const z = logitsOf(head, x);
-  const live = z.reduce((s, v) => s + v, 0);
+  let s = head.absBias + Math.abs(head.bias.reduce((a, b) => a + b, 0));
+  for (let j = 0; j < x.length; j++) s += (head.absChecksum[j]! + Math.abs(head.checksum[j]!)) * Math.abs(x[j]!);
+  return gamma(N_OPS, UNIT_ROUNDOFF[prec]) * s + N_UNDERFLOW_OPS * UNDERFLOW_ABS[prec];
+}
+
+export function rounder(prec: Precision): (x: number) => number {
+  if (prec === "fp32") return Math.fround;
+  if (prec === "fp16") return roundHalf;
+  return (x) => x;
+}
+
+/**
+ * Algorithm-based checksum: 1ᵀ(Wx) vs (1ᵀW)x, using the stored clean checksum.
+ * The live matvec and the stored-checksum dot product are both evaluated with
+ * every operation rounded to `prec`, so the residual has the noise floor a
+ * real fp32 / fp16 deployment would have. A non-finite live value (overflow
+ * from a high-exponent flip) is reported as the maximum residual.
+ */
+export function executionResidual(head: LinearHead, xRaw: FeatureVector, prec: Precision = "fp64", mode: CheckMode = CHECK_MODE): number {
+  const r = rounder(prec);
+  const x = standardize(xRaw, head.featureMean, head.featureStd).map(r);
+  let live = 0;
+  for (let i = 0; i < head.weights.length; i++) {
+    let zi = r(head.bias[i]!);
+    const row = head.weights[i]!;
+    for (let j = 0; j < row.length; j++) zi = r(zi + r(r(row[j]!) * x[j]!));
+    live = r(live + zi);
+  }
   let stored = 0;
-  for (let j = 0; j < x.length; j++) stored += head.checksum[j]! * x[j]!;
-  stored += head.bias.reduce((s, b) => s + b, 0);
+  for (let j = 0; j < x.length; j++) stored = r(stored + r(r(head.checksum[j]!) * x[j]!));
+  let bsum = 0;
+  for (const b of head.bias) bsum = r(bsum + r(b));
+  stored = r(stored + bsum);
+  if (mode === "bounded") {
+    if (!Number.isFinite(live) || !Number.isFinite(stored)) return 1e9;
+    const diff = Math.abs(live - stored);
+    const bound = executionBound(head, xRaw, prec);
+    return bound > 0 ? diff / bound : diff > 0 ? 1e9 : 0;
+  }
+  if (!Number.isFinite(live) || !Number.isFinite(stored)) return 1;
   const mag = Math.abs(live) + Math.abs(stored) + 1;
   return Math.abs(live - stored) / mag;
 }
@@ -127,9 +204,14 @@ export function trainHead(
   }
 
   const checksum = Array(nFeat).fill(0);
+  const absChecksum = Array(nFeat).fill(0);
   for (let i = 0; i < N_CLASS; i++) {
-    for (let j = 0; j < nFeat; j++) checksum[j] += weights[i]![j]!;
+    for (let j = 0; j < nFeat; j++) {
+      checksum[j] += weights[i]![j]!;
+      absChecksum[j] += Math.abs(weights[i]![j]!);
+    }
   }
+  const absBias = bias.reduce((a, b) => a + Math.abs(b), 0);
 
   const grouped: Record<KnownClass, number[][]> = { GRB: [], SGR: [], SFLARE: [] };
   for (const s of samples) grouped[s.y].push(standardize(s.x, mean, std));
@@ -141,5 +223,5 @@ export function trainHead(
     centroids[cls] = c.map((v) => v / Math.max(rows.length, 1));
   }
 
-  return { weights, bias, checksum, featureMean: mean, featureStd: std, centroids };
+  return { weights, bias, checksum, absChecksum, absBias, featureMean: mean, featureStd: std, centroids };
 }

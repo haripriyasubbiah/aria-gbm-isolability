@@ -1,0 +1,20 @@
+\begin{table}[t]
+\caption{Lookup against a labeled fusion of the same four residuals on the simulator (percent, mean $\pm$ standard deviation over five training seeds). The fusion is a class-weighted softmax on the physics residual, the morphology residual, $\log_{10}$ of the checksum, and the drop gain. It is trained on a disjoint stream that includes flashes labeled novel. The lookup never receives those labels. Compound rows are the 80 spike-plus-bit-flip trials. The lookup column is the decision, so a compound trial whose sensor bit is also true is still counted as compute.}
+\label{tab:fusion}
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Metric & Lookup & Fusion \\
+\midrule
+Four-way accuracy & $90.0 \pm 0.6$ & $96.5 \pm 0.3$ \\
+Novel isolation & $95.0 \pm 3.2$ & 100 \\
+Novel $\to$ compute & $5.0 \pm 3.2$ & 0 \\
+Compute isolation & 100 & 98.6 \\
+Sensor isolation & $77.5 \pm 0.6$ & $96.7 \pm 0.7$ \\
+Compound $\to$ compute & 100 & $27.5 \pm 7.5$ \\
+Compound $\to$ sensor & 0 & $72.5 \pm 7.5$ \\
+Compound $\to$ novel & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}

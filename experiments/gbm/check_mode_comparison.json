@@ -1,0 +1,390 @@
+{
+  "calibrated": [
+    {
+      "prec": "fp32",
+      "perClass": 8,
+      "nCubes": 32,
+      "ariaAcc": {
+        "mean": 0.7625,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.5833333333333334,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp32",
+      "perClass": 12,
+      "nCubes": 48,
+      "ariaAcc": {
+        "mean": 0.7666666666666667,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6111111111111112,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0.08333333333333333,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333,
+        0.08333333333333333
+      ]
+    },
+    {
+      "prec": "fp32",
+      "perClass": 25,
+      "nCubes": 100,
+      "ariaAcc": {
+        "mean": 0.7444444444444445,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 8,
+      "nCubes": 32,
+      "ariaAcc": {
+        "mean": 0.7375,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.5416666666666666,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0.125,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.125
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 12,
+      "nCubes": 48,
+      "ariaAcc": {
+        "mean": 0.775,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6388888888888888,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 25,
+      "nCubes": 100,
+      "ariaAcc": {
+        "mean": 0.7444444444444445,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "bounded": [
+    {
+      "prec": "fp32",
+      "perClass": 8,
+      "nCubes": 32,
+      "ariaAcc": {
+        "mean": 0.8,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.7083333333333334,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp32",
+      "perClass": 12,
+      "nCubes": 48,
+      "ariaAcc": {
+        "mean": 0.775,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6388888888888888,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp32",
+      "perClass": 25,
+      "nCubes": 100,
+      "ariaAcc": {
+        "mean": 0.7444444444444445,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 8,
+      "nCubes": 32,
+      "ariaAcc": {
+        "mean": 0.7375,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 0.7916666666666666,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.7083333333333334,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 12,
+      "nCubes": 48,
+      "ariaAcc": {
+        "mean": 0.75,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 0.9166666666666666,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6388888888888888,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "prec": "fp16",
+      "perClass": 25,
+      "nCubes": 100,
+      "ariaAcc": {
+        "mean": 0.7333333333333333,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 0.95,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.6,
+        "std": 0
+      },
+      "novelIso": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsCompute": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsComputePerSeed": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

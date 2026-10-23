@@ -1,0 +1,228 @@
+{
+  "note": "Fusion is a class-weighted softmax on (r_phys, r_morph, log10(r_exec), dropGain), trained on a disjoint labeled stream (seed+8000) that includes TGF labeled novel. Lookup thresholds use clean known-class residuals only. Both are scored on eval seed 123. The log is a monotone rescaling so the linear model can see a residual that otherwise spans eight decades.",
+  "summary": {
+    "lookupAcc": {
+      "mean": 0.9,
+      "std": 0.005555555555555536
+    },
+    "fusionAcc": {
+      "mean": 0.9645833333333333,
+      "std": 0.003402069087198847
+    },
+    "lookupNovel": {
+      "mean": 0.95,
+      "std": 0.03239417719358502
+    },
+    "fusionNovel": {
+      "mean": 1,
+      "std": 0
+    },
+    "lookupNovelAsCompute": {
+      "mean": 0.05,
+      "std": 0.032394177193585005
+    },
+    "fusionNovelAsCompute": {
+      "mean": 0,
+      "std": 0
+    },
+    "lookupComputeAsNovel": {
+      "mean": 0,
+      "std": 0
+    },
+    "fusionComputeAsNovel": {
+      "mean": 0,
+      "std": 0
+    },
+    "lookupCompute": {
+      "mean": 1,
+      "std": 0
+    },
+    "fusionCompute": {
+      "mean": 0.986111111111111,
+      "std": 1.1102230246251565e-16
+    },
+    "lookupSensor": {
+      "mean": 0.775,
+      "std": 0.005555555555555581
+    },
+    "fusionSensor": {
+      "mean": 0.9666666666666666,
+      "std": 0.006804138174397694
+    },
+    "fusionTrainCompute": {
+      "mean": 0.9972222222222221,
+      "std": 0.005555555555555537
+    },
+    "fusionComputeAsSensor": {
+      "mean": 0,
+      "std": 0
+    },
+    "fusionComputeAsKnown": {
+      "mean": 0.01388888888888889,
+      "std": 1.734723475976807e-18
+    }
+  },
+  "compound": {
+    "lookupCompute": {
+      "mean": 1,
+      "std": 0
+    },
+    "lookupNovel": {
+      "mean": 0,
+      "std": 0
+    },
+    "fusionCompute": {
+      "mean": 0.275,
+      "std": 0.07541551564499177
+    },
+    "fusionNovel": {
+      "mean": 0,
+      "std": 0
+    },
+    "fusionSensor": {
+      "mean": 0.725,
+      "std": 0.07541551564499178
+    },
+    "fusionKnown": {
+      "mean": 0,
+      "std": 0
+    }
+  },
+  "perSeed": [
+    {
+      "seed": 7,
+      "lookupAcc": 0.90625,
+      "fusionAcc": 0.9652777777777778,
+      "fusionTrainCompute": 1,
+      "fusionComputeAsSensor": 0,
+      "fusionComputeAsKnown": 0.013888888888888888,
+      "lookupNovel": 0.9722222222222222,
+      "fusionNovel": 1,
+      "lookupNovelAsCompute": 0.027777777777777776,
+      "fusionNovelAsCompute": 0,
+      "lookupComputeAsNovel": 0,
+      "fusionComputeAsNovel": 0,
+      "lookupCompute": 1,
+      "fusionCompute": 0.9861111111111112,
+      "lookupSensor": 0.7777777777777778,
+      "fusionSensor": 0.9722222222222222,
+      "compound": {
+        "n": 80,
+        "lookupCompute": 1,
+        "lookupNovel": 0,
+        "fusionCompute": 0.425,
+        "fusionNovel": 0,
+        "fusionSensor": 0.575,
+        "fusionKnown": 0
+      }
+    },
+    {
+      "seed": 19,
+      "lookupAcc": 0.90625,
+      "fusionAcc": 0.9652777777777778,
+      "fusionTrainCompute": 0.9861111111111112,
+      "fusionComputeAsSensor": 0,
+      "fusionComputeAsKnown": 0.013888888888888888,
+      "lookupNovel": 1,
+      "fusionNovel": 1,
+      "lookupNovelAsCompute": 0,
+      "fusionNovelAsCompute": 0,
+      "lookupComputeAsNovel": 0,
+      "fusionComputeAsNovel": 0,
+      "lookupCompute": 1,
+      "fusionCompute": 0.9861111111111112,
+      "lookupSensor": 0.7777777777777778,
+      "fusionSensor": 0.9583333333333334,
+      "compound": {
+        "n": 80,
+        "lookupCompute": 1,
+        "lookupNovel": 0,
+        "fusionCompute": 0.2375,
+        "fusionNovel": 0,
+        "fusionSensor": 0.7625,
+        "fusionKnown": 0
+      }
+    },
+    {
+      "seed": 31,
+      "lookupAcc": 0.8923611111111112,
+      "fusionAcc": 0.9652777777777778,
+      "fusionTrainCompute": 1,
+      "fusionComputeAsSensor": 0,
+      "fusionComputeAsKnown": 0.013888888888888888,
+      "lookupNovel": 0.9166666666666666,
+      "fusionNovel": 1,
+      "lookupNovelAsCompute": 0.08333333333333333,
+      "fusionNovelAsCompute": 0,
+      "lookupComputeAsNovel": 0,
+      "fusionComputeAsNovel": 0,
+      "lookupCompute": 1,
+      "fusionCompute": 0.9861111111111112,
+      "lookupSensor": 0.7638888888888888,
+      "fusionSensor": 0.9722222222222222,
+      "compound": {
+        "n": 80,
+        "lookupCompute": 1,
+        "lookupNovel": 0,
+        "fusionCompute": 0.25,
+        "fusionNovel": 0,
+        "fusionSensor": 0.75,
+        "fusionKnown": 0
+      }
+    },
+    {
+      "seed": 43,
+      "lookupAcc": 0.8958333333333334,
+      "fusionAcc": 0.96875,
+      "fusionTrainCompute": 1,
+      "fusionComputeAsSensor": 0,
+      "fusionComputeAsKnown": 0.013888888888888888,
+      "lookupNovel": 0.9444444444444444,
+      "fusionNovel": 1,
+      "lookupNovelAsCompute": 0.05555555555555555,
+      "fusionNovelAsCompute": 0,
+      "lookupComputeAsNovel": 0,
+      "fusionComputeAsNovel": 0,
+      "lookupCompute": 1,
+      "fusionCompute": 0.9861111111111112,
+      "lookupSensor": 0.7777777777777778,
+      "fusionSensor": 0.9722222222222222,
+      "compound": {
+        "n": 80,
+        "lookupCompute": 1,
+        "lookupNovel": 0,
+        "fusionCompute": 0.225,
+        "fusionNovel": 0,
+        "fusionSensor": 0.775,
+        "fusionKnown": 0
+      }
+    },
+    {
+      "seed": 61,
+      "lookupAcc": 0.8993055555555556,
+      "fusionAcc": 0.9583333333333334,
+      "fusionTrainCompute": 1,
+      "fusionComputeAsSensor": 0,
+      "fusionComputeAsKnown": 0.013888888888888888,
+      "lookupNovel": 0.9166666666666666,
+      "fusionNovel": 1,
+      "lookupNovelAsCompute": 0.08333333333333333,
+      "fusionNovelAsCompute": 0,
+      "lookupComputeAsNovel": 0,
+      "fusionComputeAsNovel": 0,
+      "lookupCompute": 1,
+      "fusionCompute": 0.9861111111111112,
+      "lookupSensor": 0.7777777777777778,
+      "fusionSensor": 0.9583333333333334,
+      "compound": {
+        "n": 80,
+        "lookupCompute": 1,
+        "lookupNovel": 0,
+        "fusionCompute": 0.2375,
+        "fusionNovel": 0,
+        "fusionSensor": 0.7625,
+        "fusionKnown": 0
+      }
+    }
+  ]
+}

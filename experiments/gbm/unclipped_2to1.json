@@ -1,0 +1,270 @@
+{
+  "trainPath": "experiments/gbm/cubes_draw2.jsonl",
+  "evalPath": "experiments/gbm/cubes.jsonl",
+  "seeds": [
+    7,
+    19,
+    31,
+    43,
+    61
+  ],
+  "evalSeed": 123,
+  "nTrain": 100,
+  "nEval": 100,
+  "nTrialsEval": 180,
+  "heldout": {
+    "mean": {
+      "ariaAcc": 0.6222222222222222,
+      "rangeAcc": 0.4444444444444445,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.05,
+      "knownAsSensor": 0.026666666666666665,
+      "energyNovel": 0.04,
+      "energyCompute": 0.225
+    },
+    "std": {
+      "ariaAcc": 0,
+      "rangeAcc": 5.551115123125783e-17,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 0,
+      "sensorIso": 0,
+      "knownAsSensor": 3.469446951953614e-18,
+      "energyNovel": 0,
+      "energyCompute": 0
+    }
+  },
+  "inSample": {
+    "mean": {
+      "ariaAcc": 0.6666666666666666,
+      "rangeAcc": 0.45,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.175,
+      "knownAsSensor": 0.013333333333333332,
+      "energyNovel": 0.08,
+      "energyCompute": 0.325
+    },
+    "std": {
+      "ariaAcc": 0,
+      "rangeAcc": 0,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 0,
+      "sensorIso": 0,
+      "knownAsSensor": 1.734723475976807e-18,
+      "energyNovel": 0,
+      "energyCompute": 0
+    }
+  },
+  "perSeed": [
+    {
+      "seed": 7,
+      "heldout": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6222222222222222,
+        "rangeAcc": 0.4444444444444444,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.05,
+        "knownAsSensor": 0.02666666666666667,
+        "energyNovel": 0.04,
+        "energyCompute": 0.225
+      },
+      "inSample": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6666666666666666,
+        "rangeAcc": 0.45,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.175,
+        "knownAsSensor": 0.013333333333333334,
+        "energyNovel": 0.08,
+        "energyCompute": 0.325
+      }
+    },
+    {
+      "seed": 19,
+      "heldout": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6222222222222222,
+        "rangeAcc": 0.4444444444444444,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.05,
+        "knownAsSensor": 0.02666666666666667,
+        "energyNovel": 0.04,
+        "energyCompute": 0.225
+      },
+      "inSample": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6666666666666666,
+        "rangeAcc": 0.45,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.175,
+        "knownAsSensor": 0.013333333333333334,
+        "energyNovel": 0.08,
+        "energyCompute": 0.325
+      }
+    },
+    {
+      "seed": 31,
+      "heldout": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6222222222222222,
+        "rangeAcc": 0.4444444444444444,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.05,
+        "knownAsSensor": 0.02666666666666667,
+        "energyNovel": 0.04,
+        "energyCompute": 0.225
+      },
+      "inSample": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6666666666666666,
+        "rangeAcc": 0.45,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.175,
+        "knownAsSensor": 0.013333333333333334,
+        "energyNovel": 0.08,
+        "energyCompute": 0.325
+      }
+    },
+    {
+      "seed": 43,
+      "heldout": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6222222222222222,
+        "rangeAcc": 0.4444444444444444,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.05,
+        "knownAsSensor": 0.02666666666666667,
+        "energyNovel": 0.04,
+        "energyCompute": 0.225
+      },
+      "inSample": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6666666666666666,
+        "rangeAcc": 0.45,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.175,
+        "knownAsSensor": 0.013333333333333334,
+        "energyNovel": 0.08,
+        "energyCompute": 0.325
+      }
+    },
+    {
+      "seed": 61,
+      "heldout": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6222222222222222,
+        "rangeAcc": 0.4444444444444444,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.05,
+        "knownAsSensor": 0.02666666666666667,
+        "energyNovel": 0.04,
+        "energyCompute": 0.225
+      },
+      "inSample": {
+        "nCubes": 100,
+        "byFamily": {
+          "GRB": 25,
+          "SGR": 25,
+          "SFLARE": 25,
+          "TGF": 25
+        },
+        "nTrials": 180,
+        "ariaAcc": 0.6666666666666666,
+        "rangeAcc": 0.45,
+        "novelIso": 0,
+        "novelAsCompute": 0,
+        "computeIso": 1,
+        "sensorIso": 0.175,
+        "knownAsSensor": 0.013333333333333334,
+        "energyNovel": 0.08,
+        "energyCompute": 0.325
+      }
+    }
+  ]
+}

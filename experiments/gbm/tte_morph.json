@@ -1,0 +1,408 @@
+{
+  "path": "experiments/gbm/tte_cubes.jsonl",
+  "nGrb": 25,
+  "nTgf": 24,
+  "dt": 0.001,
+  "window": [
+    -0.5,
+    1.5
+  ],
+  "background": "per-detector median of [-0.5 s, -0.1 s), then the shared 8-bin estimator sees a zero trailing edge",
+  "threshold": 5.212704186480826,
+  "grbLoo": {
+    "median": 2.524039210982053,
+    "p95": 4.17016334918466,
+    "above": 1
+  },
+  "tgf": {
+    "median": 14.573322922347167,
+    "min": 2.8298878787341324,
+    "max": 23.89366428483545,
+    "above": 23
+  },
+  "durationMs": {
+    "grbMedian": 553,
+    "tgfMedian": 229
+  },
+  "fwhmMs": {
+    "grbMedian": 1974,
+    "tgfMedian": 1,
+    "summedGrbMedian": 1976,
+    "summedTgfMedian": 1
+  },
+  "hardness": {
+    "grbMedian": 1.6842897460015644,
+    "tgfMedian": 1.8133971291861894
+  },
+  "grb": [
+    {
+      "name": "bn091026550",
+      "distance": 2.3066307956937284,
+      "durationMs": 601,
+      "fwhmMs": 1990,
+      "summedFwhmMs": 1990
+    },
+    {
+      "name": "bn101227195",
+      "distance": 3.107054620072082,
+      "durationMs": 486,
+      "fwhmMs": 1754,
+      "summedFwhmMs": 1989
+    },
+    {
+      "name": "bn110520302",
+      "distance": 2.3104264174724736,
+      "durationMs": 710,
+      "fwhmMs": 1984,
+      "summedFwhmMs": 1981
+    },
+    {
+      "name": "bn120227725",
+      "distance": 1.8302581824114577,
+      "durationMs": 480,
+      "fwhmMs": 1978,
+      "summedFwhmMs": 1978
+    },
+    {
+      "name": "bn120403857",
+      "distance": 3.9371716443824076,
+      "durationMs": 358,
+      "fwhmMs": 1975,
+      "summedFwhmMs": 1988
+    },
+    {
+      "name": "bn121216419",
+      "distance": 1.8175336032549405,
+      "durationMs": 531,
+      "fwhmMs": 1987,
+      "summedFwhmMs": 1978
+    },
+    {
+      "name": "bn141205018",
+      "distance": 1.969063201708893,
+      "durationMs": 546,
+      "fwhmMs": 1988,
+      "summedFwhmMs": 1988
+    },
+    {
+      "name": "bn150312403",
+      "distance": 1.7202286213398845,
+      "durationMs": 479,
+      "fwhmMs": 1972,
+      "summedFwhmMs": 1976
+    },
+    {
+      "name": "bn160326062",
+      "distance": 1.886482624331308,
+      "durationMs": 631,
+      "fwhmMs": 1992,
+      "summedFwhmMs": 1959
+    },
+    {
+      "name": "bn170116238",
+      "distance": 2.653607120436338,
+      "durationMs": 553,
+      "fwhmMs": 1975,
+      "summedFwhmMs": 1986
+    },
+    {
+      "name": "bn180630467",
+      "distance": 3.001429339002175,
+      "durationMs": 881,
+      "fwhmMs": 1970,
+      "summedFwhmMs": 1972
+    },
+    {
+      "name": "bn200107810",
+      "distance": 2.524039210982053,
+      "durationMs": 425,
+      "fwhmMs": 1915,
+      "summedFwhmMs": 1945
+    },
+    {
+      "name": "bn200607921",
+      "distance": 5.002557399933933,
+      "durationMs": 871,
+      "fwhmMs": 1956,
+      "summedFwhmMs": 1956
+    },
+    {
+      "name": "bn220430900",
+      "distance": 2.1920348604366056,
+      "durationMs": 599,
+      "fwhmMs": 1958,
+      "summedFwhmMs": 1949
+    },
+    {
+      "name": "bn230426853",
+      "distance": 3.787426895206529,
+      "durationMs": 692,
+      "fwhmMs": 1989,
+      "summedFwhmMs": 1983
+    },
+    {
+      "name": "bn230428381",
+      "distance": 2.565562146467294,
+      "durationMs": 475,
+      "fwhmMs": 1974,
+      "summedFwhmMs": 1975
+    },
+    {
+      "name": "bn230524357",
+      "distance": 2.6812286310990245,
+      "durationMs": 790,
+      "fwhmMs": 1986,
+      "summedFwhmMs": 1975
+    },
+    {
+      "name": "bn240119729",
+      "distance": 5.856363432832193,
+      "durationMs": 471,
+      "fwhmMs": 1309,
+      "summedFwhmMs": 1307
+    },
+    {
+      "name": "bn250330255",
+      "distance": 1.5089049100681426,
+      "durationMs": 506,
+      "fwhmMs": 1959,
+      "summedFwhmMs": 1973
+    },
+    {
+      "name": "bn250725077",
+      "distance": 4.17016334918466,
+      "durationMs": 821,
+      "fwhmMs": 1898,
+      "summedFwhmMs": 1975
+    },
+    {
+      "name": "bn250926827",
+      "distance": 1.0929988467119733,
+      "durationMs": 678,
+      "fwhmMs": 1946,
+      "summedFwhmMs": 1979
+    },
+    {
+      "name": "bn251018723",
+      "distance": 2.2101249871442925,
+      "durationMs": 505,
+      "fwhmMs": 1969,
+      "summedFwhmMs": 1905
+    },
+    {
+      "name": "bn251114860",
+      "distance": 3.470991472926753,
+      "durationMs": 846,
+      "fwhmMs": 1978,
+      "summedFwhmMs": 1978
+    },
+    {
+      "name": "bn260512706",
+      "distance": 2.1780855789136853,
+      "durationMs": 644,
+      "fwhmMs": 1975,
+      "summedFwhmMs": 1986
+    },
+    {
+      "name": "bn260710541",
+      "distance": 2.6361358572511286,
+      "durationMs": 543,
+      "fwhmMs": 1945,
+      "summedFwhmMs": 1910.0000000000002
+    }
+  ],
+  "flashes": [
+    {
+      "name": "bn100911473",
+      "distance": 14.791261189501123,
+      "durationMs": 29,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn111121424",
+      "distance": 14.228114506595,
+      "durationMs": 573,
+      "fwhmMs": 2,
+      "summedFwhmMs": 2,
+      "above": true
+    },
+    {
+      "name": "bn120312139",
+      "distance": 2.8298878787341324,
+      "durationMs": 446,
+      "fwhmMs": 1699,
+      "summedFwhmMs": 1232,
+      "above": false
+    },
+    {
+      "name": "bn120605851",
+      "distance": 14.530819729521884,
+      "durationMs": 298,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn130820401",
+      "distance": 14.414340222180357,
+      "durationMs": 303,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn140630748",
+      "distance": 14.25355282362943,
+      "durationMs": 552,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn140804347",
+      "distance": 15.35521277610095,
+      "durationMs": 18,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn140912846",
+      "distance": 15.119848142708463,
+      "durationMs": 320,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn160311670",
+      "distance": 6.419027648427703,
+      "durationMs": 294,
+      "fwhmMs": 1791,
+      "summedFwhmMs": 1906.0000000000002,
+      "above": true
+    },
+    {
+      "name": "bn161014981",
+      "distance": 14.573322922347167,
+      "durationMs": 283,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn170909434",
+      "distance": 14.537906120246086,
+      "durationMs": 199,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn180417162",
+      "distance": 14.492369971185,
+      "durationMs": 252,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn180724548",
+      "distance": 14.504559658776442,
+      "durationMs": 229,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn180814995",
+      "distance": 14.54485153054528,
+      "durationMs": 208,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn190105022",
+      "distance": 15.865063354855097,
+      "durationMs": 253,
+      "fwhmMs": 6,
+      "summedFwhmMs": 4,
+      "above": true
+    },
+    {
+      "name": "bn200202897",
+      "distance": 14.488183011392604,
+      "durationMs": 226,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn201025784",
+      "distance": 18.374080158872342,
+      "durationMs": 309,
+      "fwhmMs": 30,
+      "summedFwhmMs": 5,
+      "above": true
+    },
+    {
+      "name": "bn220904222",
+      "distance": 15.144345170114077,
+      "durationMs": 9,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn230623782",
+      "distance": 14.625356443479285,
+      "durationMs": 184,
+      "fwhmMs": 2,
+      "summedFwhmMs": 2,
+      "above": true
+    },
+    {
+      "name": "bn240221917",
+      "distance": 14.964097126020295,
+      "durationMs": 327,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn240612910",
+      "distance": 23.89366428483545,
+      "durationMs": 22,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn241014617",
+      "distance": 14.93747140504006,
+      "durationMs": 141,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn250706758",
+      "distance": 15.545215903872032,
+      "durationMs": 103,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    },
+    {
+      "name": "bn250925416",
+      "distance": 15.160042174391025,
+      "durationMs": 4,
+      "fwhmMs": 1,
+      "summedFwhmMs": 1,
+      "above": true
+    }
+  ]
+}

@@ -1,0 +1,1389 @@
+{
+  "nCubes": 100,
+  "injectionCap40ByFamily": {
+    "GRB": 25,
+    "SGR": 15,
+    "SFLARE": 0,
+    "TGF": 0
+  },
+  "realCriticalCap40": {
+    "ariaAcc": {
+      "mean": 0.7444444444444445,
+      "std": 0
+    },
+    "novelIso": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsCompute": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsKnown": {
+      "mean": 1,
+      "std": 0
+    },
+    "novelAsSensor": {
+      "mean": 0,
+      "std": 0
+    },
+    "computeIso": {
+      "mean": 1,
+      "std": 0
+    },
+    "sensorIso": {
+      "mean": 0.6,
+      "std": 0
+    },
+    "knownAsSensor": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    },
+    "knownAsNovel": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    }
+  },
+  "realMildCap40": {
+    "ariaAcc": {
+      "mean": 0.7444444444444445,
+      "std": 0
+    },
+    "novelIso": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsCompute": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsKnown": {
+      "mean": 1,
+      "std": 0
+    },
+    "novelAsSensor": {
+      "mean": 0,
+      "std": 0
+    },
+    "computeIso": {
+      "mean": 1,
+      "std": 0
+    },
+    "sensorIso": {
+      "mean": 0.6,
+      "std": 0
+    },
+    "knownAsSensor": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    },
+    "knownAsNovel": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    }
+  },
+  "realCriticalAllKnown": {
+    "ariaAcc": {
+      "mean": 0.788,
+      "std": 0
+    },
+    "novelIso": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsCompute": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsKnown": {
+      "mean": 1,
+      "std": 0
+    },
+    "novelAsSensor": {
+      "mean": 0,
+      "std": 0
+    },
+    "computeIso": {
+      "mean": 1,
+      "std": 0
+    },
+    "sensorIso": {
+      "mean": 0.6933333333333334,
+      "std": 0
+    },
+    "knownAsSensor": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    },
+    "knownAsNovel": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    }
+  },
+  "realOrSpikeCap40": {
+    "ariaAcc": {
+      "mean": 0.7444444444444445,
+      "std": 0
+    },
+    "novelIso": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsCompute": {
+      "mean": 0,
+      "std": 0
+    },
+    "novelAsKnown": {
+      "mean": 1,
+      "std": 0
+    },
+    "novelAsSensor": {
+      "mean": 0,
+      "std": 0
+    },
+    "computeIso": {
+      "mean": 1,
+      "std": 0
+    },
+    "sensorIso": {
+      "mean": 0.6,
+      "std": 0
+    },
+    "knownAsSensor": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    },
+    "knownAsNovel": {
+      "mean": 0.026666666666666665,
+      "std": 3.469446951953614e-18
+    }
+  },
+  "realConfusionSeed7": {
+    "known-clean": {
+      "known-clean": 70,
+      "novel-clean": 2,
+      "sensor": 2,
+      "compute": 1
+    },
+    "novel-clean": {
+      "known-clean": 25,
+      "novel-clean": 0,
+      "sensor": 0,
+      "compute": 0
+    },
+    "sensor": {
+      "known-clean": 16,
+      "novel-clean": 0,
+      "sensor": 24,
+      "compute": 0
+    },
+    "compute": {
+      "known-clean": 0,
+      "novel-clean": 0,
+      "sensor": 0,
+      "compute": 40
+    }
+  },
+  "morphology": {
+    "morphThreshold": 3.9763846429842746,
+    "summary": {
+      "GRB": {
+        "mean": 1.178355875804749,
+        "std": 0.536168484868768,
+        "min": 0.475075336350821,
+        "max": 2.8729139924761515,
+        "n": 25,
+        "aboveThreshold": 0
+      },
+      "SGR": {
+        "mean": 1.3598939779108874,
+        "std": 0.6489341336233193,
+        "min": 0.38783957673622266,
+        "max": 3.18110771438742,
+        "n": 25,
+        "aboveThreshold": 0
+      },
+      "SFLARE": {
+        "mean": 2.652968934743521,
+        "std": 1.818616392898468,
+        "min": 0.7608958001382027,
+        "max": 9.588941422779463,
+        "n": 25,
+        "aboveThreshold": 4
+      },
+      "TGF": {
+        "mean": 1.0818404999288163,
+        "std": 0.4385093079737933,
+        "min": 0.5707114331706562,
+        "max": 2.466962452163157,
+        "n": 25,
+        "aboveThreshold": 0
+      }
+    },
+    "calls": {
+      "GRB": {
+        "known-clean": 25,
+        "novel-clean": 0,
+        "sensor": 0,
+        "compute": 0
+      },
+      "SGR": {
+        "known-clean": 24,
+        "novel-clean": 0,
+        "sensor": 1,
+        "compute": 0
+      },
+      "SFLARE": {
+        "known-clean": 21,
+        "novel-clean": 2,
+        "sensor": 1,
+        "compute": 1
+      },
+      "TGF": {
+        "known-clean": 25,
+        "novel-clean": 0,
+        "sensor": 0,
+        "compute": 0
+      }
+    }
+  },
+  "morphPoints": [
+    {
+      "family": "GRB",
+      "morph": 0.7277970260719467,
+      "duration": 0.359375,
+      "fwhm": 0.328125,
+      "hardness": 1.0387481038636335
+    },
+    {
+      "family": "GRB",
+      "morph": 0.6204847819831568,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 1.194257375524777
+    },
+    {
+      "family": "GRB",
+      "morph": 1.9598997367896784,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.5115763546797565
+    },
+    {
+      "family": "GRB",
+      "morph": 1.5374770771594817,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.3178200802189686
+    },
+    {
+      "family": "GRB",
+      "morph": 0.9229907088949414,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.4088477880529517
+    },
+    {
+      "family": "GRB",
+      "morph": 1.3959010262997857,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 0.899300666478905
+    },
+    {
+      "family": "GRB",
+      "morph": 0.475075336350821,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.0459816303099585
+    },
+    {
+      "family": "GRB",
+      "morph": 1.4748354995991537,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 0.8539953636741723
+    },
+    {
+      "family": "GRB",
+      "morph": 1.3789399852673905,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 1.257138431352268
+    },
+    {
+      "family": "GRB",
+      "morph": 1.3897343146996386,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.2250691553270217
+    },
+    {
+      "family": "GRB",
+      "morph": 0.9093606819354575,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 0.988367377971489
+    },
+    {
+      "family": "GRB",
+      "morph": 1.0622062847619647,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.2331798016332411
+    },
+    {
+      "family": "GRB",
+      "morph": 0.6763142799718397,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.2440902980057909
+    },
+    {
+      "family": "GRB",
+      "morph": 0.5318993461539795,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.2310715221377688
+    },
+    {
+      "family": "GRB",
+      "morph": 1.1673615808398503,
+      "duration": 0.34375,
+      "fwhm": 0.296875,
+      "hardness": 1.1852394332515939
+    },
+    {
+      "family": "GRB",
+      "morph": 0.5434010295207025,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.202901260953163
+    },
+    {
+      "family": "GRB",
+      "morph": 0.6340734743251741,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.136519497717948
+    },
+    {
+      "family": "GRB",
+      "morph": 1.614408220075187,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.116896430787463
+    },
+    {
+      "family": "GRB",
+      "morph": 1.2398321643572234,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.2925676021059835
+    },
+    {
+      "family": "GRB",
+      "morph": 2.8729139924761515,
+      "duration": 0.359375,
+      "fwhm": 0.28125,
+      "hardness": 2.053961054195614
+    },
+    {
+      "family": "SGR",
+      "morph": 1.7999590457364045,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.1304001685906029
+    },
+    {
+      "family": "SGR",
+      "morph": 1.3711463797391137,
+      "duration": 0.359375,
+      "fwhm": 0.328125,
+      "hardness": 0.9276462227466297
+    },
+    {
+      "family": "GRB",
+      "morph": 0.6493205992116065,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.3478679769867772
+    },
+    {
+      "family": "SGR",
+      "morph": 0.38783957673622266,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.2479893571989706
+    },
+    {
+      "family": "SGR",
+      "morph": 0.9105840199625301,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.1974027969878287
+    },
+    {
+      "family": "SGR",
+      "morph": 1.4920536764671948,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.0837681310654002
+    },
+    {
+      "family": "SGR",
+      "morph": 1.0341370076110274,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.2257767356167484
+    },
+    {
+      "family": "SGR",
+      "morph": 0.8082600898731113,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.2996238105775255
+    },
+    {
+      "family": "SGR",
+      "morph": 1.6614314406008956,
+      "duration": 0.328125,
+      "fwhm": 0.25,
+      "hardness": 1.3657474600870454
+    },
+    {
+      "family": "GRB",
+      "morph": 1.587121989640359,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.441859148550684
+    },
+    {
+      "family": "SGR",
+      "morph": 1.593890650575431,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.1040866474222606
+    },
+    {
+      "family": "SGR",
+      "morph": 1.3380656499006554,
+      "duration": 0.359375,
+      "fwhm": 0.296875,
+      "hardness": 1.2844222960501734
+    },
+    {
+      "family": "SGR",
+      "morph": 1.2079484255154105,
+      "duration": 0.328125,
+      "fwhm": 0.328125,
+      "hardness": 1.4921960403254741
+    },
+    {
+      "family": "SGR",
+      "morph": 1.484761341346134,
+      "duration": 0.34375,
+      "fwhm": 0.3125,
+      "hardness": 1.3027312825152313
+    },
+    {
+      "family": "GRB",
+      "morph": 1.1266895210471017,
+      "duration": 0.359375,
+      "fwhm": 0.328125,
+      "hardness": 1.1007087362088435
+    },
+    {
+      "family": "GRB",
+      "morph": 1.4850704860803559,
+      "duration": 0.34375,
+      "fwhm": 0.265625,
+      "hardness": 1.1419790540005503
+    },
+    {
+      "family": "GRB",
+      "morph": 1.4757877516057805,
+      "duration": 0.359375,
+      "fwhm": 0.234375,
+      "hardness": 1.1410705476072733
+    },
+    {
+      "family": "SGR",
+      "morph": 1.704543099641755,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.1619917589236668
+    },
+    {
+      "family": "SGR",
+      "morph": 0.47928906254971143,
+      "duration": 0.359375,
+      "fwhm": 0.328125,
+      "hardness": 1.0834908870906481
+    },
+    {
+      "family": "SGR",
+      "morph": 0.9193658498924865,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.3952350946679453
+    },
+    {
+      "family": "SGR",
+      "morph": 1.0589114933395403,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.3110957894486268
+    },
+    {
+      "family": "SGR",
+      "morph": 1.8492417098811045,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 0.9546024950173236
+    },
+    {
+      "family": "SGR",
+      "morph": 1.0685535532819659,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.176549830973714
+    },
+    {
+      "family": "SGR",
+      "morph": 0.6897371883476483,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.2197369437079815
+    },
+    {
+      "family": "SGR",
+      "morph": 0.8616934572462684,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 1.356567347394234
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.7131319224203185,
+      "duration": 0.296875,
+      "fwhm": 0.234375,
+      "hardness": 0.3660027391899795
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.6437695824656233,
+      "duration": 0.296875,
+      "fwhm": 0.109375,
+      "hardness": 0.08355316162283734
+    },
+    {
+      "family": "SFLARE",
+      "morph": 3.061488936350467,
+      "duration": 0.296875,
+      "fwhm": 0.046875,
+      "hardness": 0.24129037713512475
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.548884663931162,
+      "duration": 0.328125,
+      "fwhm": 0.265625,
+      "hardness": 0.5977937612178779
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.0136729897382724,
+      "duration": 0.34375,
+      "fwhm": 0.140625,
+      "hardness": 0.6892519765889633
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.7344631819142589,
+      "duration": 0.3125,
+      "fwhm": 0.171875,
+      "hardness": 0.5947657433042111
+    },
+    {
+      "family": "SFLARE",
+      "morph": 5.733952626567131,
+      "duration": 0.171875,
+      "fwhm": 0.15625,
+      "hardness": 0.09398983415710986
+    },
+    {
+      "family": "SGR",
+      "morph": 3.18110771438742,
+      "duration": 0.265625,
+      "fwhm": 0.203125,
+      "hardness": 0.9562778706800112
+    },
+    {
+      "family": "SFLARE",
+      "morph": 4.45969904751009,
+      "duration": 0.328125,
+      "fwhm": 0.28125,
+      "hardness": 0.061423692512517634
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.238893545981047,
+      "duration": 0.3125,
+      "fwhm": 0.203125,
+      "hardness": 0.34771961261145656
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.8675918729617773,
+      "duration": 0.3125,
+      "fwhm": 0.109375,
+      "hardness": 0.5051097545726277
+    },
+    {
+      "family": "SFLARE",
+      "morph": 5.333603628111053,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 0.02249999911986985
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.1601775212092322,
+      "duration": 0.28125,
+      "fwhm": 0.125,
+      "hardness": 0.26768229264901483
+    },
+    {
+      "family": "SGR",
+      "morph": 0.9927039913704017,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 0.9733039245512379
+    },
+    {
+      "family": "SGR",
+      "morph": 2.622274000794153,
+      "duration": 0.34375,
+      "fwhm": 0.265625,
+      "hardness": 0.9421645021644789
+    },
+    {
+      "family": "SGR",
+      "morph": 1.0188295410423511,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 0.9038726282396464
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.6355573660562943,
+      "duration": 0.3125,
+      "fwhm": 0.21875,
+      "hardness": 0.1431147232726738
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.6343628737800364,
+      "duration": 0.34375,
+      "fwhm": 0.28125,
+      "hardness": 0.7274535900004016
+    },
+    {
+      "family": "SGR",
+      "morph": 2.4610214819332468,
+      "duration": 0.328125,
+      "fwhm": 0.328125,
+      "hardness": 1.0117466320018669
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.3036313513558277,
+      "duration": 0.328125,
+      "fwhm": 0.109375,
+      "hardness": 0.8271163059485707
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.1182486700820045,
+      "duration": 0.328125,
+      "fwhm": 0.140625,
+      "hardness": 0.8353254724600092
+    },
+    {
+      "family": "SFLARE",
+      "morph": 9.588941422779463,
+      "duration": 0.03125,
+      "fwhm": 0.03125,
+      "hardness": 0.5617111169791293
+    },
+    {
+      "family": "SFLARE",
+      "morph": 0.7608958001382027,
+      "duration": 0.3125,
+      "fwhm": 0.140625,
+      "hardness": 0.20899209706890065
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.842104987744453,
+      "duration": 0.296875,
+      "fwhm": 0.1875,
+      "hardness": 0.18680213228548026
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.314543624798384,
+      "duration": 0.28125,
+      "fwhm": 0.125,
+      "hardness": 0.05201905667920998
+    },
+    {
+      "family": "TGF",
+      "morph": 1.0461663370443652,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.05002621133825
+    },
+    {
+      "family": "TGF",
+      "morph": 0.8460250289927821,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 0.9564123852314672
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.2115523570898303,
+      "duration": 0.296875,
+      "fwhm": 0.1875,
+      "hardness": 0.2714438729122799
+    },
+    {
+      "family": "TGF",
+      "morph": 1.0331486257486302,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.0614463840398738
+    },
+    {
+      "family": "TGF",
+      "morph": 0.6457282052602694,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.0971818784079628
+    },
+    {
+      "family": "TGF",
+      "morph": 1.3333087735331979,
+      "duration": 0.359375,
+      "fwhm": 0.359375,
+      "hardness": 1.190333671374479
+    },
+    {
+      "family": "TGF",
+      "morph": 0.658289859580604,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.4627918500597121
+    },
+    {
+      "family": "TGF",
+      "morph": 2.466962452163157,
+      "duration": 0.328125,
+      "fwhm": 0.359375,
+      "hardness": 0.8336538948220673
+    },
+    {
+      "family": "TGF",
+      "morph": 1.1884333113342822,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 0.8540572527553604
+    },
+    {
+      "family": "TGF",
+      "morph": 0.900337451699041,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.1757261785097253
+    },
+    {
+      "family": "TGF",
+      "morph": 1.1006738409357166,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.3081175519569923
+    },
+    {
+      "family": "TGF",
+      "morph": 0.5898918886822002,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.153645584154599
+    },
+    {
+      "family": "TGF",
+      "morph": 1.33862730515141,
+      "duration": 0.34375,
+      "fwhm": 0.3125,
+      "hardness": 1.1346704075112883
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.1285540524554256,
+      "duration": 0.3125,
+      "fwhm": 0.171875,
+      "hardness": 0.12973462880941686
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.299321541631925,
+      "duration": 0.3125,
+      "fwhm": 0.125,
+      "hardness": 0.27126829578270106
+    },
+    {
+      "family": "SFLARE",
+      "morph": 2.185745257390423,
+      "duration": 0.328125,
+      "fwhm": 0.1875,
+      "hardness": 0.3676494736265908
+    },
+    {
+      "family": "SFLARE",
+      "morph": 1.7914345441253101,
+      "duration": 0.34375,
+      "fwhm": 0.25,
+      "hardness": 0.6644430274194231
+    },
+    {
+      "family": "TGF",
+      "morph": 0.9022387956289366,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 1.0033137843894293
+    },
+    {
+      "family": "TGF",
+      "morph": 0.7740904003231356,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.10382388787322
+    },
+    {
+      "family": "TGF",
+      "morph": 1.108987882526603,
+      "duration": 0.359375,
+      "fwhm": 0.3125,
+      "hardness": 0.8906600573962722
+    },
+    {
+      "family": "TGF",
+      "morph": 1.9370720573321127,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.0672665061462157
+    },
+    {
+      "family": "TGF",
+      "morph": 1.0853974490897407,
+      "duration": 0.34375,
+      "fwhm": 0.3125,
+      "hardness": 1.291847030105735
+    },
+    {
+      "family": "TGF",
+      "morph": 0.769402450892185,
+      "duration": 0.34375,
+      "fwhm": 0.328125,
+      "hardness": 1.1755760846999903
+    },
+    {
+      "family": "TGF",
+      "morph": 0.7031641646700197,
+      "duration": 0.34375,
+      "fwhm": 0.359375,
+      "hardness": 1.1676818081749183
+    },
+    {
+      "family": "TGF",
+      "morph": 1.1827061893770034,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.1129201430273872
+    },
+    {
+      "family": "TGF",
+      "morph": 1.7538544294183176,
+      "duration": 0.359375,
+      "fwhm": 0.328125,
+      "hardness": 0.9684829059828814
+    },
+    {
+      "family": "TGF",
+      "morph": 1.41347200775926,
+      "duration": 0.3125,
+      "fwhm": 0.28125,
+      "hardness": 1.5825602381027266
+    },
+    {
+      "family": "TGF",
+      "morph": 0.8162453646459777,
+      "duration": 0.359375,
+      "fwhm": 0.34375,
+      "hardness": 1.1045298086189976
+    },
+    {
+      "family": "TGF",
+      "morph": 0.5707114331706562,
+      "duration": 0.34375,
+      "fwhm": 0.3125,
+      "hardness": 1.084300584628516
+    },
+    {
+      "family": "TGF",
+      "morph": 0.8810767932608017,
+      "duration": 0.34375,
+      "fwhm": 0.34375,
+      "hardness": 1.2183709905805202
+    }
+  ],
+  "morphSweep": [
+    {
+      "margin": 0.5,
+      "threshold": 1.59055385719371,
+      "ariaAcc": 0.6,
+      "novelIso": 0.12,
+      "novelAsCompute": 0,
+      "novelAsKnown": 0.88,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0.41333333333333333,
+      "n": 180
+    },
+    {
+      "margin": 0.75,
+      "threshold": 2.385830785790565,
+      "ariaAcc": 0.7222222222222222,
+      "novelIso": 0.04,
+      "novelAsCompute": 0,
+      "novelAsKnown": 0.96,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0.09333333333333334,
+      "n": 180
+    },
+    {
+      "margin": 1,
+      "threshold": 3.18110771438742,
+      "ariaAcc": 0.7444444444444445,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0.02666666666666667,
+      "n": 180
+    },
+    {
+      "margin": 1.25,
+      "threshold": 3.9763846429842746,
+      "ariaAcc": 0.7444444444444445,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0.02666666666666667,
+      "n": 180
+    },
+    {
+      "margin": 1.5,
+      "threshold": 4.77166157158113,
+      "ariaAcc": 0.75,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0.013333333333333334,
+      "n": 180
+    },
+    {
+      "margin": 2,
+      "threshold": 6.36221542877484,
+      "ariaAcc": 0.7555555555555555,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0,
+      "n": 180
+    },
+    {
+      "margin": 3,
+      "threshold": 9.54332314316226,
+      "ariaAcc": 0.7555555555555555,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0,
+      "n": 180
+    },
+    {
+      "margin": 4,
+      "threshold": 12.72443085754968,
+      "ariaAcc": 0.7555555555555555,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "novelAsKnown": 1,
+      "novelAsSensor": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "knownAsSensor": 0.02666666666666667,
+      "knownAsNovel": 0,
+      "n": 180
+    }
+  ],
+  "split": {
+    "salt": 20261007,
+    "note": "Two halves of the same committed 100-cube slice. Not a second HEASARC draw.",
+    "aToB": {
+      "nTrain": 48,
+      "nEval": 52,
+      "byFamilyEval": {
+        "GRB": 13,
+        "SGR": 13,
+        "SFLARE": 13,
+        "TGF": 13
+      },
+      "metrics": {
+        "ariaAcc": {
+          "mean": 0.7769230769230769,
+          "std": 0
+        },
+        "novelIso": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsKnown": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsSensor": {
+          "mean": 0,
+          "std": 0
+        },
+        "computeIso": {
+          "mean": 1,
+          "std": 0
+        },
+        "sensorIso": {
+          "mean": 0.6666666666666666,
+          "std": 0
+        },
+        "knownAsSensor": {
+          "mean": 0.02564102564102564,
+          "std": 0
+        },
+        "knownAsNovel": {
+          "mean": 0.05128205128205128,
+          "std": 0
+        }
+      }
+    },
+    "bToA": {
+      "nTrain": 52,
+      "nEval": 48,
+      "byFamilyEval": {
+        "GRB": 12,
+        "SGR": 12,
+        "SFLARE": 12,
+        "TGF": 12
+      },
+      "metrics": {
+        "ariaAcc": {
+          "mean": 0.8,
+          "std": 0
+        },
+        "novelIso": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsKnown": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsSensor": {
+          "mean": 0,
+          "std": 0
+        },
+        "computeIso": {
+          "mean": 1,
+          "std": 0
+        },
+        "sensorIso": {
+          "mean": 0.7222222222222222,
+          "std": 0
+        },
+        "knownAsSensor": {
+          "mean": 0.02777777777777778,
+          "std": 3.469446951953614e-18
+        },
+        "knownAsNovel": {
+          "mean": 0,
+          "std": 0
+        }
+      }
+    }
+  },
+  "cv": {
+    "cap40": {
+      "folds": 5,
+      "repeats": 5,
+      "faultCap": 40,
+      "nRuns": 25,
+      "metrics": {
+        "ariaAcc": {
+          "mean": 0.7720000000000001,
+          "std": 0.026532998322843206
+        },
+        "novelIso": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsKnown": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsSensor": {
+          "mean": 0,
+          "std": 0
+        },
+        "computeIso": {
+          "mean": 1,
+          "std": 0
+        },
+        "sensorIso": {
+          "mean": 0.6533333333333331,
+          "std": 0.07542472332656505
+        },
+        "knownAsSensor": {
+          "mean": 0.021333333333333333,
+          "std": 0.03636848452529562
+        },
+        "knownAsNovel": {
+          "mean": 0.039999999999999994,
+          "std": 0.04216370213557839
+        }
+      },
+      "note": "Spread is over overlapping folds and repeats. It describes this slice. It is not a standard error for a new catalog draw."
+    },
+    "all": {
+      "folds": 5,
+      "repeats": 5,
+      "faultCap": "all",
+      "nRuns": 25,
+      "metrics": {
+        "ariaAcc": {
+          "mean": 0.7720000000000001,
+          "std": 0.026532998322843206
+        },
+        "novelIso": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsCompute": {
+          "mean": 0,
+          "std": 0
+        },
+        "novelAsKnown": {
+          "mean": 1,
+          "std": 0
+        },
+        "novelAsSensor": {
+          "mean": 0,
+          "std": 0
+        },
+        "computeIso": {
+          "mean": 1,
+          "std": 0
+        },
+        "sensorIso": {
+          "mean": 0.6533333333333331,
+          "std": 0.07542472332656505
+        },
+        "knownAsSensor": {
+          "mean": 0.021333333333333333,
+          "std": 0.03636848452529562
+        },
+        "knownAsNovel": {
+          "mean": 0.039999999999999994,
+          "std": 0.04216370213557839
+        }
+      },
+      "note": "Spread is over overlapping folds and repeats. It describes this slice. It is not a standard error for a new catalog draw."
+    }
+  },
+  "compound": {
+    "nPerSeed": 80,
+    "both": {
+      "mean": 0.7924999999999999,
+      "std": 0.031224989991991983
+    },
+    "arithOnly": {
+      "mean": 0.20749999999999996,
+      "std": 0.03122498999199199
+    },
+    "physOnly": {
+      "mean": 0,
+      "std": 0
+    },
+    "neither": {
+      "mean": 0,
+      "std": 0
+    },
+    "multiple": {
+      "mean": 0.7924999999999999,
+      "std": 0.031224989991991983
+    },
+    "namedCompute": {
+      "mean": 1,
+      "std": 0
+    }
+  },
+  "simulatorSpike": {
+    "headline": {
+      "ariaAcc": {
+        "mean": 0.9,
+        "std": 0.005555555555555536
+      },
+      "novelIso": {
+        "mean": 0.95,
+        "std": 0.03239417719358502
+      },
+      "novelAsCompute": {
+        "mean": 0.05,
+        "std": 0.032394177193585005
+      },
+      "novelAsKnown": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.775,
+        "std": 0.005555555555555581
+      },
+      "knownAsSensor": {
+        "mean": 0.09259259259259259,
+        "std": 0
+      },
+      "knownAsNovel": {
+        "mean": 0.0037037037037037034,
+        "std": 0.0045360921162651445
+      }
+    },
+    "orSpike": {
+      "ariaAcc": {
+        "mean": 0.9222222222222222,
+        "std": 0.005641693336552783
+      },
+      "novelIso": {
+        "mean": 0.95,
+        "std": 0.03239417719358502
+      },
+      "novelAsCompute": {
+        "mean": 0.05,
+        "std": 0.032394177193585005
+      },
+      "novelAsKnown": {
+        "mean": 0,
+        "std": 0
+      },
+      "novelAsSensor": {
+        "mean": 0,
+        "std": 0
+      },
+      "computeIso": {
+        "mean": 1,
+        "std": 0
+      },
+      "sensorIso": {
+        "mean": 0.8666666666666668,
+        "std": 0.006804138174397694
+      },
+      "knownAsSensor": {
+        "mean": 0.09444444444444444,
+        "std": 0.003703703703703704
+      },
+      "knownAsNovel": {
+        "mean": 0.0037037037037037034,
+        "std": 0.0045360921162651445
+      }
+    }
+  },
+  "sensorByFamily": {
+    "cap40": {
+      "GRB": {
+        "n": 25,
+        "rate": 0.56
+      },
+      "SGR": {
+        "n": 15,
+        "rate": 0.6666666666666666
+      }
+    },
+    "allKnown": {
+      "GRB": {
+        "n": 25,
+        "rate": 0.56
+      },
+      "SGR": {
+        "n": 25,
+        "rate": 0.72
+      },
+      "SFLARE": {
+        "n": 25,
+        "rate": 0.8
+      }
+    }
+  }
+}

@@ -1,0 +1,445 @@
+[
+  {
+    "ms": 8,
+    "bins": 250,
+    "perSeed": [
+      {
+        "seed": 7,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 4.364639200731562,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 22,
+            "known-clean": 2,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 24,
+            "compute": 1
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 4.364639200731562,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 22,
+            "known-clean": 2,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 24,
+            "compute": 1
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 4.364639200731562,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 22,
+            "known-clean": 2,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 24,
+            "compute": 1
+          }
+        }
+      },
+      {
+        "seed": 43,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 4.364639200731562,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 22,
+            "known-clean": 2,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 24,
+            "compute": 1
+          }
+        }
+      },
+      {
+        "seed": 61,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 4.364639200731562,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 22,
+            "known-clean": 2,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 24,
+            "compute": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ms": 16,
+    "bins": 125,
+    "perSeed": [
+      {
+        "seed": 7,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.8794479826697237,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 21,
+            "known-clean": 2,
+            "novel-clean": 2
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.8794479826697237,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 21,
+            "known-clean": 2,
+            "novel-clean": 2
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.8794479826697237,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 21,
+            "known-clean": 2,
+            "novel-clean": 2
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 43,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.8794479826697237,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 21,
+            "known-clean": 2,
+            "novel-clean": 2
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 61,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.8794479826697237,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 1,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 25
+          },
+          "SFLARE": {
+            "sensor": 21,
+            "known-clean": 2,
+            "novel-clean": 2
+          },
+          "SGR": {
+            "sensor": 25
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      }
+    ]
+  },
+  {
+    "ms": 50,
+    "bins": 40,
+    "perSeed": [
+      {
+        "seed": 7,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.9820622250904703,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 0.9239179264670027,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 24,
+            "novel-clean": 1
+          },
+          "SFLARE": {
+            "sensor": 16,
+            "compute": 1,
+            "known-clean": 7,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 23,
+            "known-clean": 2
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 19,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.9820622250904703,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 0.9239179264670027,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 24,
+            "novel-clean": 1
+          },
+          "SFLARE": {
+            "sensor": 16,
+            "compute": 1,
+            "known-clean": 7,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 23,
+            "known-clean": 2
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 31,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.9820622250904703,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 0.9239179264670027,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 24,
+            "novel-clean": 1
+          },
+          "SFLARE": {
+            "sensor": 16,
+            "compute": 1,
+            "known-clean": 7,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 23,
+            "known-clean": 2
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 43,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.9820622250904703,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 0.9239179264670027,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 24,
+            "novel-clean": 1
+          },
+          "SFLARE": {
+            "sensor": 16,
+            "compute": 1,
+            "known-clean": 7,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 23,
+            "known-clean": 2
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      },
+      {
+        "seed": 61,
+        "physicsThreshold": 0.62,
+        "morphThreshold": 3.9820622250904703,
+        "physMed": {
+          "GRB": 1,
+          "SFLARE": 0.9239179264670027,
+          "SGR": 1,
+          "TGF": 1
+        },
+        "calls": {
+          "GRB": {
+            "sensor": 24,
+            "novel-clean": 1
+          },
+          "SFLARE": {
+            "sensor": 16,
+            "compute": 1,
+            "known-clean": 7,
+            "novel-clean": 1
+          },
+          "SGR": {
+            "sensor": 23,
+            "known-clean": 2
+          },
+          "TGF": {
+            "sensor": 25
+          }
+        }
+      }
+    ]
+  }
+]

@@ -8,6 +8,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { attribute, decideAblation, type AblationMode } from "./aria";
+import { CHECK_MODE, setCheckMode } from "./classifier";
 import { accuracy, confusion, energySplit, runTrials, trainSystem, type TrialRow } from "./experiment";
 import { generateEvent } from "./physics";
 import { CATALOG_COUNTS, type CauseLabel } from "./types";
@@ -48,7 +49,7 @@ function compoundStudy(system: ReturnType<typeof trainSystem>, n = 80) {
       severity: i % 2 === 0 ? "mild" : "critical",
       seed: 9000 + i * 17,
     });
-    const a = attribute(ev, system.head, system.thresholds);
+    const a = attribute(ev, system.head, system.thresholds, system.prec);
     counts[a.cause]++;
   }
   return { n, ...counts, namedCompute: counts.compute / n };
@@ -60,6 +61,7 @@ function main() {
     aria: number;
     range: number;
     novelAsAria: number;
+    novelAsCompute: number;
     computeAsAria: number;
     sensorAsAria: number;
     novelFlaggedEnergy: number;
@@ -68,18 +70,21 @@ function main() {
   }[] = [];
 
   let lastRows: TrialRow[] = [];
+  let seed7Rows: TrialRow[] = [];
   let lastSystem = trainSystem(SEEDS[0]);
 
   for (const trainSeed of SEEDS) {
     const system = trainSystem(trainSeed);
     const rows = runTrials(system, EVAL_SEED, PER_CELL);
     lastRows = rows;
+    if (trainSeed === 7) seed7Rows = rows;
     lastSystem = system;
     perSeed.push({
       seed: trainSeed,
       aria: accuracy(rows, "aria"),
       range: accuracy(rows, "range"),
       novelAsAria: rate(rows, "novel-clean", "novel-clean"),
+      novelAsCompute: rate(rows, "novel-clean", "compute"),
       computeAsAria: rate(rows, "compute", "compute"),
       sensorAsAria: rate(rows, "sensor", "sensor"),
       novelFlaggedEnergy: energySplit(rows).novelFlagged,
@@ -99,7 +104,35 @@ function main() {
   const ablationMeans = Object.fromEntries(
     ABLATIONS.map((m) => [m, meanStd(perSeed.map((s) => s.ablations[m]))]),
   ) as Record<AblationMode, { mean: number; std: number }>;
+  const novelCompute = meanStd(perSeed.map((s) => s.novelAsCompute));
   const compound = compoundStudy(lastSystem);
+  // Sensitivity of the checksum rule to inference precision and to the decision mode (same seeds, same events).
+  const headlineMode = CHECK_MODE;
+  const precision: Record<string, unknown> = {};
+  const modes: Record<string, Record<string, unknown>> = {};
+  for (const mode of ["calibrated", "bounded"] as const) {
+    setCheckMode(mode);
+    modes[mode] = {};
+    for (const prec of ["fp64", "fp32", "fp16"] as const) {
+      const per = SEEDS.map((sd) => {
+        const r = runTrials(trainSystem(sd, prec), EVAL_SEED, PER_CELL);
+        const mildRows = r.filter((x) => x.truth === "compute").slice(0, PER_CELL);
+        return {
+          aria: accuracy(r, "aria"),
+          novel: rate(r, "novel-clean", "novel-clean"),
+          novelAsCompute: rate(r, "novel-clean", "compute"),
+          compute: rate(r, "compute", "compute"),
+          computeMild: mildRows.filter((x) => x.aria === "compute").length / Math.max(mildRows.length, 1),
+          knownAsCompute: rate(r, "known-clean", "compute"),
+          sensor: rate(r, "sensor", "sensor"),
+        };
+      });
+      const keys = ["aria", "novel", "novelAsCompute", "compute", "computeMild", "knownAsCompute", "sensor"] as const;
+      modes[mode]![prec] = Object.fromEntries(keys.map((k) => [k, meanStd(per.map((x) => x[k]))]));
+    }
+  }
+  setCheckMode(headlineMode);
+  Object.assign(precision, modes[headlineMode]);
   const split = energySplit(lastRows);
 
   const out = {
@@ -111,7 +144,11 @@ function main() {
       note: "Lightcubes are physics-faithful simulations of 8 NaI-like detectors. Catalog counts are live HEASARC fermigtrig totals.",
     },
     fourWay: { aria, range },
-    isolation: { novel, compute, sensor },
+    isolation: { novel, compute, sensor, novelAsCompute: novelCompute },
+    precision,
+    checkMode: headlineMode,
+    modes,
+    execPrecision: lastSystem.prec,
     energyConfound: {
       novelFlagged: meanStd(perSeed.map((s) => s.novelFlaggedEnergy)),
       computeFlagged: meanStd(perSeed.map((s) => s.computeFlaggedEnergy)),
@@ -119,6 +156,7 @@ function main() {
     },
     ablations: ablationMeans,
     compound,
+    seed7ConfusionAria: confusion(seed7Rows, "aria"),
     lastConfusionAria: confusion(lastRows, "aria"),
     lastConfusionRange: confusion(lastRows, "range"),
     lastThresholds: lastSystem.thresholds,
@@ -127,17 +165,21 @@ function main() {
 
   const paperDir = join(dirname(fileURLToPath(import.meta.url)), "../../../paper");
   mkdirSync(paperDir, { recursive: true });
-  writeFileSync(join(paperDir, "results.json"), JSON.stringify(out, null, 2));
+  // Shipped (calibrated) results keep their names; the bounded variant never overwrites them.
+  const suffix = headlineMode === "bounded" ? "_bounded" : "";
+  writeFileSync(join(paperDir, `results${suffix}.json`), JSON.stringify(out, null, 2));
 
   const pct = (x: { mean: number; std: number }) => `${(100 * x.mean).toFixed(1)}\\pm${(100 * x.std).toFixed(1)}`;
   writeFileSync(
-    join(paperDir, "results.tex"),
+    join(paperDir, `results${suffix}.tex`),
     [
       `% Auto-generated by src/lib/aria/paper_eval.ts. Do not edit by hand.`,
       `\\newcommand{\\AriaAcc}{${pct(aria)}}`,
       `\\newcommand{\\RangeAcc}{${pct(range)}}`,
       `\\newcommand{\\NovelIso}{${pct(novel)}}`,
       `\\newcommand{\\ComputeIso}{${pct(compute)}}`,
+      `\\newcommand{\\NovelAsCompute}{${pct(novelCompute)}}`,
+      `\\newcommand{\\ExecPrec}{${lastSystem.prec}}`,
       `\\newcommand{\\SensorIso}{${pct(sensor)}}`,
       `\\newcommand{\\AblFull}{${pct(ablationMeans.full)}}`,
       `\\newcommand{\\AblChecksum}{${pct(ablationMeans.checksum)}}`,
@@ -161,7 +203,7 @@ function main() {
       2,
     ),
   );
-  console.log("\nWrote paper/results.json and paper/results.tex");
+  console.log(`\nWrote paper/results${suffix}.json and paper/results${suffix}.tex  (checksum mode: ${headlineMode})`);
 }
 
 main();

@@ -1,0 +1,32 @@
+{
+  "note": "Real public Fermi-GBM CTIME runs at increasing slice size. Same pipeline (clean-only checksum threshold, fp32), same injected faults, evaluation seed 123. Every row is the mean over 5 training seeds. The 8 and 12 rows use the first 8 or 12 cubes of each family in experiments/gbm/cubes.jsonl.",
+  "runs": [
+    {
+      "perClass": 8,
+      "ariaAcc": 0.7625,
+      "computeIso": 1,
+      "sensorIso": 0.5833,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "seeds": 5
+    },
+    {
+      "perClass": 12,
+      "ariaAcc": 0.7667,
+      "computeIso": 1,
+      "sensorIso": 0.6111,
+      "novelIso": 0,
+      "novelAsCompute": 0.0833,
+      "seeds": 5
+    },
+    {
+      "perClass": 25,
+      "ariaAcc": 0.7444,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "seeds": 5
+    }
+  ]
+}

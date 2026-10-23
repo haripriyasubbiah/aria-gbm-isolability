@@ -1,0 +1,257 @@
+[
+  {
+    "seed": 7,
+    "physicsThreshold": 0.62,
+    "morphThreshold": 5.845356392357591,
+    "execThreshold": 6.307810706657877e-7,
+    "physMed": {
+      "GRB": 0.9855367090063272,
+      "SFLARE": 1,
+      "SGR": 0.9740042053927161,
+      "TGF": 0.9544577349330532
+    },
+    "morphMed": {
+      "GRB": 1.137278065958434,
+      "SFLARE": 1.9135761846202894,
+      "SGR": 1.722709324486665,
+      "TGF": 3.173952764215865
+    },
+    "execMed": {
+      "GRB": 5.1637755978038464e-8,
+      "SFLARE": 2.785338801750627e-8,
+      "SGR": 3.98233764228461e-8,
+      "TGF": 1.4027816164755019e-7
+    },
+    "physAbove": {
+      "GRB": 25,
+      "SFLARE": 23,
+      "SGR": 25,
+      "TGF": 25
+    },
+    "morphAbove": {
+      "GRB": 0,
+      "SFLARE": 2,
+      "SGR": 1,
+      "TGF": 1
+    },
+    "calls": {
+      "GRB": {
+        "sensor": 25
+      },
+      "SFLARE": {
+        "sensor": 23,
+        "novel-clean": 2
+      },
+      "SGR": {
+        "sensor": 25
+      },
+      "TGF": {
+        "sensor": 25
+      }
+    }
+  },
+  {
+    "seed": 19,
+    "physicsThreshold": 0.62,
+    "morphThreshold": 5.845356392357591,
+    "execThreshold": 6.307810706657877e-7,
+    "physMed": {
+      "GRB": 0.9855367090063272,
+      "SFLARE": 1,
+      "SGR": 0.9740042053927161,
+      "TGF": 0.9544577349330532
+    },
+    "morphMed": {
+      "GRB": 1.137278065958434,
+      "SFLARE": 1.9135761846202894,
+      "SGR": 1.722709324486665,
+      "TGF": 3.173952764215865
+    },
+    "execMed": {
+      "GRB": 5.1637755978038464e-8,
+      "SFLARE": 2.785338801750627e-8,
+      "SGR": 3.98233764228461e-8,
+      "TGF": 1.4027816164755019e-7
+    },
+    "physAbove": {
+      "GRB": 25,
+      "SFLARE": 23,
+      "SGR": 25,
+      "TGF": 25
+    },
+    "morphAbove": {
+      "GRB": 0,
+      "SFLARE": 2,
+      "SGR": 1,
+      "TGF": 1
+    },
+    "calls": {
+      "GRB": {
+        "sensor": 25
+      },
+      "SFLARE": {
+        "sensor": 23,
+        "novel-clean": 2
+      },
+      "SGR": {
+        "sensor": 25
+      },
+      "TGF": {
+        "sensor": 25
+      }
+    }
+  },
+  {
+    "seed": 31,
+    "physicsThreshold": 0.62,
+    "morphThreshold": 5.845356392357591,
+    "execThreshold": 6.307810706657877e-7,
+    "physMed": {
+      "GRB": 0.9855367090063272,
+      "SFLARE": 1,
+      "SGR": 0.9740042053927161,
+      "TGF": 0.9544577349330532
+    },
+    "morphMed": {
+      "GRB": 1.137278065958434,
+      "SFLARE": 1.9135761846202894,
+      "SGR": 1.722709324486665,
+      "TGF": 3.173952764215865
+    },
+    "execMed": {
+      "GRB": 5.1637755978038464e-8,
+      "SFLARE": 2.785338801750627e-8,
+      "SGR": 3.98233764228461e-8,
+      "TGF": 1.4027816164755019e-7
+    },
+    "physAbove": {
+      "GRB": 25,
+      "SFLARE": 23,
+      "SGR": 25,
+      "TGF": 25
+    },
+    "morphAbove": {
+      "GRB": 0,
+      "SFLARE": 2,
+      "SGR": 1,
+      "TGF": 1
+    },
+    "calls": {
+      "GRB": {
+        "sensor": 25
+      },
+      "SFLARE": {
+        "sensor": 23,
+        "novel-clean": 2
+      },
+      "SGR": {
+        "sensor": 25
+      },
+      "TGF": {
+        "sensor": 25
+      }
+    }
+  },
+  {
+    "seed": 43,
+    "physicsThreshold": 0.62,
+    "morphThreshold": 5.845356392357591,
+    "execThreshold": 6.307810706657877e-7,
+    "physMed": {
+      "GRB": 0.9855367090063272,
+      "SFLARE": 1,
+      "SGR": 0.9740042053927161,
+      "TGF": 0.9544577349330532
+    },
+    "morphMed": {
+      "GRB": 1.137278065958434,
+      "SFLARE": 1.9135761846202894,
+      "SGR": 1.722709324486665,
+      "TGF": 3.173952764215865
+    },
+    "execMed": {
+      "GRB": 5.1637755978038464e-8,
+      "SFLARE": 2.785338801750627e-8,
+      "SGR": 3.98233764228461e-8,
+      "TGF": 1.4027816164755019e-7
+    },
+    "physAbove": {
+      "GRB": 25,
+      "SFLARE": 23,
+      "SGR": 25,
+      "TGF": 25
+    },
+    "morphAbove": {
+      "GRB": 0,
+      "SFLARE": 2,
+      "SGR": 1,
+      "TGF": 1
+    },
+    "calls": {
+      "GRB": {
+        "sensor": 25
+      },
+      "SFLARE": {
+        "sensor": 23,
+        "novel-clean": 2
+      },
+      "SGR": {
+        "sensor": 25
+      },
+      "TGF": {
+        "sensor": 25
+      }
+    }
+  },
+  {
+    "seed": 61,
+    "physicsThreshold": 0.62,
+    "morphThreshold": 5.845356392357591,
+    "execThreshold": 6.307810706657877e-7,
+    "physMed": {
+      "GRB": 0.9855367090063272,
+      "SFLARE": 1,
+      "SGR": 0.9740042053927161,
+      "TGF": 0.9544577349330532
+    },
+    "morphMed": {
+      "GRB": 1.137278065958434,
+      "SFLARE": 1.9135761846202894,
+      "SGR": 1.722709324486665,
+      "TGF": 3.173952764215865
+    },
+    "execMed": {
+      "GRB": 5.1637755978038464e-8,
+      "SFLARE": 2.785338801750627e-8,
+      "SGR": 3.98233764228461e-8,
+      "TGF": 1.4027816164755019e-7
+    },
+    "physAbove": {
+      "GRB": 25,
+      "SFLARE": 23,
+      "SGR": 25,
+      "TGF": 25
+    },
+    "morphAbove": {
+      "GRB": 0,
+      "SFLARE": 2,
+      "SGR": 1,
+      "TGF": 1
+    },
+    "calls": {
+      "GRB": {
+        "sensor": 25
+      },
+      "SFLARE": {
+        "sensor": 23,
+        "novel-clean": 2
+      },
+      "SGR": {
+        "sensor": 25
+      },
+      "TGF": {
+        "sensor": 25
+      }
+    }
+  }
+]

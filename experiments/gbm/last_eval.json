@@ -7,12 +7,127 @@
     "TGF": 25
   },
   "nTrials": 180,
-  "ariaAcc": 0.7277777777777777,
-  "rangeAcc": 0.43333333333333335,
+  "seeds": [
+    7,
+    19,
+    31,
+    43,
+    61
+  ],
+  "evalSeed": 123,
+  "ariaAcc": 0.7444444444444445,
+  "rangeAcc": 0.4333333333333334,
   "novelIso": 0,
   "novelAsCompute": 0,
-  "computeIso": 0.925,
+  "computeIso": 1,
   "sensorIso": 0.6,
   "energyNovel": 0,
-  "energyCompute": 0.275
+  "energyCompute": 0.275,
+  "std": {
+    "ariaAcc": 0,
+    "rangeAcc": 5.551115123125783e-17,
+    "novelIso": 0,
+    "novelAsCompute": 0,
+    "computeIso": 0,
+    "sensorIso": 0,
+    "energyNovel": 0,
+    "energyCompute": 0
+  },
+  "perSeed": [
+    {
+      "seed": 7,
+      "nCubes": 100,
+      "byFamily": {
+        "GRB": 25,
+        "SGR": 25,
+        "SFLARE": 25,
+        "TGF": 25
+      },
+      "nTrials": 180,
+      "ariaAcc": 0.7444444444444445,
+      "rangeAcc": 0.43333333333333335,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "energyNovel": 0,
+      "energyCompute": 0.275
+    },
+    {
+      "seed": 19,
+      "nCubes": 100,
+      "byFamily": {
+        "GRB": 25,
+        "SGR": 25,
+        "SFLARE": 25,
+        "TGF": 25
+      },
+      "nTrials": 180,
+      "ariaAcc": 0.7444444444444445,
+      "rangeAcc": 0.43333333333333335,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "energyNovel": 0,
+      "energyCompute": 0.275
+    },
+    {
+      "seed": 31,
+      "nCubes": 100,
+      "byFamily": {
+        "GRB": 25,
+        "SGR": 25,
+        "SFLARE": 25,
+        "TGF": 25
+      },
+      "nTrials": 180,
+      "ariaAcc": 0.7444444444444445,
+      "rangeAcc": 0.43333333333333335,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "energyNovel": 0,
+      "energyCompute": 0.275
+    },
+    {
+      "seed": 43,
+      "nCubes": 100,
+      "byFamily": {
+        "GRB": 25,
+        "SGR": 25,
+        "SFLARE": 25,
+        "TGF": 25
+      },
+      "nTrials": 180,
+      "ariaAcc": 0.7444444444444445,
+      "rangeAcc": 0.43333333333333335,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "energyNovel": 0,
+      "energyCompute": 0.275
+    },
+    {
+      "seed": 61,
+      "nCubes": 100,
+      "byFamily": {
+        "GRB": 25,
+        "SGR": 25,
+        "SFLARE": 25,
+        "TGF": 25
+      },
+      "nTrials": 180,
+      "ariaAcc": 0.7444444444444445,
+      "rangeAcc": 0.43333333333333335,
+      "novelIso": 0,
+      "novelAsCompute": 0,
+      "computeIso": 1,
+      "sensorIso": 0.6,
+      "energyNovel": 0,
+      "energyCompute": 0.275
+    }
+  ]
 }

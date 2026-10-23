@@ -1,6 +1,6 @@
 import { attribute } from "./aria";
 import { energyReject, rangeCheck } from "./baselines";
-import { trainHead } from "./classifier";
+import { CHECK_MODE, trainHead, UNIT_ROUNDOFF } from "./classifier";
 import { generateEvent } from "./physics";
 import { morphologyFeatures } from "./residuals";
 import {
@@ -10,15 +10,20 @@ import {
   type GroundTruth,
   type KnownClass,
   type LinearHead,
+  type Precision,
   type Signature,
   type Thresholds,
   type TransientFamily,
 } from "./types";
 import { Rng } from "./rng";
 
+/** Arithmetic precision of the emulated inference. Fixed to fp32 before any run, to match the fp32 bit-flip injection; fp64/fp16 are sensitivity checks. */
+export const DEFAULT_PREC: Precision = (process.env.ARIA_PREC as Precision | undefined) ?? "fp32";
+
 export interface TrainedSystem {
   head: LinearHead;
   thresholds: Thresholds;
+  prec: Precision;
 }
 
 export interface TrialRow {
@@ -57,7 +62,7 @@ export function makeTrainingSet(seed: number, perClass = 140): { x: number[]; y:
   return out;
 }
 
-export function calibrate(head: LinearHead, seed: number): Thresholds {
+export function calibrate(head: LinearHead, seed: number, prec: Precision = DEFAULT_PREC): Thresholds {
   const rng = new Rng(seed);
   const phys: number[] = [];
   const morph: number[] = [];
@@ -78,7 +83,7 @@ export function calibrate(head: LinearHead, seed: number): Thresholds {
       energyLow: -1e9,
       mspLow: 0,
       logitRange: 1e9,
-    });
+    }, prec);
     phys.push(a.residuals.physics);
     morph.push(a.residuals.morph);
     energy.push(a.residuals.energy);
@@ -87,32 +92,12 @@ export function calibrate(head: LinearHead, seed: number): Thresholds {
     execClean.push(a.residuals.exec);
   }
 
-  const execFault: number[] = [];
-  for (let i = 0; i < 80; i++) {
-    const family = rng.pick(KNOWN_CLASSES);
-    const ev = generateEvent({
-      family,
-      fault: "shared-bitflip",
-      severity: i % 2 === 0 ? "mild" : "critical",
-      seed: rng.int(1, 1e9),
-    });
-    const a = attribute(ev, head, {
-      physics: 1,
-      morph: 1,
-      exec: 0,
-      dropGain: 1,
-      energyHigh: 1e9,
-      energyLow: -1e9,
-      mspLow: 0,
-      logitRange: 1e9,
-    });
-    execFault.push(a.residuals.exec);
-  }
-
   return {
     physics: Math.min(0.62, Math.max(0.38, percentile(phys, 0.96) * 1.25)),
     morph: percentile(morph, 0.95) * 1.25,
-    exec: Math.max(5e-4, (percentile(execClean, 0.995) + percentile(execFault, 0.08)) / 2),
+    // Clean-only: no injected faults are used. Same rule as physics/morph (percentile x 1.25), floored at the unit roundoff of the arithmetic.
+    // bounded: the residual is already divided by its rounding-error bound, so the threshold is 1 and nothing is calibrated.
+    exec: CHECK_MODE === "bounded" ? 1 : Math.max(percentile(execClean, 0.995) * 1.25, UNIT_ROUNDOFF[prec]),
     dropGain: 0.28,
     energyHigh: percentile(energy, 0.97),
     energyLow: percentile(energy, 0.03),
@@ -121,10 +106,10 @@ export function calibrate(head: LinearHead, seed: number): Thresholds {
   };
 }
 
-export function trainSystem(seed = 7): TrainedSystem {
+export function trainSystem(seed = 7, prec: Precision = DEFAULT_PREC): TrainedSystem {
   const head = trainHead(makeTrainingSet(seed));
-  const thresholds = calibrate(head, seed + 99);
-  return { head, thresholds };
+  const thresholds = calibrate(head, seed + 99, prec);
+  return { head, thresholds, prec };
 }
 
 let cached: TrainedSystem | undefined;
@@ -161,7 +146,7 @@ export function runTrials(system: TrainedSystem, seed = 123, perCell = 40): Tria
   const rows: TrialRow[] = [];
   for (const spec of specGrid(seed, perCell)) {
     const ev = generateEvent(spec);
-    const a = attribute(ev, system.head, system.thresholds);
+    const a = attribute(ev, system.head, system.thresholds, system.prec);
     rows.push({
       truth: ev.truth,
       family: spec.family,

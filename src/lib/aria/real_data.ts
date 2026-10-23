@@ -1,10 +1,11 @@
 import { readFileSync } from "node:fs";
 import { attribute } from "./aria";
 import { energyReject, rangeCheck } from "./baselines";
-import { trainHead } from "./classifier";
-import type { TrainedSystem } from "./experiment";
+import { CHECK_MODE, trainHead, UNIT_ROUNDOFF } from "./classifier";
+import { DEFAULT_PREC, type TrainedSystem } from "./experiment";
 import { morphologyFeatures } from "./residuals";
 import { Rng } from "./rng";
+import type { Precision } from "./types";
 import {
   KNOWN_CLASSES,
   N_DET,
@@ -100,7 +101,7 @@ function percentile(xs: number[], q: number): number {
   return s[i]!;
 }
 
-export function trainOnCubes(cubes: RealCube[], seed = 7): TrainedSystem {
+export function trainOnCubes(cubes: RealCube[], seed = 7, prec: Precision = DEFAULT_PREC): TrainedSystem {
   const known = cubes.filter((c) => (KNOWN_CLASSES as readonly string[]).includes(c.family));
   const rng = new Rng(seed);
   const trainSet = known.map((c) => {
@@ -117,7 +118,7 @@ export function trainOnCubes(cubes: RealCube[], seed = 7): TrainedSystem {
   const open = { physics: 1, morph: 1, exec: 1, dropGain: 1, energyHigh: 1e9, energyLow: -1e9, mspLow: 0, logitRange: 1e9 };
   for (const c of known) {
     const ev = cubeToEvent(c, { family: c.family, fault: "none", seed: rng.int(1, 1e9) });
-    const a = attribute(ev, head, open);
+    const a = attribute(ev, head, open, prec);
     phys.push(a.residuals.physics);
     morph.push(a.residuals.morph);
     energy.push(a.residuals.energy);
@@ -125,26 +126,22 @@ export function trainOnCubes(cubes: RealCube[], seed = 7): TrainedSystem {
     absLogit.push(a.residuals.maxAbsLogit);
     execClean.push(a.residuals.exec);
   }
-  const execFault: number[] = [];
-  for (const c of known) {
-    const ev = cubeToEvent(c, { family: c.family, fault: "shared-bitflip", severity: "critical", seed: rng.int(1, 1e9) });
-    const a = attribute(ev, head, { ...open, exec: 0 });
-    execFault.push(a.residuals.exec);
-  }
   const thresholds = {
     physics: Math.min(0.62, Math.max(0.38, percentile(phys, 0.96) * 1.25)),
     morph: percentile(morph, 0.95) * 1.25,
-    exec: Math.max(5e-4, (percentile(execClean, 0.995) + percentile(execFault, 0.08)) / 2),
+    // bounded: the residual is already divided by its rounding-error bound, so the threshold is 1 and nothing is calibrated.
+    exec: CHECK_MODE === "bounded" ? 1 : Math.max(percentile(execClean, 0.995) * 1.25, UNIT_ROUNDOFF[prec]),
     dropGain: 0.28,
     energyHigh: percentile(energy, 0.97),
     energyLow: percentile(energy, 0.03),
     mspLow: Math.min(0.55, percentile(msp, 0.08)),
     logitRange: percentile(absLogit, 0.995) * 1.4,
   };
-  return { head, thresholds };
+  return { head, thresholds, prec };
 }
 
-export function evaluateReal(cubes: RealCube[], system: TrainedSystem, seed = 123) {
+/** faultCap: max known cubes that get sensor/bitflip injections (default 40 keeps the published protocol; Infinity = all known cubes). */
+export function evaluateReal(cubes: RealCube[], system: TrainedSystem, seed = 123, faultCap = 40) {
   const rng = new Rng(seed);
   const known = cubes.filter((c) => c.family !== "TGF");
   const novel = cubes.filter((c) => c.family === "TGF");
@@ -152,7 +149,7 @@ export function evaluateReal(cubes: RealCube[], system: TrainedSystem, seed = 12
 
   const push = (cube: RealCube, fault: FaultKind, severity?: EventSpec["severity"]) => {
     const ev = cubeToEvent(cube, { family: cube.family, fault, severity, seed: rng.int(1, 1e9) });
-    const a = attribute(ev, system.head, system.thresholds);
+    const a = attribute(ev, system.head, system.thresholds, system.prec);
     rows.push({
       truth: ev.truth,
       aria: a.cause,
@@ -164,8 +161,8 @@ export function evaluateReal(cubes: RealCube[], system: TrainedSystem, seed = 12
 
   for (const c of known) push(c, "none");
   for (const c of novel) push(c, "none");
-  for (const c of known.slice(0, Math.min(known.length, 40))) push(c, "sensor-spike");
-  for (const c of known.slice(0, Math.min(known.length, 40))) push(c, "shared-bitflip", "critical");
+  for (const c of known.slice(0, Math.min(known.length, faultCap))) push(c, "sensor-spike");
+  for (const c of known.slice(0, Math.min(known.length, faultCap))) push(c, "shared-bitflip", "critical");
 
   const of = (t: string) => rows.filter((r) => r.truth === t);
   const acc = (t: string, pred: string) => {
@@ -187,6 +184,7 @@ export function evaluateReal(cubes: RealCube[], system: TrainedSystem, seed = 12
     novelAsCompute: acc("novel-clean", "compute"),
     computeIso: acc("compute", "compute"),
     sensorIso: acc("sensor", "sensor"),
+    knownAsSensor: acc("known-clean", "sensor"),
     energyNovel: of("novel-clean").filter((r) => r.energy === "anomaly").length / Math.max(of("novel-clean").length, 1),
     energyCompute: of("compute").filter((r) => r.energy === "anomaly").length / Math.max(of("compute").length, 1),
   };

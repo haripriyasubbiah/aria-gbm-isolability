@@ -1,0 +1,375 @@
+% IEEE Access research article, official ieeeaccess.cls.
+% Compile: pdflatex ieeeaccess -> pdflatex ieeeaccess (run twice for refs).
+\documentclass{ieeeaccess}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{url}
+% Some distributed copies of ieeeaccess.cls reference a 'biography' counter
+% without defining it. Define it only if missing, so this compiles either way.
+\makeatletter
+\@ifundefined{c@biography}{\newcounter{biography}}{}
+\@ifundefined{if@biographyTOCentrynotmade}{\newif\if@biographyTOCentrynotmade\@biographyTOCentrynotmadetrue}{}
+\makeatother
+\hyphenation{Fermi-GBM Batch-Norm iso-la-bil-ity}
+\input{results.tex}
+\input{realdata.tex}
+
+\begin{document}
+\history{Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.}
+\doi{10.1109/ACCESS.2017.DOI}
+
+\title{Which Cause Is It? Selectively Blind Residuals for Isolating Compute Faults, Sensor Glitches, and Novel Classes in Multi-Detector Neural Inference}
+
+\author{\uppercase{S. Haripriya}\authorrefmark{1}}
+\address[1]{School of Computer Science and Engineering, Vellore Institute of Technology, Chennai 600127, India (e-mail: hariripriya.subbiah@gmail.com)}
+\tfootnote{Prepared as an IEEE Access--formatted course manuscript for the Embedded Systems DA1, School of Computer Science and Engineering, Vellore Institute of Technology, Chennai (Reg.\ 24BCE5415). Catalog counts were queried from HEASARC \texttt{fermigtrig} on 17 September 2026. Five-seed isolability tables use a physics-faithful simulator; Section~\ref{sec:real} repeats the lookup on \RealCubes{} public CTIME cubes. This PDF is for internal course evaluation, not an IEEE submission.}
+
+\markboth
+{Haripriya \headeretal: Selectively Blind Residuals for Cause Isolation}
+{Haripriya \headeretal: Selectively Blind Residuals for Cause Isolation}
+
+\corresp{Corresponding author: S. Haripriya (e-mail: hariripriya.subbiah@gmail.com).}
+
+\begin{abstract}
+A neural network watching a redundant sensor array can look wrong for four mechanistically different reasons: the world produced a class the network knows, a class it has never seen, one sensor glitched, or the classifier's arithmetic was silently corrupted. Out-of-distribution (OOD) detectors, silent-data-corruption signatures, and range checks live in overlapping activation-magnitude spaces, so a new class and a bit-flip can produce the same alarm. We propose no new sequential test. We specify a four-symbol isolability dictionary and four residuals that are each blind to at least one of those symbols. A physics residual compares detectors against a rank-1 point-source model, never neural weights. An arithmetic checksum of the linear head never inspects the sky. A morphology residual is computed on the shared multi-detector profile, not on the live softmax, so a corrupt head cannot mint a false discovery. A drop test localizes a channel spike. The decision is a lookup, not a fusion. On a reproducible 8-detector Fermi Gamma-ray Burst Monitor (GBM)-like simulator with held-out terrestrial gamma-ray flashes, five training seeds yield $89.3\pm0.3\%$ four-way accuracy against $43.1\pm6.0\%$ for a ProGIP-style range check. Held-out novelty is never labeled compute ($100\%$ isolation). Energy and maximum-softmax-probability rejection flags all novel events as ``anomaly'' without naming a cause. Compound sensor-plus-compute trials are unisolable: $98.8\%$ are named compute. On \RealCubes{} real public GBM CTIME triggers (\RealPerClass{} per class) with the same injected faults, accuracy is $\RealAriaAcc\%$ and sensor isolation falls to $\RealSensorIso\%$, but novelty is still never named compute. Code reproduces every table.
+\end{abstract}
+
+\begin{keywords}
+Silent data corruption, open-set recognition, Fermi GBM, structured residuals, isolability, algorithm-based fault tolerance, embedded neural networks.
+\end{keywords}
+
+\titlepgskip=-15pt
+
+\maketitle
+
+\section{Introduction}
+
+Deployed neural networks fail for reasons that call for opposite responses. If a wearable, a rover, or an onboard gamma-ray monitor sees an unusual activation, the operator may need to accept a known event, preserve a possible discovery, isolate a bad sensor, or recompute a flipped weight. Treating those four outcomes as one ``anomaly'' is not a small labeling error. Adapting a model to a bit-flip poisons a good network. Discarding a new physical class as a glitch throws away the event the instrument was built to catch.
+
+The Fermi Gamma-ray Burst Monitor (GBM) is a concrete instance of this problem. Twelve sodium iodide (NaI) and two bismuth germanate (BGO) detectors observe the unocculted sky. Catalogued triggers include gamma-ray bursts (GRBs), solar flares, magnetar bursts (SGRs), terrestrial gamma-ray flashes (TGFs), and single-detector particle spikes~\cite{meegan2009}. Public classifiers already sort known classes and flag outliers~\cite{john2025}. They do not treat a corrupted matrix multiply as a cause, and they do not have to: ground pipelines assume correct arithmetic. Onboard or edge inference cannot.
+
+The closest reliability papers still collapse causes. Gavarini \textit{et al.} use open-set scores \emph{as} fault detectors~\cite{gavarini2022}. ProGIP distinguishes in-distribution, out-of-distribution (OOD), and high-order bit-flips with range checks on gradient-based OOD scores~\cite{progip2025}. Dr.~DNA and related activation monitors flag silent data corruption (SDC) from the shape of neuron histograms~\cite{drdna2024,geissler2023}. ReAct showed that OOD inputs already produce extreme activations~\cite{react2021}---the same symptom high-order bit-flips produce. Classical isolability~\cite{gertler1990} names sensor, process, and actuator faults; it has no symbol for ``new astrophysical class.'' Fermi pipelines already veto single-detector phosphorescent spikes~\cite{goldstein2019,perera2025}. They do not close that veto with an input-invariant execution checksum.
+
+This paper's contribution is therefore a \emph{dictionary}, not a new optimizer or sequential test:
+\begin{itemize}
+\item four causes $\{{\rm known},{\rm novel},{\rm sensor},{\rm compute}\}$ with mutually exclusive operational responses;
+\item four residuals that are selectively blind, so the $0/1$ pattern names the cause under a single-fault assumption;
+\item a public, GPU-free evaluation against OOD-as-fault and range-check baselines, with ablations and a compound-fault failure case.
+\end{itemize}
+
+We state the limit up front. The five-seed four-way tables use a cosine-response, Poisson 8-detector simulator whose class morphologies follow GBM families. HEASARC catalog counts are real. Section~\ref{sec:real} repeats the same lookup on \RealCubes{} public CTIME cubes. Downloaded time-tagged event (TTE) lightcurves are not used, so millisecond TGF morphology is not claimed. Software bit-flips are radiation-\emph{like}, not a beam test. Two simultaneous faults are structurally unisolable in this dictionary.
+
+\section{Related Work}
+
+\subsection{OOD scores used as fault detectors}
+Gavarini \textit{et al.}~\cite{gavarini2022} treat maximum logit score, energy, and ODIN as inexpensive fault detectors. That is the failure mode this work exists to prevent: a held-out TGF is supposed to look unusual. An OOD alarm cannot say whether to preserve the event or recompute the matmul. Selective classification with OOD (SCOD) likewise accepts or rejects; it does not name compute faults~\cite{sirc2022,narasimhan2024}.
+
+\subsection{ID / OOD / fault in magnitude space}
+ProGIP~\cite{progip2025} is the closest prior paper. It places two range checkers on GIP pipelines so that ID, OOD, and high-order bit-flips can be separated in software. The checkers still operate on gradients and confidence scores. ReAct~\cite{react2021} already showed that OOD inputs drive activations into the same extreme range that high-order flips occupy. Range is a useful heuristic. It is not an identifiability argument, and it does not use instrument physics or a separate sensor symbol.
+
+\subsection{Activation signatures for silent data corruption}
+Dr.~DNA extracts SDC signatures from neuron-activation histograms~\cite{drdna2024}. Quantile-marker monitors flag corruption ``originating either from hardware memory faults or input corruptions'' as one class~\cite{geissler2023}. FACER compresses intermediate features and likewise treats hardware faults and unusual inputs as one anomaly~\cite{schorn2020}. BLINK compares live BatchNorm statistics to frozen running statistics for weight integrity~\cite{blink2026}. None of these methods is built to return ``this is a new class'' as a non-fault outcome.
+
+\subsection{Structured residuals and checksums}
+Gertler and Singer~\cite{gertler1990} isolate faults with structured parity equations. The dictionary is sensor / process / actuator. FT-CNN and related algorithm-based fault tolerance (ABFT) schemes detect matrix-multiply errors independently of the input~\cite{ftcnn2020}. We \emph{use} a row-sum checksum as one residual. That checksum is not the contribution. Intensity-guided and approximate ABFT decide where or how loosely to check~\cite{kosaian2021,approxabft2023}; they do not name discovery.
+
+\subsection{Fermi-GBM classification and vetoes}
+John \textit{et al.}~\cite{john2025} train CNN-RNN classifiers on public GBM triggers and flag events outside the four trained classes as outliers. Flight software already requires a two-detector coincidence to suppress phosphorescent spikes~\cite{meegan2009}. Perera \textit{et al.}~\cite{perera2025} add an explicit single-versus-multi-detector likelihood ratio. Those vetoes are the ancestor of our physics residual. They do not instrument the classifier for silent arithmetic faults. Onboard scientific ML for gamma-ray missions similarly assumes correct execution~\cite{bulgarelli2025}.
+
+\subsection{Positioning}
+To the best of this literature search, no published method puts known class, new class, sensor glitch, and compute fault in one isolability table whose residuals cannot see the wrong cause. That is a narrower claim than ``nobody can tell which of four things happened.'' ProGIP already names three of the four in range space. GBM already names sensor versus sky. The missing object is the four-symbol dictionary with selective blindness.
+
+\section{Problem}
+
+Let $X\in\mathbb{R}^{D\times T}$ be background-subtracted counts from $D=8$ detectors and $T=64$ time bins. A linear head $f_W$ maps a morphology feature vector $\phi(X)$ to three known classes $\{\mathrm{GRB},\mathrm{SGR},\mathrm{SFLARE}\}$. TGF is held out. A single cause $c$ is drawn from
+\begin{align*}
+\mathcal{C}=\{&\texttt{known-clean},\ \texttt{novel-clean},\\
+&\texttt{sensor},\ \texttt{compute}\}.
+\end{align*}
+The operational map is accept / preserve / isolate-channel / recompute.
+
+We require a decision $\hat{c}(X,W)$ such that, under a single-fault assumption, $\hat{c}$ is uniquely determined by a binary signature that does not use a learned fusion of OOD scores. Compound faults $c\notin\mathcal{C}$ are declared unisolable rather than forced into $\mathcal{C}$.
+
+\section{Method: ARIA}
+
+Attribution by Residual-Invariance Analysis (ARIA) computes four residuals, thresholds them on clean calibration, and looks up a cause.
+
+\subsection{Physics residual (blind to $W$)}
+A genuine point source lights several NaI-like detectors with a shared time profile scaled by a cosine angular response~\cite{meegan2009}. Let $v$ be the median lightcurve of detectors whose total counts exceed a brightness gate, and let $r_{\mathrm{phys}}$ be one minus the leave-one-out cosine of the worst detector against $v$. Dropping that detector yields a gain $U_{\mathrm{det}}$. A localized spike raises $r_{\mathrm{phys}}$ and $U_{\mathrm{det}}$. A TGF that is still a point source does not.
+
+\subsection{Morphology residual (blind to a corrupt head)}
+$\phi(X)$ concatenates duration, hardness, variability, and smoothness of the \emph{shared} profile, not of $f_W(X)$. $r_{\mathrm{morph}}$ is Euclidean distance to the nearest known-class centroid in that feature space, using centroids of the \emph{clean} head. A flipped live weight cannot move $r_{\mathrm{morph}}$ except through $\phi$, which does not read $W$.
+
+\subsection{Arithmetic residual (blind to the sky)}
+Let $W$ be stored at compile time with row-sum checksum $s^\top=1^\top W$~\cite{ftcnn2020}. On a live inference,
+\[
+r_{\mathrm{exec}}=\frac{\lvert 1^\top(Wx)-s^\top x\rvert}{\lvert 1^\top(Wx)\rvert+\lvert s^\top x\rvert+1}.
+\]
+A new class cannot fire $r_{\mathrm{exec}}$. A weight bit-flip can.
+
+\subsection{Signature and lookup}
+Thresholds $(t_{\mathrm{phys}},t_{\mathrm{morph}},t_{\mathrm{exec}},t_{\mathrm{drop}})$ are percentiles on clean calibration plus a margin. The signature is
+\begin{align*}
+S_{\mathrm{phys}} &= [r_{\mathrm{phys}}>t_{\mathrm{phys}}],\\
+S_{\mathrm{morph}} &= [r_{\mathrm{morph}}>t_{\mathrm{morph}}],\\
+U_{\mathrm{det}} &= S_{\mathrm{phys}}\wedge(U_{\mathrm{det}}^{\mathrm{raw}}>t_{\mathrm{drop}}),\\
+U_{\mathrm{arith}} &= [r_{\mathrm{exec}}>t_{\mathrm{exec}}].
+\end{align*}
+Table~\ref{tab:dict} is the isolability dictionary (Fig.~\ref{fig:method}). The live rule is
+\begin{equation}
+\hat{c}=\begin{cases}
+\texttt{compute} & \text{if }U_{\mathrm{arith}},\\
+\texttt{sensor} & \text{else if }U_{\mathrm{det}}\vee S_{\mathrm{phys}},\\
+\texttt{novel-clean} & \text{else if }S_{\mathrm{morph}},\\
+\texttt{known-clean} & \text{otherwise.}
+\end{cases}
+\label{eq:lookup}
+\end{equation}
+Checksum first is deliberate: a corrupt head must not be allowed to mint a discovery.
+
+\begin{table*}[!t]
+\caption{Single-fault isolability dictionary. A dot means the bit is not used for that row.}
+\label{tab:dict}
+\centering
+\begin{tabular}{lccccp{0.42\columnwidth}}
+\toprule
+Cause & $S_{\mathrm{phys}}$ & $S_{\mathrm{morph}}$ & $U_{\mathrm{det}}$ & $U_{\mathrm{arith}}$ & Response \\
+\midrule
+known-clean & 0 & 0 & 0 & 0 & accept \\
+novel-clean & 0 & 1 & 0 & 0 & preserve \\
+sensor & 1 & $\cdot$ & 1 & 0 & isolate channel \\
+compute & $\cdot$ & $\cdot$ & 0 & 1 & recompute \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\Figure[!t](topskip=0pt, botskip=0pt, midskip=0pt)[width=0.96\textwidth]{fig_method.pdf}
+{ARIA residuals and lookup. Each residual is forbidden from seeing at least one cause. The decision is a table, not a fused classifier.\label{fig:method}}
+
+\section{Experimental Setup}
+
+\subsection{Public catalog}
+Class counts in Table~\ref{tab:cat} are from HEASARC \texttt{fermigtrig} (TAP query, 17 Sep.\ 2026). They justify holding TGF out as a frequent, morphologically distinct family and treating \texttt{LOCLPAR}/\texttt{DISTPAR} as the operational analog of a single-detector spike~\cite{goldstein2019}. They are not claimed as classified lightcurves in the Monte Carlo.
+
+\begin{table}[!t]
+\caption{Public Fermi-GBM trigger types used as class priors.}
+\label{tab:cat}
+\centering
+\begin{tabular}{lrl}
+\toprule
+Type & Count & Role in this paper \\
+\midrule
+GRB & \CatalogGRB{} & known class \\
+SFLARE & \CatalogSflare{} & known class \\
+SGR & \CatalogSGR{} & known class \\
+TGF & \CatalogTGF{} & held-out novel class \\
+LOCLPAR+DISTPAR & 2167 & sensor-fault analog \\
+All triggers & \CatalogTotal{} & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Simulator}
+Each trial draws a sky position, a family template (fast-rise exponential-decay GRB/SGR, wide solar Gaussian, millisecond TGF), Poisson NaI-like counts with a cosine response, and optional faults. Sensor faults add a soft spike to a dim detector. Compute faults flip one IEEE-754 bit of a linear-head weight (mild: bits 18--23; critical: bits 28--30) at inference and revert afterward, following standard injection practice~\cite{pytorchfi2020}. The head is a standardized linear classifier on $\phi(X)$, not the CNN-RNN of~\cite{john2025}. The checksum is therefore exact for this head. The physics residual never needs the head.
+
+\subsection{Baselines}
+Energy/MSP rejection follows Gavarini~\cite{gavarini2022}: unusual softmax energy or maximum softmax probability is an undifferentiated \texttt{anomaly}. Range-check follows ProGIP's magnitude idea~\cite{progip2025}: extreme $\lvert\mathrm{logit}\rvert$ is \texttt{compute}; leftover unusual scores are \texttt{novel-clean}; else \texttt{known-clean}. Range-check has no sensor symbol.
+
+\subsection{Protocol}
+Five training seeds $\{7,19,31,43,61\}$, evaluation seed $123$, $36$ trials per cell of $\{\mathrm{GRB},\mathrm{SGR},\mathrm{SFLARE}\}\times\mathrm{clean}$, TGF clean, sensor on GRB/SGR, and mild/critical compute on GRB ($288$ four-way trials per seed). Thresholds are fit on a disjoint clean calibration stream. Ablations reuse the same signatures with subsets of~\eqref{eq:lookup}. Compound trials inject sensor and compute together ($n=80$). The command \texttt{npm run test:paper} writes \texttt{paper/results.json}.
+
+\section{Results}
+
+\subsection{Four-way attribution}
+Table~\ref{tab:main} reports mean$\pm$std over the five seeds. ARIA reaches $\AriaAcc\%$ four-way accuracy. The range-check baseline reaches $\RangeAcc\%$. Held-out TGF is isolated as novel in $\NovelIso\%$ of trials and is never labeled compute. Compute isolation is $\ComputeIso\%$. Sensor isolation is $\SensorIso\%$: the physics residual misses some dim-detector spikes, and those trials fall through to known-clean. We report that miss rate rather than retuning the spike until the number is round.
+
+\begin{table}[!t]
+\caption{Four-way accuracy and per-cause isolation (\%). Mean$\pm$std over five training seeds.}
+\label{tab:main}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Metric & ARIA & Range-check \\
+\midrule
+Four-way accuracy & $\AriaAcc$ & $\RangeAcc$ \\
+Novel $\to$ novel & $\NovelIso$ & -- \\
+Compute $\to$ compute & $\ComputeIso$ & -- \\
+Sensor $\to$ sensor & $\SensorIso$ & $0$ (no sensor symbol) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A representative confusion matrix (train seed $7$) is given in Table~\ref{tab:conf}. Energy/MSP flags $100\%$ of novel trials as anomaly and $8$--$15\%$ of compute trials, which is the confound: the same rejector fires on discovery and on some bit-flips, and it cannot name either.
+
+\begin{table}[!t]
+\caption{Confusion counts for one seed ($36$ trials per cell; ARIA).}
+\label{tab:conf}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+True $\backslash$ pred & known & novel & sensor & compute \\
+\midrule
+known-clean & 98 & 0 & 10 & 0 \\
+novel-clean & 0 & 36 & 0 & 0 \\
+sensor & 15 & 1 & 56 & 0 \\
+compute & 5 & 0 & 0 & 67 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ablations}
+Table~\ref{tab:abl} removes signature bits. A checksum alone cannot name novelty or sensors ($\AblChecksum\%$). Physics alone names some sensors and defaults everyone else to known ($\AblPhysics\%$). Morphology alone is an open-set detector ($\AblMorph\%$). Removing only the checksum drops accuracy to $\AblNoChecksum\%$ because compute trials fall into known or novel. Full ARIA is $\AblFull\%$. The table is the contribution: each residual covers a cause the others cannot see.
+
+\begin{table}[!t]
+\caption{Ablation of the lookup (four-way accuracy, \%).}
+\label{tab:abl}
+\centering
+\begin{tabular}{lc}
+\toprule
+Lookup & Accuracy \\
+\midrule
+Full ARIA~\eqref{eq:lookup} & $\AblFull$ \\
+Checksum only & $\AblChecksum$ \\
+Physics only & $\AblPhysics$ \\
+Morphology only & $\AblMorph$ \\
+No checksum (physics then morph) & $\AblNoChecksum$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Compound faults}
+When a spike and a bit-flip occur together, $U_{\mathrm{arith}}$ still fires, so $\CompoundCompute\%$ of $80$ compound trials are named compute. One trial was named sensor. None were named novel. The dictionary is single-fault by construction. We treat this as a limitation, not a result to hide.
+
+\section{Real Public CTIME Data}
+\label{sec:real}
+
+To test whether the dictionary survives outside the simulator, we repeated the experiment on downloaded public GBM CTIME. \texttt{experiments/gbm/prepare.py} queries HEASARC \texttt{fermigtrig}, downloads the latest \texttt{glg\_ctime\_n*} PHA files for \RealPerClass{} triggers of each of GRB, SGR, SFLARE, and TGF, and bins them into $8\times64$ lightcubes ($\RealCubes{}$ cubes). The linear head is trained on all GRB/SGR/SFLARE cubes in the slice; known-clean evaluation reuses those cubes. TGF is held out entirely, so novel isolation and novel-as-compute are not inflated by this overlap. Four-way accuracy is therefore optimistic on the known-clean rows; we report it with that caveat rather than splitting a 75-cube known set into an even smaller train fold. Sensor spikes and IEEE-754 bit-flips are injected on those real arrays exactly as in the simulator, so the only other change is the source of the counts. The run uses the same \RealSeeds{} training seeds and the same evaluation seed $\RealEvalSeed$ as the simulator protocol, $\RealTrials{}$ trials per seed. CTIME is not TTE: its time bins are coarse (64\,ms nominal, 256\,ms in the background regime), and a TGF is sub-millisecond.
+
+Table~\ref{tab:real} reports that run. Three results transfer and one does not. Compute isolation is essentially unchanged ($\RealComputeIso\%$ against $\ComputeIso\%$): the checksum is a property of the head, not of the sky, so real counts do not weaken it. The kill test also transfers---a real held-out TGF is named compute in $\RealNovelAsCompute\%$ of trials---which is the claim the dictionary exists to support. Four-way accuracy drops to $\RealAriaAcc\%$, and sensor isolation drops to $\RealSensorIso\%$. Novel isolation is $\RealNovelIso\%$: on CTIME bins a TGF is not morphologically separable from a short GRB, so held-out TGFs fall through to known-clean rather than to a wrong fault symbol. We state this as a negative result. Recovering the discovery symbol on real data requires millisecond TTE, not a lower morphology threshold. The spreads in Table~\ref{tab:real} are across training seeds on a fixed trigger slice at a fixed evaluation seed. They measure how much the fitted head and its calibrated thresholds depend on initialization, and they are small: the largest is $\pm1.6$ points on compute isolation. They are not sampling error over which triggers were drawn, which is the larger uncertainty here and is addressed instead by varying the slice size below.
+
+\begin{table}[!t]
+\caption{Public GBM CTIME, \RealPerClass{} triggers/class, software fault injection (\%). Mean$\pm$std over \RealSeeds{} training seeds at evaluation seed $\RealEvalSeed$, $\RealTrials{}$ trials per seed; simulator column from Table~\ref{tab:main} for reference.}
+\label{tab:real}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Metric & Real CTIME & Simulator \\
+\midrule
+Four-way accuracy & $\RealAriaAccPM$ & $\AriaAcc$ \\
+Range-check accuracy & $\RealRangeAccPM$ & $\RangeAcc$ \\
+Novel $\to$ novel & $\RealNovelIsoPM$ & $\NovelIso$ \\
+Novel $\to$ compute & $\RealNovelAsComputePM$ & $0$ \\
+Compute $\to$ compute & $\RealComputeIsoPM$ & $\ComputeIso$ \\
+Sensor $\to$ sensor & $\RealSensorIsoPM$ & $\SensorIso$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ieeeaccess.cls wants its own \Figure macro (it sets \xfigwd for the caption
+% code); a plain figure environment breaks \@makecaption.
+\Figure[!t](topskip=0pt, botskip=0pt, midskip=0pt)[width=0.98\columnwidth]{fig_trend.pdf}
+{Real-CTIME metrics against slice size. Compute isolation and four-way accuracy stay in a narrow band, sensor isolation settles after the $12$-trigger slice, and novel isolation is flat at zero: CTIME bins never let morphology name a held-out TGF. Exact values in Table~\ref{tab:realtrend}.\label{fig:trend}}
+
+\subsection{Sample-size stability}
+Seed averaging cannot see sampling error, so we also report the same pipeline at three slice sizes rather than the most favorable one (Fig.~\ref{fig:trend} and Table~\ref{tab:realtrend}). The \RealPerClass{}-per-class row is the across-seed mean; the two smaller slices predate seed averaging and are single-seed runs. Sensor isolation moved $16.7$ points between $8$ and $12$ triggers per class but only $1.7$ points between $12$ and $\RealPerClass{}$, so we treat $\RealSensorIso\%$ as a converged estimate rather than small-sample noise. Four-way accuracy declines monotonically as the slice grows, which we read as larger samples admitting harder real triggers; we therefore quote the largest run, not the first. The two numbers that carry the central claim---novel never named compute, novel never named novel on CTIME---are identical at every sample size, so neither the kill test nor the stated limitation is a sampling artifact.
+
+\begin{table}[!t]
+\caption{Real CTIME metrics against slice size (\%). Triggers per class; same pipeline, same injected faults.}
+\label{tab:realtrend}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+Per class & Acc. & Compute & Sensor & Novel$\to$comp. & Novel \\
+\midrule
+$8$  & $78.8$ & $91.7$ & $75.0$ & $0$ & $0$ \\
+$12$ & $75.8$ & $100.0$ & $58.3$ & $0$ & $0$ \\
+$\RealPerClass$ & $\RealAriaAcc$ & $\RealComputeIso$ & $\RealSensorIso$ & $\RealNovelAsCompute$ & $\RealNovelIso$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Limitations}
+
+The simulator is optimistic, and Section~\ref{sec:real} measures by how much. Sensor isolation is the weakest cell in both settings, but the simulator reports $\SensorIso\%$ while real CTIME reports $\RealSensorIso\%$; four-way accuracy falls from $\AriaAcc\%$ to $\RealAriaAcc\%$ on the same pipeline. Real detector geometry and background are harder than a cosine response with Poisson counts, so the simulator figures should be read as an upper bound on what the physics residual achieves in flight, not as the headline. A matched-filter single-detector test~\cite{perera2025} is the obvious way to close that gap and is not implemented here. The morphology residual does not transfer at all on CTIME ($\RealNovelIso\%$ novel isolation): the discovery symbol needs millisecond TTE, which this work does not download, so on real data the dictionary currently degrades to a three-symbol one in which novelty is silently absorbed into known-clean rather than misattributed to a fault. The real-data numbers are averaged over \RealSeeds{} training seeds, but on one fixed slice of \RealCubes{} triggers: the reported spread is seed sensitivity, not sampling error over the catalog, and a different draw of triggers is the untested axis. The fault injection is software, radiation-\emph{like} rather than a beam test. The linear head is a diagnostic probe, not a replacement for~\cite{john2025}. Mild mantissa flips that do not move the checksum or the logits remain invisible, as in every ABFT scheme that watches a linear form. Two simultaneous faults remain structurally unisolable. This draft does not run a streaming diagnostic monitor. Martingale tests that name the cause of a distribution shift already exist and are not used here~\cite{hindy2025}.
+
+\section{Conclusion}
+
+OOD and SDC monitors can say that an inference looks wrong. They cannot, by construction, say which of four operationally opposite causes produced that look when those causes share an activation-magnitude symptom. ARIA is a four-symbol isolability lookup whose residuals are forbidden from seeing the wrong cause. On a public-catalog-prior, GPU-free GBM-like simulator it separates held-out TGF from compute faults, names many sensor spikes, and fails honestly when two faults arrive together. On \RealCubes{} real public CTIME triggers the separation of discovery from bit-flip survives intact, while sensor isolation and the discovery symbol itself do not, and we report both. The primitives---rank-1 detector vetoes, ABFT checksums, centroid distance---are known. The dictionary that includes discovery as a non-fault symbol is the distinct object of this work.
+
+\section*{Data and code}
+HEASARC \texttt{fermigtrig} and CTIME PHA2 are public. Simulator tables: \texttt{npm run test:paper}. Real CTIME tables: \texttt{npm run test:gbm} on the committed 100-cube slice. Macros in \texttt{results.tex} and \texttt{realdata.tex} are emitted by those commands. Companion repository: \url{https://github.com/haripriyasubbiah/aria-gbm-isolability}.
+
+\begin{thebibliography}{00}
+
+\bibitem{meegan2009}
+C.~Meegan \textit{et al.}, ``The Fermi Gamma-ray Burst Monitor,'' \textit{Astrophys.\ J.}, vol.~702, pp.~791--804, 2009.
+
+\bibitem{goldstein2019}
+A.~Goldstein \textit{et al.}, ``Updates to the Fermi-GBM targeted sub-threshold search in preparation for the third observing run of LIGO/Virgo,'' arXiv:1903.12597, 2019.
+
+\bibitem{john2025}
+A.~A.~John \textit{et al.}, ``Multivariate time series classification of Fermi-detected gamma-ray transients using convolutional-recurrent neural networks,'' \textit{Mach.\ Learn.: Sci.\ Technol.}, vol.~7, art.~025046, 2026, doi: 10.1088/2632-2153/ae5501.
+
+\bibitem{gavarini2022}
+G.~Gavarini, D.~Stucchi, A.~Ruospo, G.~Boracchi, and E.~S\'{a}nchez, ``Open-set recognition: An inexpensive strategy to increase DNN reliability,'' in \textit{IEEE Int.\ Symp.\ On-Line Testing Robust Syst.\ Des.}, 2022, pp.~1--7, doi: 10.1109/IOLTS56730.2022.9897805.
+
+\bibitem{progip2025}
+S.~Joshi \textit{et al.}, ``ProGIP: Protecting gradient-based input perturbation approaches for OOD detection from soft errors,'' \textit{ACM Trans.\ Embedded Comput.\ Syst.}, vol.~24, no.~5s, art.~118, 2025, doi: 10.1145/3761796.
+
+\bibitem{drdna2024}
+D.~Ma \textit{et al.}, ``Dr.\ DNA: Combating silent data corruptions in deep learning using distribution of neuron activations,'' in \textit{Proc.\ ASPLOS}, 2024.
+
+\bibitem{geissler2023}
+F.~Geissler, S.~Qutub, M.~Paulitsch, and K.~Pattabiraman, ``A low-cost strategic monitoring approach for scalable and interpretable error detection in deep neural networks,'' in \textit{Computer Safety, Reliability, and Security (SAFECOMP)}, Lecture Notes in Computer Science, vol.~14181. Springer, 2023, pp.~75--88.
+
+\bibitem{schorn2020}
+C.~Schorn and L.~Gauerhof, ``FACER: A universal framework for detecting anomalous operation of deep neural networks,'' in \textit{IEEE ITSC}, 2020.
+
+\bibitem{react2021}
+Y.~Sun, C.~Guo, and Y.~Li, ``ReAct: Out-of-distribution detection with rectified activations,'' in \textit{NeurIPS}, 2021.
+
+\bibitem{blink2026}
+M.~Khan, A.~Malhotra, and S.~K.\ Gupta, ``BLINK: Batch normalization-based integrity checkpoints,'' arXiv:2609.06781, 2026.
+
+\bibitem{gertler1990}
+J.~Gertler and D.~Singer, ``A new structural framework for parity equation-based failure detection and isolation,'' \textit{Automatica}, vol.~26, no.~2, pp.~381--388, 1990.
+
+\bibitem{ftcnn2020}
+K.~Zhao \textit{et al.}, ``FT-CNN: Algorithm-based fault tolerance for convolutional neural networks,'' \textit{IEEE Trans.\ Parallel Distrib.\ Syst.}, vol.~32, no.~7, pp.~1677--1689, 2021, doi: 10.1109/TPDS.2020.3043449.
+
+\bibitem{kosaian2021}
+J.~Kosaian and K.~V.~Rashmi, ``Arithmetic-intensity-guided fault tolerance for neural network inference on GPUs,'' in \textit{Proc.\ Int.\ Conf.\ High Performance Computing, Networking, Storage and Analysis}, 2021.
+
+\bibitem{approxabft2023}
+X.~Xue \textit{et al.}, ``ApproxABFT: Approximate algorithm-based fault tolerance for vision transformers,'' arXiv:2302.10469, 2023.
+
+\bibitem{perera2025}
+A.~Perera, B.~Zackay, and T.~Venumadhav, ``A new search pipeline for short gamma-ray bursts in Fermi/GBM data --- a 50\% increase in the number of detections,'' \textit{Astrophys.\ J.\ Suppl.\ Ser.}, vol.~281, art.~4, 2025, doi: 10.3847/1538-4365/ae0189.
+
+\bibitem{bulgarelli2025}
+A.~Bulgarelli \textit{et al.}, ``Onboard machine learning for high-energy observatories for spacecraft autonomy and ground segment operations,'' \textit{Particles}, vol.~8, art.~102, 2025, doi: 10.3390/particles8040102.
+
+\bibitem{sirc2022}
+G.~Xia and C.-S.~Bouganis, ``Augmenting softmax information for selective classification with out-of-distribution data,'' in \textit{ACCV}, 2022.
+
+\bibitem{narasimhan2024}
+H.~Narasimhan \textit{et al.}, ``Plugin estimators for selective classification with out-of-distribution detection,'' in \textit{ICLR}, 2024.
+
+\bibitem{pytorchfi2020}
+A.~Mahmoud \textit{et al.}, ``PyTorchFI: A runtime perturbation tool for DNNs,'' in \textit{IEEE DSN Workshops}, 2020.
+
+\bibitem{hindy2025}
+A.~Hindy \textit{et al.}, ``Diagnostic runtime monitoring with martingales,'' in \textit{Robotics: Science and Systems}, 2025, arXiv:2407.21748.
+
+\end{thebibliography}
+
+\begin{IEEEbiographynophoto}{S.~Haripriya}
+is an undergraduate student (24BCE5415) in Computer Science and Engineering at Vellore Institute of Technology, Chennai. Her coursework includes embedded systems and reliable machine inference.
+\end{IEEEbiographynophoto}
+
+\EOD
+
+\end{document}

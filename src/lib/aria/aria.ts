@@ -1,4 +1,4 @@
-import type { Attribution, CauseLabel, EventCube, LinearHead, Residuals, Signature, Thresholds } from "./types";
+import type { Attribution, CauseLabel, DecisionLabel, EventCube, LinearHead, Precision, Residuals, Signature, Thresholds } from "./types";
 import { morphologyFeatures } from "./residuals";
 import { executionResidual, flipWeight, nearestCentroidDistance, predictProbs } from "./classifier";
 
@@ -16,14 +16,14 @@ export function applyComputeFault(event: EventCube, head: LinearHead): { head: L
   };
 }
 
-export function measure(event: EventCube, cleanHead: LinearHead): { residuals: Residuals; predictedClass: Attribution["predictedClass"]; liveHead: LinearHead; event: EventCube } {
+export function measure(event: EventCube, cleanHead: LinearHead, prec: Precision = "fp64"): { residuals: Residuals; predictedClass: Attribution["predictedClass"]; liveHead: LinearHead; event: EventCube } {
   const { head: liveHead, event: ev } = applyComputeFault(event, cleanHead);
   const morph = morphologyFeatures(ev.counts, ev.soft, ev.hard);
   const pred = predictProbs(liveHead, morph.vector);
   const residuals: Residuals = {
     physics: morph.structured,
     morph: nearestCentroidDistance(cleanHead, morph.vector),
-    exec: executionResidual(liveHead, morph.vector),
+    exec: executionResidual(liveHead, morph.vector, prec),
     dropGain: morph.dropGain,
     worstDetector: morph.fit.worstRow,
     energy: pred.energy,
@@ -59,11 +59,23 @@ export function decide(sig: Signature): CauseLabel {
   return "known-clean";
 }
 
+/**
+ * Lookup with an explicit "multiple" outcome. The checksum is blind to the sky
+ * and the physics residual is blind to the weights, so when both fire the two
+ * signatures are independent evidence of two faults. Single-fault rows of the
+ * dictionary are unchanged; only the (arith AND sensor-ish) pattern, which the
+ * single-fault dictionary leaves undefined, is given its own symbol.
+ */
+export function decideMultiple(sig: Signature): DecisionLabel {
+  if (sig.U_arith && (sig.U_det || sig.S_phys)) return "multiple";
+  return decide(sig);
+}
+
 /** Ablations used only in the paper evaluation. Production ARIA is `decide`. */
 export type AblationMode = "full" | "checksum" | "physics" | "morph" | "no-checksum";
 
-export function decideAblation(sig: Signature, mode: AblationMode): CauseLabel {
-  if (mode === "full") return decide(sig);
+export function decideAblation(sig: Signature, mode: AblationMode): DecisionLabel {
+  if (mode === "full") return decideMultiple(sig);
   if (mode === "checksum") return sig.U_arith ? "compute" : "known-clean";
   if (mode === "physics") return sig.U_det || sig.S_phys ? "sensor" : "known-clean";
   if (mode === "morph") return sig.S_morph ? "novel-clean" : "known-clean";
@@ -85,8 +97,8 @@ export function actionFor(cause: CauseLabel): Attribution["action"] {
   }
 }
 
-export function attribute(event: EventCube, head: LinearHead, thresholds: Thresholds): Attribution {
-  const { residuals, predictedClass, event: ev } = measure(event, head);
+export function attribute(event: EventCube, head: LinearHead, thresholds: Thresholds, prec: Precision = "fp64"): Attribution {
+  const { residuals, predictedClass, event: ev } = measure(event, head, prec);
   const signature = signatureOf(residuals, thresholds);
   const cause = decide(signature);
   return {
